@@ -7,6 +7,35 @@ gameWindow::gameWindow(QWidget *parent) :
     ui(new Ui::gameWindow)
 {
     ui->setupUi(this);
+
+    //STYLING BETWEEN
+
+    //ui->label->setStyleSheet("QLabel { background-color : red; color : blue; }");
+
+
+
+
+    //STYLING BETWEEN
+
+
+    std::shared_ptr<Player> p = std::make_shared<Player>("p");
+    std::shared_ptr<Player> q = std::make_shared<Player>("q");
+    std::shared_ptr<Player> r = std::make_shared<Player>("r");
+    std::shared_ptr<Player> s = std::make_shared<Player>("s");
+    testTourneyVec.push_back(p);
+    testTourneyVec.push_back(q);
+    testTourneyVec.push_back(r);
+    testTourneyVec.push_back(s);
+
+    QString output;
+    for(int i = 0; i < testTourneyVec.size(); i++){
+        int j = i+1;
+        output = QString::number(j) + ". " + testTourneyVec.at(i)->getQName();
+        //output = output + "\n";
+        ui->listWidget->addItem(output);
+
+    }
+    //ui->textEdit->setText("Players In Tournament: \n" + output);
 }
 
 gameWindow::~gameWindow()
@@ -40,6 +69,18 @@ void gameWindow::on_pushButton_clicked()
         output = output + QString::number(j) + ". " + vec.at(i)->getQName();
         output = output + "\n";
     }
-    ui->textEdit->setText(output);
+    //ui->textEdit->setText(output);
 
+}
+
+void gameWindow::on_listWidget_itemDoubleClicked(QListWidgetItem *item)
+{
+     QString output;
+
+}
+
+void gameWindow::on_addToGameButton_clicked()
+{
+    std::shared_ptr<Player> p = std::make_shared<Player>();
+    //p = ui->listWidget->currentItem();
 }

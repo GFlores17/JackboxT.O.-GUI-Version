@@ -3,7 +3,8 @@
 #include "playersDialogue.h"
 #include "secondwindow.h"
 #include "tournamentMenu.h"
-
+#include "gamewindow.h"
+#include <memory>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -35,7 +36,7 @@ MainWindow::MainWindow(QWidget *parent)
     this->player = player;
 
     // ...
-    player->setMedia(QUrl::fromLocalFile("C:\\Users\\George\\Documents\\JackboxTournament\\Kronicle-Chill Noons.mp3"));
+    //player->setMedia(QUrl::fromLocalFile("C:\\Users\\George\\Documents\\JackboxTournament\\Kronicle-Chill Noons.mp3"));
     player->setVolume(100);
     player->play();
 
@@ -63,11 +64,13 @@ void MainWindow::on_newWindowButton_clicked()
 void MainWindow::on_exitButton_clicked()
 {
     delete ui;
+    this->close();
 }
 
 void MainWindow::on_startTournamentButton_clicked()
 {
     //this->hide();
-    TournamentMenu *tM = new TournamentMenu();
-    tM->show();
+    std::shared_ptr<Tournament> T = std::make_shared<Tournament>();
+    TournamentMenu *TM = new TournamentMenu(std::move(T));
+    TM->show();
 }

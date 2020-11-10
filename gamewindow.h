@@ -9,9 +9,12 @@
 #include <QPushButton>
 #include <QPlainTextEdit>
 #include <QLineEdit>
+#include <QListWidget>
+#include <QLabel>
 #include <vector>
 #include <memory.h>
 #include "player.h"
+#include "game.h"
 
 namespace Ui {
 class gameWindow;
@@ -32,9 +35,14 @@ private slots:
 
     void on_pushButton_clicked();
 
+    void on_listWidget_itemDoubleClicked(QListWidgetItem *item);
+
+    void on_addToGameButton_clicked();
+
 private:
     Ui::gameWindow *ui;
     std::vector<std::shared_ptr<Player>> vec;
+    std::vector<std::shared_ptr<Player>> testTourneyVec;
 
 
     QLineEdit lineEdit;
@@ -42,6 +50,8 @@ private:
     QTextEdit textEdit;
     QPushButton buttonBox;
     QPushButton pushButton;
+    QListWidget listWidget;
+    //QLabel label;
 
 };
 

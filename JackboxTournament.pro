@@ -9,31 +9,47 @@ CONFIG += c++11
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    addToRoundForm.cpp \
     game.cpp \
-    gameWindow.cpp \
     getEntry.cpp \
     main.cpp \
     mainWindow.cpp \
+    match.cpp \
     player.cpp \
-    playersDialogue.cpp \
-    tournamentMenu.cpp
+    playerRegistrationForm.cpp \
+    round.cpp \
+    roundMenu.cpp \
+    tournament.cpp \
+    tournamentMenu.cpp \
+    tournamentRoster.cpp
 
 HEADERS += \
+    addToRoundForm.h \
     game.h \
-    gameWindow.h \
     getEntry.h \
     mainWindow.h \
+    match.h \
     player.h \
-    playersDialogue.h \
-    tournamentMenu.h
+    playerRegistrationForm.h \
+    round.h \
+    roundMenu.h \
+    tournament.h \
+    tournamentMenu.h \
+    tournamentRoster.h
 
 FORMS += \
-    gameWindow.ui \
+    addToRoundForm.ui \
     mainwindow.ui \
-    playersdialogue.ui \
-    tournamentMenu.ui
+    playerRegistrationForm.ui \
+    roundMenu.ui \
+    tournamentMenu.ui \
+    tournamentRoster.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
+
+RESOURCES += \
+    Images.qrc \
+    Test.qrc

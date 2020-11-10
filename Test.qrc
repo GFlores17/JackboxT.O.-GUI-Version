@@ -1,0 +1,6 @@
+<RCC>
+    <qresource prefix="/new/prefix1">
+        <file>001.JPG</file>
+        <file>Jackbox Logo.png</file>
+    </qresource>
+</RCC>
