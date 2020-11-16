@@ -14,7 +14,7 @@
 #include <vector>
 #include <memory.h>
 #include "player.h"
-#include "game.h"
+#include "Game.h"
 
 namespace Ui {
 class gameWindow;

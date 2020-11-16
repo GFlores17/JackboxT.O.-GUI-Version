@@ -1,10 +1,15 @@
 #include "tournamentMenu.h"
 #include "ui_tournamentMenu.h"
 #include "tournament.h"
-#include "playerRegistrationForm.h"
 #include "tournamentRoster.h"
 #include "roundMenu.h"
+#include "addToRoundForm.h"
+#include "ui_addToRoundForm.h"
+#include "playerRegistrationDialog.h"
+#include "ui_playerRegistrationDialog.h"
 #include <memory>
+#include "RoundNameDialog.h"
+#include "SelectRoundDialog.h"
 
 TournamentMenu::TournamentMenu(std::shared_ptr<Tournament> T, QWidget *parent) :
     QWidget(parent),
@@ -27,7 +32,6 @@ TournamentMenu::TournamentMenu(std::shared_ptr<Tournament> T, QWidget *parent) :
      ui->exitButton->setStyleSheet("QPushButton {background-color: #FFFFFF}");
      ui->registerButton->setStyleSheet("QPushButton {background-color: #FFFFFF}");
      ui->printPlayersButton->setStyleSheet("QPushButton {background-color: #FFFFFF}");
-     //ui->listWidget->setStyleSheet("QListWidget {background-color: #FFFFFF}");
 
      passedTournament = T;
      Tournament *T1 = T.get();
@@ -42,7 +46,6 @@ TournamentMenu::TournamentMenu(std::shared_ptr<Tournament> T, QWidget *parent) :
 
 
      ui->lineEdit->setText(ptrStr + " : " + ptrStr2);
-     //ui->textEdit_2->setText(QString::number(passedTournament.use_count()) + " : " + QString::number(T.use_count()));
 
 }
 
@@ -53,19 +56,27 @@ TournamentMenu::~TournamentMenu()
 
 void TournamentMenu::on_registerButton_clicked()
 {
-    PlayerRegistrationForm *registerForm = new PlayerRegistrationForm(passedTournament);
-    registerForm->show();
+    PlayerRegistrationDialog playerReg(passedTournament);
+    playerReg.setModal(true);
+    playerReg.exec();
+
 }
 
 void TournamentMenu::on_startButton_clicked()
 {
-    RoundMenu *RM = new RoundMenu(passedTournament);
-    RM->show();
+    RoundNameDialog RND(passedTournament);
+    RND.setModal(true);
+    RND.exec();
+
+    addToRoundForm *ATRF = new addToRoundForm(passedTournament);
+    ATRF->show();
 }
 
 void TournamentMenu::on_continueButton_clicked()
 {
-
+    SelectRoundDialog SRF(passedTournament);
+    SRF.setModal(true);
+    SRF.exec();
 }
 
 void TournamentMenu::on_printPlayersButton_clicked()

@@ -37,3 +37,9 @@ void TournamentRoster::on_pushButton_clicked()
     }
 
 }
+
+void TournamentRoster::on_listWidget_itemClicked(QListWidgetItem *item)
+{
+    int x = ui->listWidget->row(item);
+    ui->textEdit->setText(passedTournament->getListOfPlayers().at(x)->getQName());
+}

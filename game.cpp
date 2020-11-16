@@ -3,7 +3,7 @@
 #include <vector>
 #include <memory>
 
-#include "game.h"
+#include "Game.h"
 #include "player.h"
 
     std::map <std::string, int> gameResults;

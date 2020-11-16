@@ -2,7 +2,7 @@
 #define MATCH_H
 
 #include "player.h"
-#include "game.h"
+#include "Game.h"
 
 class Match {
 private:

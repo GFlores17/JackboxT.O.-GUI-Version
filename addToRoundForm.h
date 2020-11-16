@@ -1,13 +1,15 @@
-#ifndef ADDTOMATCHFORM_H
-#define ADDTOMATCHFORM_H
+#ifndef ADDTOROUNDFORM_H
+#define ADDTOROUNDFORM_H
+
 #include "tournament.h"
 
 #include <QWidget>
 #include <QListWidget>
 #include <QPushButton>
+#include <QTextEdit>
 
 namespace Ui {
-class addToMatchForm; //This should be addToRoundForm
+class addToRoundForm; //This should be addToRoundForm
 }
 
 class addToRoundForm : public QWidget
@@ -19,10 +21,18 @@ public:
     ~addToRoundForm();
     std::shared_ptr<Tournament> passedTournament;
 
+private slots:
+    void on_pushButton_clicked();
+
+    void on_tournamentListWidget_itemDoubleClicked(QListWidgetItem *item);
+
+    void on_tournamentListWidget_itemClicked(QListWidgetItem *item);
+
 private:
-    Ui::addToMatchForm *ui;
+    Ui::addToRoundForm *ui;
     QListWidget tournamentListWidget;
     QListWidget roundListWidget;
+    QTextEdit textEdit;
 };
 
-#endif // ADDTOMATCHFORM_H
+#endif // ADDTOROUNDFORM_H

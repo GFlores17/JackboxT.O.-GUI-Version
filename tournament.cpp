@@ -11,7 +11,7 @@
 #include "match.h"
 #include "player.h"
 #include "tournament.h"
-#include "getEntry.h"
+#include "GetEntry.h"
 
     static void helloMessage() {
         std::cout << std::setfill(' ') << std::setw(45) << "***************************************************" << std::endl;
@@ -70,69 +70,6 @@
         tournamentName = "Default Constructor";
     }
 
-    void Tournament::registerPlayers() {
-
-        std::cout << "Number of players to register?" << std::endl;
-        int numOfPlayers;
-        std::cin >> numOfPlayers;
-        checkIfInt(numOfPlayers);
-        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-
-        for (int i = 0; i < numOfPlayers; i++) {
-            std::shared_ptr<Player> p = std::make_shared<Player>();
-            std::cout << "Enter player name.\n";
-            std::string name;
-
-            std::getline(std::cin, name);
-            p->setName(name);
-            p->setScore(i);
-
-            listOfAllPlayers.push_back(p);
-            std::cout << std::endl;
-        }
-        std::cout << "Players registed.\n";
-        //printAllPlayers(); //Test to see if adding players works.
-        //std::cout << std::endl;
-    }
-
-    void Tournament::startRound() {
-        std::shared_ptr<Round> round = std::make_shared<Round>(listOfAllPlayers);
-        listOfRounds.push_back(move(round));
-    }
-
-    void Tournament::continueRound() {
-        if (listOfRounds.size() == 0) {
-            std::cout << "No rounds created yet.\n";
-        }
-        else {
-            for (int i = 0; i < listOfRounds.size(); i++) {
-                std::cout << i + 1 << ". " << listOfRounds.at(i)->getName() << "\n";
-            }
-            std::cout << "Select round to continue." << std::endl;
-            int choice;
-            std::cin >> choice;
-            --choice;
-
-            //Goes to the round in listOfRounds vector and accesses it via menu() member function.
-            std::cout << "----------------[" << listOfRounds.at(choice)->getName() << "]----------------\n";
-            listOfRounds.at(choice)->menu();
-            listOfRounds.at(choice)->menuSelect(getEntry());
-        }//end else/if
-
-    }
-
-    void Tournament::exitProgram() {
-        std::cout << "exiting" << std::endl;
-    }
-
-    void Tournament::tournamentMenu() {
-        std::cout << "Select option.\n"
-            << "1. Register Players.\n"
-            << "2. Start Round.\n"
-            << "3. Continue Round.\n"
-            << "4. Print All Players.\n"
-            << "5. Exit.\n";
-    }
 
     void Tournament::menuSelect(int choice) {
         /*
@@ -198,6 +135,10 @@
         listOfAllPlayers.push_back(std::move(player));
     }
 
+    void Tournament::duplicatePlayer(std::shared_ptr<Player> player){
+        listOfAllPlayers.emplace_back(player);
+    }
+
     void Tournament::registerPlayer(QString name){
         std::string stdName = name.toStdString();
         std::shared_ptr<Player> p = std::make_shared<Player>(stdName);
@@ -214,5 +155,15 @@
 
     int Tournament::getNumberOfPlayers(){
         return listOfAllPlayers.size();
+    }
+
+    void Tournament::addRound(){
+        std::shared_ptr<Round>newRound = std::make_shared<Round>();
+        listOfRounds.push_back(std::move(newRound));
+    }
+
+    void Tournament::addRound(QString roundName){
+        std::shared_ptr<Round>newRound = std::make_shared<Round>(roundName.toStdString());
+        listOfRounds.push_back(std::move(newRound));
     }
 

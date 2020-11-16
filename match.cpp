@@ -1,6 +1,6 @@
 #include "match.h"
-#include "game.h"
-#include "getEntry.h"
+#include "Game.h"
+#include "GetEntry.h"
 #include <memory>
 
 int Match::getEntry() {

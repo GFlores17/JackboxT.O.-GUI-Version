@@ -7,6 +7,8 @@ RoundMenu::RoundMenu(std::shared_ptr<Tournament> T, QWidget *parent) :
 {
     ui->setupUi(this);
     passedTournament = T;
+
+
 }
 
 RoundMenu::~RoundMenu()

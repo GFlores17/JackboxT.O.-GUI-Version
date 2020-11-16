@@ -9,6 +9,8 @@ CONFIG += c++11
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    RoundNameDialog.cpp \
+    SelectRoundDialog.cpp \
     addToRoundForm.cpp \
     game.cpp \
     getEntry.cpp \
@@ -16,7 +18,7 @@ SOURCES += \
     mainWindow.cpp \
     match.cpp \
     player.cpp \
-    playerRegistrationForm.cpp \
+    playerRegistrationDialog.cpp \
     round.cpp \
     roundMenu.cpp \
     tournament.cpp \
@@ -24,13 +26,15 @@ SOURCES += \
     tournamentRoster.cpp
 
 HEADERS += \
+    Game.h \
+    GetEntry.h \
+    RoundNameDialog.h \
+    SelectRoundDialog.h \
     addToRoundForm.h \
-    game.h \
-    getEntry.h \
     mainWindow.h \
     match.h \
     player.h \
-    playerRegistrationForm.h \
+    playerRegistrationDialog.h \
     round.h \
     roundMenu.h \
     tournament.h \
@@ -38,9 +42,11 @@ HEADERS += \
     tournamentRoster.h
 
 FORMS += \
+    RoundNameDialog.ui \
+    SelectRoundDialog.ui \
     addToRoundForm.ui \
     mainwindow.ui \
-    playerRegistrationForm.ui \
+    playerRegistrationDialog.ui \
     roundMenu.ui \
     tournamentMenu.ui \
     tournamentRoster.ui

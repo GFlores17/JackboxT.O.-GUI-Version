@@ -15,11 +15,11 @@
 #include <stdlib.h>     /* srand, rand */
 #include <time.h>
 
-#include "game.h"
+#include "Game.h"
 #include "match.h"
 #include "player.h"
 #include "round.h"
-#include "getEntry.h"
+#include "GetEntry.h"
 
 class Tournament {
 
@@ -32,12 +32,6 @@ public:
     static int getEntry();
 
     Tournament();
-    void printAllPlayers();
-    void registerPlayers();
-    void startRound();
-    void continueRound();
-    void exitProgram();
-    void tournamentMenu();
     void menuSelect(int choice);
     std::vector<std::shared_ptr<Player>> getListOfPlayers();
     std::vector<std::shared_ptr<Round>> getListOfRounds();
@@ -48,10 +42,12 @@ public:
 
     void registerPlayer(std::shared_ptr<Player> player);
     void registerPlayer(QString name);
+    void duplicatePlayer(std::shared_ptr<Player> player);
     int getTournamentSize();
     QString getPlayerName(int x);
     int getNumberOfPlayers();
-
+    void addRound();
+    void addRound(QString roundName);
 
 }; //end Tournament class
 

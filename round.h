@@ -3,7 +3,7 @@
 
 #include "match.h"
 #include "player.h"
-#include "getEntry.h"
+#include "GetEntry.h"
 
 class Round {
 private:
@@ -14,21 +14,13 @@ public:
     static int getEntry();
 
     Round();
-    Round(std::vector <std::shared_ptr<Player>>& vec);
-
-    std::string getName();
-    void setRoundName();
-    void printName();
-
+    Round(std::string name);
     void menu();
-    void addMatch();
-    void addPlayer(std::vector<std::shared_ptr<Player>>& vec);
-    void printPlayers();
-    void viewMatches();
-    void checkIfMatchInRange(int& choice);
-    void selectMatch();
-    void exitProgram();
     void menuSelect(int choice);
+    std::vector <std::shared_ptr<Player>> getRoundListOfPlayers();
+    QString getRoundName();
+    void addRound(std::shared_ptr<Round> r);
+    void addPlayer(std::shared_ptr<Player> p);
 
 };
 

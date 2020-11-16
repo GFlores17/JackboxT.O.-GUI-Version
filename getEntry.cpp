@@ -1,6 +1,6 @@
 #include <iostream>
 #include <fstream>
-#include "getEntry.h"
+#include "GetEntry.h"
 
 /*int getEntry() {
     int choice;

@@ -3,6 +3,7 @@
 
 #include <QWidget>
 #include <QListWidget>
+#include <QTextEdit>
 #include "tournament.h"
 
 namespace Ui {
@@ -20,9 +21,12 @@ public:
 private slots:
     void on_pushButton_clicked();
 
+    void on_listWidget_itemClicked(QListWidgetItem *item);
+
 private:
     Ui::TournamentRoster *ui;
     QListWidget listWidget;
+    QTextEdit textEdit;
     std::shared_ptr<Tournament> passedTournament;
 };
 
