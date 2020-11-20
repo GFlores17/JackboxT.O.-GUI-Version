@@ -36,7 +36,7 @@ MainWindow::MainWindow(QWidget *parent)
     this->player = player;
 
     // ...
-    //player->setMedia(QUrl::fromLocalFile("C:\\Users\\George\\Documents\\JackboxTournament\\Kronicle-Chill Noons.mp3"));
+    player->setMedia(QUrl::fromLocalFile("C:\\Users\\George\\Documents\\JackboxTournament\\Kronicle-Chill Noons.mp3"));
     player->setVolume(100);
     player->play();
 

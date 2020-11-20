@@ -2,6 +2,7 @@
 #define SELECTROUNDDIALOG_H
 
 #include <QDialog>
+#include <QListWidget>
 #include "tournament.h"
 
 namespace Ui {
@@ -16,6 +17,11 @@ public:
     explicit SelectRoundDialog(std::shared_ptr<Tournament> T, QWidget *parent = nullptr);
     ~SelectRoundDialog();
     std::shared_ptr<Tournament> passedTournament;
+private slots:
+    void on_pushButton_clicked();
+
+    void on_listWidget_itemClicked(QListWidgetItem *item);
+
 private:
     Ui::SelectRoundDialog *ui;
 };

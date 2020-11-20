@@ -167,3 +167,7 @@
         listOfRounds.push_back(std::move(newRound));
     }
 
+    std::shared_ptr<Round> Tournament::getRound(int x){
+        return listOfRounds.at(x);
+    }
+

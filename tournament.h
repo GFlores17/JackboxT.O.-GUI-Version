@@ -49,6 +49,7 @@ public:
     void addRound();
     void addRound(QString roundName);
 
+    std::shared_ptr<Round> getRound(int x);
 }; //end Tournament class
 
 #endif //TOURNAMENT_H

@@ -78,3 +78,10 @@ void Round::addPlayer(std::shared_ptr<Player> p){
     playersInRound.push_back(std::move(p));
 }
 
+void Round::addMatch(std::shared_ptr<Match> m){
+    listOfMatches.push_back(std::move(m));
+}
+
+std::vector <std::shared_ptr<Match>> Round::getListOfMatches(){
+    return listOfMatches;
+}

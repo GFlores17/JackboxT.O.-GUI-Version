@@ -70,13 +70,14 @@ void TournamentMenu::on_startButton_clicked()
 
     addToRoundForm *ATRF = new addToRoundForm(passedTournament);
     ATRF->show();
+
 }
 
 void TournamentMenu::on_continueButton_clicked()
 {
-    SelectRoundDialog SRF(passedTournament);
-    SRF.setModal(true);
-    SRF.exec();
+    SelectRoundDialog SRD(passedTournament);
+    SRD.setModal(true);
+    SRD.exec();
 }
 
 void TournamentMenu::on_printPlayersButton_clicked()

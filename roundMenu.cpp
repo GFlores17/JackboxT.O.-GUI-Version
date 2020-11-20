@@ -1,14 +1,20 @@
 #include "roundMenu.h"
 #include "ui_roundMenu.h"
+#include "round.h"
 
-RoundMenu::RoundMenu(std::shared_ptr<Tournament> T, QWidget *parent) :
+RoundMenu::RoundMenu(std::shared_ptr<Round> R, QWidget *parent) :
     QWidget(parent),
     ui(new Ui::RoundMenu)
 {
     ui->setupUi(this);
-    passedTournament = T;
+    this->round = R;
 
-
+    for(int i = 0; i < R->getListOfMatches().size(); i++){
+        int j = i+1;
+        QString output = QString::number(j) + ". " + QString::fromStdString(R->getListOfMatches().at(i)->getName());
+        //output = output + "\n";
+        ui->listWidget->addItem(output);
+    }
 }
 
 RoundMenu::~RoundMenu()
@@ -18,13 +24,14 @@ RoundMenu::~RoundMenu()
 
 void RoundMenu::on_addMatchButton_clicked()
 {
-    ui->exitButton->setVisible(false);
+    //ui->exitButton->setVisible(false);
+
 
 }
 
 void RoundMenu::on_selectMatchButton_clicked()
 {
-     ui->exitButton->setVisible(true);
+     //ui->exitButton->setVisible(true);
 }
 
 void RoundMenu::on_exitButton_clicked()
@@ -33,3 +40,8 @@ void RoundMenu::on_exitButton_clicked()
 }
 
 
+
+void RoundMenu::on_listWidget_currentItemChanged(QListWidgetItem *current, QListWidgetItem *previous)
+{
+
+}

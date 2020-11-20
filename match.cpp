@@ -20,42 +20,15 @@ int Match::getEntry() {
 std::string matchName;
 std::vector<std::unique_ptr<Game>> listOfGames;
 
-/*Match::Match()
+Match::Match()
 {
-    setMatchName();
-    std::cout << "How many games in this match?\n";
-    int numOfGames;
-    std::cin >> numOfGames;
-    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-
-    for (int i = 0; i < numOfGames; i++) {
-        addGame(listOfGames.size() + 1);
-    }
-
-    menu();
-    menuSelect(getEntry());
-}*/
-
-Match::Match() {
-    std::cout << "Default Constructor do nothing.\n";
+    matchName = "default match constructor";
 }
 
-Match::Match(std::string name)
-    : matchName(name)
-{
-    std::cout << "PASS NAME AS PARAMETER CONSTRUCTOR\n";
-    std::cout << "How many games in this match?\n";
-    int numOfGames;
-    std::cin >> numOfGames;
-    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-
-    for (int i = 0; i < numOfGames; i++) {
-        addGame(listOfGames.size()+1);
-    }
-
-    menu();
-    menuSelect(getEntry());
+Match::Match(std::string name) {
+    matchName = name;
 }
+
 
 void Match::printName() {
     std::cout << matchName << std::endl;

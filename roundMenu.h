@@ -15,8 +15,10 @@ class RoundMenu : public QWidget
     Q_OBJECT
 
 public:
-    explicit RoundMenu(std::shared_ptr<Tournament> T, QWidget *parent = nullptr);
+    explicit RoundMenu(std::shared_ptr<Round> R, QWidget *parent = nullptr);
     ~RoundMenu();
+    std::shared_ptr<Tournament> passedTournament;
+    std::shared_ptr<Round>round;
 
 private slots:
 
@@ -27,13 +29,15 @@ private slots:
 
     void on_exitButton_clicked();
 
+    void on_listWidget_currentItemChanged(QListWidgetItem *current, QListWidgetItem *previous);
+
 private:
     Ui::RoundMenu *ui;
     QPushButton addMatchButton;
     QPushButton selectMatchButton;
     QPushButton exitMatchButton;
     QListWidget listWidget;
-    std::shared_ptr<Tournament> passedTournament;
+
 
 };
 

@@ -21,6 +21,9 @@ public:
     QString getRoundName();
     void addRound(std::shared_ptr<Round> r);
     void addPlayer(std::shared_ptr<Player> p);
+    void addMatch(std::shared_ptr<Match>m);
+
+    std::vector <std::shared_ptr<Match>> getListOfMatches();
 
 };
 
