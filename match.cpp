@@ -29,6 +29,10 @@ Match::Match(std::string name) {
     matchName = name;
 }
 
+Match::Match(QString name){
+    matchName = name.toStdString();
+}
+
 
 void Match::printName() {
     std::cout << matchName << std::endl;

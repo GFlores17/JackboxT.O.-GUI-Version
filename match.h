@@ -15,6 +15,7 @@ public:
     Match();
     Match(std::vector<Player> &vec);
     Match(std::string name);
+    Match(QString name);
 
     void printResults();
     void printName();

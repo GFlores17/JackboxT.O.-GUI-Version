@@ -20,6 +20,8 @@ public:
     std::shared_ptr<Tournament> passedTournament;
     std::shared_ptr<Round>round;
 
+    void printMatches();
+
 private slots:
 
 
@@ -37,7 +39,6 @@ private:
     QPushButton selectMatchButton;
     QPushButton exitMatchButton;
     QListWidget listWidget;
-
 
 };
 

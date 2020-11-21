@@ -10,6 +10,7 @@
 #include <memory>
 #include "RoundNameDialog.h"
 #include "SelectRoundDialog.h"
+#include "AddToRoundDialog.h"
 
 TournamentMenu::TournamentMenu(std::shared_ptr<Tournament> T, QWidget *parent) :
     QWidget(parent),
@@ -68,8 +69,12 @@ void TournamentMenu::on_startButton_clicked()
     RND.setModal(true);
     RND.exec();
 
-    addToRoundForm *ATRF = new addToRoundForm(passedTournament);
-    ATRF->show();
+    //addToRoundForm *ATRF = new addToRoundForm(passedTournament, passedTournament->getListOfRounds().size()-1);
+    //ATRF->show();
+
+    AddToRoundDialog ATRD(passedTournament, passedTournament->getListOfRounds().size()-1);
+    ATRD.setModal(true);
+    ATRD.exec();
 
 }
 

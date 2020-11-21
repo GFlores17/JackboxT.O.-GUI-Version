@@ -1,20 +1,23 @@
-#include "addToRoundForm.h"
-#include "ui_addToRoundForm.h"
-#include "tournament.h"
-#include "round.h"
-#include "RoundNameDialog.h"
-#include <QDebug>
+#include "AddToRoundDialog.h"
+#include "ui_AddToRoundDialog.h"
+#include <QtDebug>
 
-addToRoundForm::addToRoundForm(std::shared_ptr<Tournament> T, int x, QWidget *parent) :
-    QWidget(parent),
-    ui(new Ui::addToRoundForm)
+AddToRoundDialog::AddToRoundDialog(std::shared_ptr<Tournament> T, int x, QWidget *parent) :
+    QDialog(parent),
+    ui(new Ui::AddToRoundDialog)
 {
     ui->setupUi(this);
     passedTournament = T;
 
     QString output;
 
-    ui->textEdit_2->setText(passedTournament->getListOfRounds().at(x)->getRoundName());
+    std::shared_ptr<Round> r = passedTournament->getListOfRounds().at(x);
+
+    //ui->label_3
+    ui->label_3->setText(r->getRoundName() + " Menu");
+    ui->label_3->setWordWrap(true);
+    ui->label_3->setAlignment(Qt::AlignCenter);
+
 
     for(int i = 0; i < passedTournament->getNumberOfPlayers(); i++){
         int j = i+1;
@@ -23,15 +26,24 @@ addToRoundForm::addToRoundForm(std::shared_ptr<Tournament> T, int x, QWidget *pa
         ui->tournamentListWidget->addItem(output);
     }
 
+    if(r->getRoundListOfPlayers().size()>0){
+        for(int i = 0; i < r->getRoundListOfPlayers().size(); i++){
+            int j = i+1;
+            output = QString::number(j) + ". " + r->getRoundListOfPlayers().at(i)->getQName();
+            //output = output + "\n";
+            ui->roundListWidget->addItem(output);
+        }
+    }
+
     ui->pushButton->setVisible(false);
 }
 
-addToRoundForm::~addToRoundForm()
+AddToRoundDialog::~AddToRoundDialog()
 {
     delete ui;
 }
 
-void addToRoundForm::on_pushButton_clicked()
+void AddToRoundDialog::on_pushButton_clicked()
 {
 
     QListWidgetItem *item = ui->tournamentListWidget->currentItem();
@@ -61,13 +73,17 @@ void addToRoundForm::on_pushButton_clicked()
 }
 
 
-void addToRoundForm::on_tournamentListWidget_itemDoubleClicked(QListWidgetItem *item)
+void AddToRoundDialog::on_tournamentListWidget_itemDoubleClicked(QListWidgetItem *item)
 {
     int x = ui->tournamentListWidget->row(item);
-    ui->textEdit->setText(QString::number(x));
 }
 
-void addToRoundForm::on_tournamentListWidget_itemClicked(QListWidgetItem *item)
+void AddToRoundDialog::on_tournamentListWidget_itemClicked(QListWidgetItem *item)
 {
     ui->pushButton->setVisible(true);
+}
+
+void AddToRoundDialog::on_buttonBox_accepted()
+{
+    this->close();
 }

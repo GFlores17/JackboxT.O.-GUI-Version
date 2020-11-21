@@ -1,27 +1,25 @@
-#ifndef ADDTOROUNDFORM_H
-#define ADDTOROUNDFORM_H
+#ifndef ADDTOROUNDDIALOG_H
+#define ADDTOROUNDDIALOG_H
 
 #include "tournament.h"
-
-#include <QWidget>
+#include <QDialog>
 #include <QListWidget>
-#include <QPushButton>
 #include <QTextEdit>
-#include "round.h"
+#include <QLabel>
 
 namespace Ui {
-class addToRoundForm; //This should be addToRoundForm
+class AddToRoundDialog;
 }
 
-class addToRoundForm : public QWidget
+class AddToRoundDialog : public QDialog
 {
     Q_OBJECT
 
 public:
-    explicit addToRoundForm(std::shared_ptr<Tournament> T, int x, QWidget *parent = nullptr);
+    explicit AddToRoundDialog(std::shared_ptr<Tournament> T, int x, QWidget *parent = nullptr);
     //int x helps us select a specific round from the Tournament listOfRounds vector.
 
-    ~addToRoundForm();
+    ~AddToRoundDialog();
     std::shared_ptr<Tournament> passedTournament;
     std::shared_ptr<Round> round;
 
@@ -32,11 +30,13 @@ private slots:
 
     void on_tournamentListWidget_itemClicked(QListWidgetItem *item);
 
+    void on_buttonBox_accepted();
+
 private:
-    Ui::addToRoundForm *ui;
+    Ui::AddToRoundDialog *ui;
     QListWidget tournamentListWidget;
     QListWidget roundListWidget;
     QTextEdit textEdit;
+    QLabel label_3;
 };
-
-#endif // ADDTOROUNDFORM_H
+#endif // ADDTOROUNDDIALOG_H

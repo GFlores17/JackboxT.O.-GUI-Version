@@ -24,12 +24,11 @@ public:
     ~MainWindow();
 
 private slots:
-    void on_pushButton_clicked();
-    void on_newWindowButton_clicked();
-
     void on_exitButton_clicked();
 
     void on_startTournamentButton_clicked();
+
+    void on_continueTournamentButton_clicked();
 
 private:
     Ui::MainWindow *ui;

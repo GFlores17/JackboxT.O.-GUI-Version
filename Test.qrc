@@ -2,5 +2,9 @@
     <qresource prefix="/new/prefix1">
         <file>001.JPG</file>
         <file>Jackbox Logo.png</file>
+        <file>../Rylan.jpg</file>
+        <file>../Rylan Smaller.jpg</file>
+        <file>../Jackbox-Games-Logo.jpg</file>
+        <file>../../Downloads/Jackbox Logo Icon.ico</file>
     </qresource>
 </RCC>

@@ -10,6 +10,8 @@ CONFIG += c++11
 
 SOURCES += \
     AddMatchDialog.cpp \
+    AddToRoundDialog.cpp \
+    MatchNameDialog.cpp \
     RoundNameDialog.cpp \
     SelectRoundDialog.cpp \
     addToRoundForm.cpp \
@@ -28,8 +30,10 @@ SOURCES += \
 
 HEADERS += \
     AddMatchDialog.h \
+    AddToRoundDialog.h \
     Game.h \
     GetEntry.h \
+    MatchNameDialog.h \
     RoundNameDialog.h \
     SelectRoundDialog.h \
     addToRoundForm.h \
@@ -45,6 +49,8 @@ HEADERS += \
 
 FORMS += \
     AddMatchDialog.ui \
+    AddToRoundDialog.ui \
+    MatchNameDialog.ui \
     RoundNameDialog.ui \
     SelectRoundDialog.ui \
     addToRoundForm.ui \
