@@ -13,10 +13,6 @@
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
-  <property name="windowIcon">
-   <iconset resource="Test.qrc">
-    <normaloff>:/new/prefix1/Downloads/Jackbox Logo Icon.ico</normaloff>:/new/prefix1/Downloads/Jackbox Logo Icon.ico</iconset>
-  </property>
   <widget class="QWidget" name="centralwidget">
    <widget class="QTextBrowser" name="textBrowser">
     <property name="geometry">
@@ -97,8 +93,6 @@ p, li { white-space: pre-wrap; }
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
  </widget>
- <resources>
-  <include location="Test.qrc"/>
- </resources>
+ <resources/>
  <connections/>
 </ui>

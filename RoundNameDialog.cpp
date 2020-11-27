@@ -7,6 +7,9 @@ RoundNameDialog::RoundNameDialog(std::shared_ptr<Tournament> T, QWidget *parent)
 {
     ui->setupUi(this);
     passedTournament = T;
+
+    this->setWindowTitle("Round Name Dialog");
+
 }
 
 RoundNameDialog::~RoundNameDialog()

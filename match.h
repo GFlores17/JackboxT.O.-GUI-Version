@@ -24,6 +24,7 @@ public:
     //void addGame();
     void addGame();
     void addGame(int num);
+    void addGame(std::shared_ptr<Game> g);
 
     void viewGamesResults();
     void startGame();
@@ -32,6 +33,8 @@ public:
     void menu();
     void menuSelect(int choice);
     void exitProgram();
+
+    std::vector<std::shared_ptr<Game>> getListOfGames();
 };
 
 #endif

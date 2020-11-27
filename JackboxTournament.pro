@@ -11,7 +11,11 @@ CONFIG += c++11
 SOURCES += \
     AddMatchDialog.cpp \
     AddToRoundDialog.cpp \
+    EnterGameResults.cpp \
+    MatchMenu.cpp \
     MatchNameDialog.cpp \
+    PromptAddToRoundDialog.cpp \
+    PromptGameNameDialog.cpp \
     RoundNameDialog.cpp \
     SelectRoundDialog.cpp \
     addToRoundForm.cpp \
@@ -31,9 +35,13 @@ SOURCES += \
 HEADERS += \
     AddMatchDialog.h \
     AddToRoundDialog.h \
+    EnterGameResults.h \
     Game.h \
     GetEntry.h \
+    MatchMenu.h \
     MatchNameDialog.h \
+    PromptAddToRoundDialog.h \
+    PromptGameNameDialog.h \
     RoundNameDialog.h \
     SelectRoundDialog.h \
     addToRoundForm.h \
@@ -50,7 +58,11 @@ HEADERS += \
 FORMS += \
     AddMatchDialog.ui \
     AddToRoundDialog.ui \
+    EnterGameResults.ui \
+    MatchMenu.ui \
     MatchNameDialog.ui \
+    PromptAddToRoundDialog.ui \
+    PromptGameNameDialog.ui \
     RoundNameDialog.ui \
     SelectRoundDialog.ui \
     addToRoundForm.ui \
@@ -66,5 +78,4 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 RESOURCES += \
-    Images.qrc \
     Test.qrc

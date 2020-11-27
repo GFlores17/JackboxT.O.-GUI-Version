@@ -9,6 +9,8 @@ AddToRoundDialog::AddToRoundDialog(std::shared_ptr<Tournament> T, int x, QWidget
     ui->setupUi(this);
     passedTournament = T;
 
+    this->setWindowTitle("Add To Round Dialog");
+
     QString output;
 
     std::shared_ptr<Round> r = passedTournament->getListOfRounds().at(x);
@@ -35,7 +37,7 @@ AddToRoundDialog::AddToRoundDialog(std::shared_ptr<Tournament> T, int x, QWidget
         }
     }
 
-    ui->pushButton->setVisible(false);
+    ui->pushButton->setEnabled(false);
 }
 
 AddToRoundDialog::~AddToRoundDialog()
@@ -80,7 +82,7 @@ void AddToRoundDialog::on_tournamentListWidget_itemDoubleClicked(QListWidgetItem
 
 void AddToRoundDialog::on_tournamentListWidget_itemClicked(QListWidgetItem *item)
 {
-    ui->pushButton->setVisible(true);
+    ui->pushButton->setEnabled(true);
 }
 
 void AddToRoundDialog::on_buttonBox_accepted()

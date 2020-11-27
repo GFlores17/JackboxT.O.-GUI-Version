@@ -2,6 +2,8 @@
 #include "ui_roundMenu.h"
 #include "round.h"
 #include "MatchNameDialog.h"
+#include "MatchMenu.h"
+#include "qdebug.h"
 
 RoundMenu::RoundMenu(std::shared_ptr<Round> R, QWidget *parent) :
     QWidget(parent),
@@ -9,6 +11,8 @@ RoundMenu::RoundMenu(std::shared_ptr<Round> R, QWidget *parent) :
 {
     ui->setupUi(this);
     this->round = R;
+
+    this->setWindowTitle("Round Menu");
 
     printMatches();
 }
@@ -32,6 +36,16 @@ void RoundMenu::on_addMatchButton_clicked()
 void RoundMenu::on_selectMatchButton_clicked()
 {
      //ui->exitButton->setVisible(true);
+    QListWidgetItem *item = ui->listWidget->currentItem();
+    int x = ui->listWidget->row(item);
+    this->round->getListOfMatches().at(x);
+
+    std::shared_ptr<Match> test;
+    test = this->round->getListOfMatches().at(x);
+
+    MatchMenu *MM = new MatchMenu(test);
+    MM->show();
+
 }
 
 void RoundMenu::on_exitButton_clicked()

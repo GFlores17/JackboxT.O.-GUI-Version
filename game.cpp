@@ -20,6 +20,10 @@
         gameName = "Game " + std::to_string(num);
     }
 
+    Game::Game(std::string name){
+        this->gameName = name;
+    }
+
     void Game::setName(const std::string& name) {
         gameName = name;
     }

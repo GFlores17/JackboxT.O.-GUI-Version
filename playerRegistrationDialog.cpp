@@ -7,6 +7,9 @@ PlayerRegistrationDialog::PlayerRegistrationDialog(std::shared_ptr<Tournament>T,
 {
     ui->setupUi(this);
     tournamentPtr = T;
+
+    this->setWindowTitle("Player Registration Dialog");
+
 }
 
 PlayerRegistrationDialog::~PlayerRegistrationDialog()

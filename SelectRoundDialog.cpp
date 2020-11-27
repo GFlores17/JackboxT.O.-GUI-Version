@@ -3,6 +3,7 @@
 #include "roundMenu.h"
 #include "addToRoundForm.h"
 #include "AddToRoundDialog.h"
+#include "PromptAddToRoundDialog.h"
 
 SelectRoundDialog::SelectRoundDialog(std::shared_ptr<Tournament> T, QWidget *parent) :
     QDialog(parent),
@@ -11,6 +12,10 @@ SelectRoundDialog::SelectRoundDialog(std::shared_ptr<Tournament> T, QWidget *par
     ui->setupUi(this);
 
     passedTournament = T;
+
+    ui->pushButton->setEnabled(false);
+
+    this->setWindowTitle("Select Round Dialog");
 
     for(int i = 0; i < passedTournament->getListOfRounds().size(); i++){
         int j = i+1;
@@ -30,11 +35,12 @@ void SelectRoundDialog::on_pushButton_clicked()
     QListWidgetItem *item = ui->listWidget->currentItem();
     int x = ui->listWidget->row(item);
 
-    AddToRoundDialog ATRD(passedTournament, x);
-    ATRD.setModal(true);
-    ATRD.exec();
+    PromptAddToRoundDialog PATRD(this->passedTournament, x);
+    PATRD.setModal(true);
+    this->close();
+    PATRD.exec();
 
-    RoundMenu *RM = new RoundMenu(passedTournament->getRound(x));
+    RoundMenu *RM = new RoundMenu(this->passedTournament->getRound(x));
     RM->show();
 
     this->close();
@@ -42,6 +48,8 @@ void SelectRoundDialog::on_pushButton_clicked()
 
 void SelectRoundDialog::on_listWidget_itemClicked(QListWidgetItem *item)
 {
+    ui->pushButton->setEnabled(true);
+
     item = ui->listWidget->currentItem();
     int x = ui->listWidget->row(item);
 

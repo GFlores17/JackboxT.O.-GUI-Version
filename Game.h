@@ -18,6 +18,7 @@ private:
 public:
     Game();
     Game(int num);
+    Game(std::string name);
     void setName(const std::string& name);
     std::string getName();
 

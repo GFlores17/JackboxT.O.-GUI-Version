@@ -18,7 +18,7 @@ int Match::getEntry() {
 }
 
 std::string matchName;
-std::vector<std::unique_ptr<Game>> listOfGames;
+std::vector<std::shared_ptr<Game>> listOfGames;
 
 Match::Match()
 {
@@ -70,6 +70,10 @@ void Match::addGame(int num) {
     std::shared_ptr<Game> createdGame = std::make_shared<Game>(num);
     listOfGames.push_back(move(createdGame));
 }//end addGames();
+
+void Match::addGame(std::shared_ptr<Game> g){
+    this->listOfGames.push_back(std::move(g));
+}
 
 void Match::viewGamesResults() {
     for (int i = 0; i < listOfGames.size(); i++) {
@@ -159,3 +163,7 @@ void Match::menuSelect(int choice) {
     }// end switch statement
 
 }//end menuSelect
+
+std::vector<std::shared_ptr<Game>> Match::getListOfGames(){
+    return listOfGames;
+}
