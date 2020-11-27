@@ -84,6 +84,16 @@
      <height>192</height>
     </rect>
    </property>
+   <column>
+    <property name="text">
+     <string>Name</string>
+    </property>
+   </column>
+   <column>
+    <property name="text">
+     <string>Score</string>
+    </property>
+   </column>
   </widget>
   <widget class="QPushButton" name="pushButton_3">
    <property name="geometry">

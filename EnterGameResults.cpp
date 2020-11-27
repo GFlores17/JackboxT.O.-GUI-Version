@@ -1,10 +1,14 @@
 #include "EnterGameResults.h"
 #include "ui_EnterGameResults.h"
+#include "match.h"
+#include "Game.h"
+#include <QtDebug>
 
-EnterGameResults::EnterGameResults(QWidget *parent) :
+EnterGameResults::EnterGameResults(std::shared_ptr<Game> g, QWidget *parent) :
     QDialog(parent),
     ui(new Ui::EnterGameResults)
 {
+    this->game = g;
     ui->setupUi(this);
 }
 
@@ -15,5 +19,10 @@ EnterGameResults::~EnterGameResults()
 
 void EnterGameResults::on_lineEdit_returnPressed()
 {
-
+    std::shared_ptr<Player> p = std::make_shared<Player>();
+    int score = ui->lineEdit->text().toInt();
+    p->setScore(score);
+    this->game->addPlayerToGame(p);
+    qDebug()<< score;
 }
+

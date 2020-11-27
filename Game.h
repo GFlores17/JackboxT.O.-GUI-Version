@@ -25,8 +25,11 @@ public:
     std::map <std::string, int> getMap();
 
     void addPlayerToGame();
+    void addPlayerToGame(std::shared_ptr<Player> p);
     void setGameResults();
     void printGameResults();
+
+    std::vector<std::shared_ptr<Player>> getPlayers();
 
 
 };

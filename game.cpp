@@ -47,6 +47,10 @@
         playersInGame.push_back(s);
     }
 
+    void Game::addPlayerToGame(std::shared_ptr<Player> p){
+        playersInGame.push_back(std::move(p));
+    }
+
     void Game::setGameResults() {//Creates map according to
         for (int i = 0; i < playersInGame.size(); i++) {
             playersInGame.at(i)->print();
@@ -87,3 +91,7 @@
             }
         }
     }*/
+
+    std::vector<std::shared_ptr<Player>> getPlayers(){
+        return playersInGame;
+    }

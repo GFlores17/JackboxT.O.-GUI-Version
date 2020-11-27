@@ -12,6 +12,7 @@ RoundMenu::RoundMenu(std::shared_ptr<Round> R, QWidget *parent) :
     ui->setupUi(this);
     this->round = R;
 
+    ui->selectMatchButton->setEnabled(false);
     this->setWindowTitle("Round Menu");
 
     printMatches();
@@ -70,4 +71,9 @@ void RoundMenu::printMatches(){
         //output = output + "\n";
         ui->listWidget->addItem(output);
     }
+}
+
+void RoundMenu::on_listWidget_itemClicked(QListWidgetItem *item)
+{
+     ui->selectMatchButton->setEnabled(true);
 }

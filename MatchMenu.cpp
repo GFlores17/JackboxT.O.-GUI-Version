@@ -3,6 +3,8 @@
 #include "round.h"
 //#include "match.h"
 #include "Game.h"
+#include "EnterGameResults.h"
+#include "QDebug"
 
 
 MatchMenu::MatchMenu(std::shared_ptr<Match> m, QWidget *parent) :
@@ -27,6 +29,12 @@ MatchMenu::MatchMenu(std::shared_ptr<Match> m, QWidget *parent) :
     //match->addGame()
     this->setWindowTitle("Match Menu");
     printGames();
+
+    qDebug() << "SIZE : " << this->match->getListOfGames().size();
+
+    ui->tableWidget->insertRow(ui->tableWidget->rowCount());
+    QTableWidgetItem *newItem = new QTableWidgetItem("TEST");
+    ui->tableWidget->setItem(ui->tableWidget->rowCount()-1, 0, newItem);
 }
 
 MatchMenu::~MatchMenu()
@@ -54,6 +62,12 @@ void MatchMenu::on_pushButton_3_clicked()
 
 void MatchMenu::on_FinishGameButton_clicked()
 {
+
     QListWidgetItem *item = ui->listWidget->currentItem();
     int x = ui->listWidget->row(item);
+
+    std::shared_ptr<Game> g2 = this->match->getListOfGames().at(x);
+    EnterGameResults EGR(g2);
+    EGR.setModal(true);
+    EGR.exec();
 }

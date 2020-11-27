@@ -12,18 +12,17 @@ SOURCES += \
     AddMatchDialog.cpp \
     AddToRoundDialog.cpp \
     EnterGameResults.cpp \
+    Match.cpp \
     MatchMenu.cpp \
     MatchNameDialog.cpp \
     PromptAddToRoundDialog.cpp \
     PromptGameNameDialog.cpp \
     RoundNameDialog.cpp \
     SelectRoundDialog.cpp \
-    addToRoundForm.cpp \
     game.cpp \
     getEntry.cpp \
     main.cpp \
     mainWindow.cpp \
-    match.cpp \
     player.cpp \
     playerRegistrationDialog.cpp \
     round.cpp \
@@ -44,7 +43,6 @@ HEADERS += \
     PromptGameNameDialog.h \
     RoundNameDialog.h \
     SelectRoundDialog.h \
-    addToRoundForm.h \
     mainWindow.h \
     match.h \
     player.h \
@@ -65,7 +63,6 @@ FORMS += \
     PromptGameNameDialog.ui \
     RoundNameDialog.ui \
     SelectRoundDialog.ui \
-    addToRoundForm.ui \
     mainwindow.ui \
     playerRegistrationDialog.ui \
     roundMenu.ui \

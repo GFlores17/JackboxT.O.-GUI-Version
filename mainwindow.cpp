@@ -16,31 +16,23 @@ MainWindow::MainWindow(QWidget *parent)
                             "selection-color: white;"
                             "selection-background-color: blue;");
 
-    /*
-       ui->textBrowser->setText("This is a small scorekeeping software "
-                          "program written in C++"
-                          "that allows the user to organize "
-                          "tournament play using 3 functions.");
-    */
-
     ui->textBrowser->setStyleSheet("QTextBrowser {background-color: #FFFFFF}");
-    //ui->pushButton->setStyleSheet("QPushButton {background-color: #FFFFFF}");
-    //ui->newWindowButton->setStyleSheet("QPushButton {background-color: #FFFFFF}");
+
     ui->startTournamentButton->setStyleSheet("QPushButton {background-color: #FFFFFF}");
-    ui->continueTournamentButton->setStyleSheet("QPushButton {background-color: #FFFFFF}");
+    ui->continueTournamentButton->setStyleSheet("QPushButton {background-color: #A9A9A9}");
     ui->exitButton->setStyleSheet("QPushButton {background-color: #FFFFFF}");
 
+    ui->continueTournamentButton->setEnabled(false);
+
     this->setWindowTitle("Jackbox Tournament Manager");
-    //this->setWindowIcon()
     this->setMinimumWidth(100);
     this->setMinimumHeight(50);
-    //this->setWindowIcon()
 
     QMediaPlayer *player = new QMediaPlayer;
     this->player = player;
 
     // ...
-    //player->setMedia(QUrl::fromLocalFile("C:\\Users\\George\\Documents\\JackboxTournament\\Kronicle-Chill Noons.mp3"));
+    //player->setMedia(QUrl::fromLocalFile("C:\\TestDirectory"));
     player->setVolume(100);
     player->play();
 
@@ -61,7 +53,6 @@ void MainWindow::on_exitButton_clicked()
 
 void MainWindow::on_startTournamentButton_clicked()
 {
-    //this->hide();
     std::shared_ptr<Tournament> T = std::make_shared<Tournament>();
     TournamentMenu *TM = new TournamentMenu(std::move(T));
     TM->show();
