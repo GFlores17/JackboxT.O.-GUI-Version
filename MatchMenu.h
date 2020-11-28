@@ -2,8 +2,9 @@
 #define MATCHMENU_H
 
 #include <QWidget>
-#include "round.h"
-#include "match.h"
+#include "QListWidget"
+#include "Round.h"
+#include "Match.h"
 
 namespace Ui {
 class MatchMenu;
@@ -20,13 +21,23 @@ public:
     std::shared_ptr<Match> match;
     void printGames();
 
+    void printPlayersAndScores();
+
 private slots:
     void on_pushButton_3_clicked();
 
     void on_FinishGameButton_clicked();
 
+    void on_listWidget_itemClicked(QListWidgetItem *item);
+
+    void on_pushButton_clicked();
+
 private:
     Ui::MatchMenu *ui;
+
+    enum GameResultsColumns{
+        NAME, SCORE
+    };
 };
 
 #endif // MATCHMENU_H

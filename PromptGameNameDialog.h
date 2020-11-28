@@ -2,7 +2,7 @@
 #define PROMPTGAMENAMEDIALOG_H
 
 #include <QDialog>
-#include "match.h"
+#include "Match.h"
 
 namespace Ui {
 class PromptGameNameDialog;

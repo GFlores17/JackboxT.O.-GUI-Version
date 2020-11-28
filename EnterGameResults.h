@@ -3,7 +3,7 @@
 
 #include <QDialog>
 #include <QLineEdit>
-#include "match.h"
+#include "Match.h"
 
 namespace Ui {
 class EnterGameResults;

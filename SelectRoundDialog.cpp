@@ -1,7 +1,6 @@
 #include "SelectRoundDialog.h"
 #include "ui_SelectRoundDialog.h"
-#include "roundMenu.h"
-#include "addToRoundForm.h"
+#include "RoundMenu.h"
 #include "AddToRoundDialog.h"
 #include "PromptAddToRoundDialog.h"
 

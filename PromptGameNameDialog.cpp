@@ -1,6 +1,6 @@
 #include "PromptGameNameDialog.h"
 #include "ui_PromptGameNameDialog.h"
-#include "match.h"
+#include "Match.h"
 
 PromptGameNameDialog::PromptGameNameDialog(std::shared_ptr<Match> m, QWidget *parent) :
     QDialog(parent),

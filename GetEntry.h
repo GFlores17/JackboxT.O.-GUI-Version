@@ -1,7 +1,7 @@
 #ifndef GETENTRY_H
 #define GETENTRY_H
 
-#include "player.h"
+#include "Player.h"
 
 #include <vector>
 #include <memory>

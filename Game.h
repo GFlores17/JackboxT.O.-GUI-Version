@@ -5,7 +5,7 @@
 #include <map>
 #include <vector>
 #include <memory>
-#include "player.h"
+#include "Player.h"
 //Player.h has <iostream>, <iomanip>, and <string>.
 
 class Game {
@@ -24,7 +24,6 @@ public:
 
     std::map <std::string, int> getMap();
 
-    void addPlayerToGame();
     void addPlayerToGame(std::shared_ptr<Player> p);
     void setGameResults();
     void printGameResults();

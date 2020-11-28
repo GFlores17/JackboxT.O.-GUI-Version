@@ -2,7 +2,7 @@
 #define ROUNDNAMEDIALOG_H
 
 #include <QDialog>
-#include "tournament.h"
+#include "Tournament.h"
 
 namespace Ui {
 class RoundNameDialog;

@@ -1,6 +1,6 @@
 #include "MatchNameDialog.h"
 #include "ui_MatchNameDialog.h"
-#include "round.h"
+#include "Round.h"
 
 MatchNameDialog::MatchNameDialog(std::shared_ptr<Round> r, QWidget *parent) :
     QDialog(parent),

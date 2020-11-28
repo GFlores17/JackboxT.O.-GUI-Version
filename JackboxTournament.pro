@@ -10,51 +10,54 @@ CONFIG += c++11
 
 SOURCES += \
     AddMatchDialog.cpp \
+    AddPlayerToGame.cpp \
     AddToRoundDialog.cpp \
     EnterGameResults.cpp \
+    Game.cpp \
+    MainWindow.cpp \
     Match.cpp \
     MatchMenu.cpp \
     MatchNameDialog.cpp \
+    Player.cpp \
+    PlayerRegistrationDialog.cpp \
     PromptAddToRoundDialog.cpp \
     PromptGameNameDialog.cpp \
+    Round.cpp \
+    RoundMenu.cpp \
     RoundNameDialog.cpp \
     SelectRoundDialog.cpp \
-    game.cpp \
+    Tournament.cpp \
+    TournamentMenu.cpp \
+    TournamentRoster.cpp \
     getEntry.cpp \
-    main.cpp \
-    mainWindow.cpp \
-    player.cpp \
-    playerRegistrationDialog.cpp \
-    round.cpp \
-    roundMenu.cpp \
-    tournament.cpp \
-    tournamentMenu.cpp \
-    tournamentRoster.cpp
+    main.cpp
 
 HEADERS += \
     AddMatchDialog.h \
+    AddPlayerToGame.h \
     AddToRoundDialog.h \
     EnterGameResults.h \
     Game.h \
     GetEntry.h \
+    MainWindow.h \
+    Match.h \
     MatchMenu.h \
     MatchNameDialog.h \
+    Player.h \
+    PlayerRegistrationDialog.h \
     PromptAddToRoundDialog.h \
     PromptGameNameDialog.h \
+    Round.h \
+    RoundMenu.h \
     RoundNameDialog.h \
     SelectRoundDialog.h \
-    mainWindow.h \
-    match.h \
-    player.h \
-    playerRegistrationDialog.h \
-    round.h \
-    roundMenu.h \
-    tournament.h \
-    tournamentMenu.h \
-    tournamentRoster.h
+    Tournament.h \
+    TournamentMenu.h \
+    TournamentRoster.h
 
 FORMS += \
     AddMatchDialog.ui \
+    AddPlayerToGame.ui \
     AddToRoundDialog.ui \
     EnterGameResults.ui \
     MatchMenu.ui \

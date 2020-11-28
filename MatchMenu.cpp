@@ -1,10 +1,11 @@
 #include "MatchMenu.h"
 #include "ui_MatchMenu.h"
-#include "round.h"
+#include "Round.h"
 //#include "match.h"
 #include "Game.h"
 #include "EnterGameResults.h"
 #include "QDebug"
+#include "AddPlayerToGame.h"
 
 
 MatchMenu::MatchMenu(std::shared_ptr<Match> m, QWidget *parent) :
@@ -21,20 +22,20 @@ MatchMenu::MatchMenu(std::shared_ptr<Match> m, QWidget *parent) :
     std::shared_ptr<Game> m2 = std::make_shared<Game>("Game2");
     std::shared_ptr<Game> m7 = std::make_shared<Game>("Game7");
 
-    match->addGame(m1);
-    match->addGame(m3);
-    match->addGame(m2);
-    match->addGame(m7);
 
     //match->addGame()
-    this->setWindowTitle("Match Menu");
+    std::string name = match->getName() + " Menu";
+    this->setWindowTitle(QString::fromStdString(name));
     printGames();
+
+    ui->FinishGameButton->setEnabled(false);
+    ui->pushButton->setEnabled(false);
 
     qDebug() << "SIZE : " << this->match->getListOfGames().size();
 
-    ui->tableWidget->insertRow(ui->tableWidget->rowCount());
-    QTableWidgetItem *newItem = new QTableWidgetItem("TEST");
-    ui->tableWidget->setItem(ui->tableWidget->rowCount()-1, 0, newItem);
+    //ui->tableWidget->insertRow(ui->tableWidget->rowCount());
+    //QTableWidgetItem *newItem = new QTableWidgetItem("TEST");
+    //ui->tableWidget->setItem(ui->tableWidget->rowCount()-1, 0, newItem);
 }
 
 MatchMenu::~MatchMenu()
@@ -55,9 +56,30 @@ void MatchMenu::printGames(){
     }
 }
 
+void MatchMenu::printPlayersAndScores(){
+    QListWidgetItem *item = ui->listWidget->currentItem();
+    int x = ui->listWidget->row(item);
+
+    int numOfPlayersInGame = this->match->getListOfGames().at(x)->getPlayers().size();
+    ui->tableWidget->setRowCount(0);
+
+    for(int i = 0; i < numOfPlayersInGame; i++){
+        ui->tableWidget->insertRow(ui->tableWidget->rowCount());
+
+        QTableWidgetItem *newName = new QTableWidgetItem(this->match->getListOfGames().at(x)->getPlayers().at(i)->getQName());
+        QTableWidgetItem *newScore = new QTableWidgetItem(QString::number(this->match->getListOfGames().at(x)->getPlayers().at(i)->getScore()));
+
+        ui->tableWidget->setItem(ui->tableWidget->rowCount()-1, NAME, newName);
+        ui->tableWidget->setItem(ui->tableWidget->rowCount()-1, SCORE, newScore);
+    }
+}
+
 void MatchMenu::on_pushButton_3_clicked()
 {
-
+     std::shared_ptr<Game> m1 = std::make_shared<Game>("Game " + std::to_string(this->match->getListOfGames().size()+1));
+     match->addGame(m1);
+     ui->listWidget->clear();
+     printGames();
 }
 
 void MatchMenu::on_FinishGameButton_clicked()
@@ -70,4 +92,31 @@ void MatchMenu::on_FinishGameButton_clicked()
     EnterGameResults EGR(g2);
     EGR.setModal(true);
     EGR.exec();
+}
+
+void MatchMenu::on_listWidget_itemClicked(QListWidgetItem *item)
+{
+    ui->FinishGameButton->setEnabled(true);
+    ui->pushButton->setEnabled(true);
+
+    printPlayersAndScores();
+
+}
+
+void MatchMenu::on_pushButton_clicked()
+{
+
+    QListWidgetItem *item = ui->listWidget->currentItem();
+    int x = ui->listWidget->row(item);
+
+    AddPlayerToGame APTG;
+    APTG.exec();
+    APTG.setWindowTitle("Add Player To Game");
+
+    std::shared_ptr<Player> p = std::make_shared<Player>(APTG.playerName());
+    qDebug() << p->getQName();
+
+    this->match->getListOfGames().at(x)->addPlayerToGame(p);
+
+    printPlayersAndScores();
 }

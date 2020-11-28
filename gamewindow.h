@@ -13,7 +13,7 @@
 #include <QLabel>
 #include <vector>
 #include <memory.h>
-#include "player.h"
+#include "Player.h"
 #include "Game.h"
 
 namespace Ui {

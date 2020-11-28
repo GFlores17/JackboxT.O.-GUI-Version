@@ -1,6 +1,5 @@
 <RCC>
     <qresource prefix="/new/prefix1">
-        <file>001.JPG</file>
         <file>Jackbox Logo.png</file>
         <file>../Rylan.jpg</file>
         <file>../Rylan Smaller.jpg</file>

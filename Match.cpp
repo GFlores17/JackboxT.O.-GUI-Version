@@ -1,4 +1,4 @@
-#include "match.h"
+#include "Match.h"
 #include "Game.h"
 #include "GetEntry.h"
 #include <memory>
@@ -108,7 +108,7 @@ void Match::enterGameResults() {
         checkIfInt(game);
     }
     --game;
-    listOfGames.at(game)->addPlayerToGame();
+    //listOfGames.at(game)->addPlayerToGame();
     //Above is test line. Fix addPlayerToGame later by checking with match vector.
     listOfGames.at(game)->setGameResults();
 }

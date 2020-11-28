@@ -1,7 +1,7 @@
 #ifndef ADDTOROUNDDIALOG_H
 #define ADDTOROUNDDIALOG_H
 
-#include "tournament.h"
+#include "Tournament.h"
 #include <QDialog>
 #include <QListWidget>
 #include <QTextEdit>

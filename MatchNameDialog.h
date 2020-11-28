@@ -2,7 +2,7 @@
 #define MATCHNAMEDIALOG_H
 
 #include <QDialog>
-#include "round.h"
+#include "Round.h"
 
 namespace Ui {
 class MatchNameDialog;

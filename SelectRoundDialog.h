@@ -3,7 +3,7 @@
 
 #include <QDialog>
 #include <QListWidget>
-#include "tournament.h"
+#include "Tournament.h"
 
 namespace Ui {
 class SelectRoundDialog;

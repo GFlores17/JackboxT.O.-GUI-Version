@@ -1,6 +1,6 @@
 #include "PromptAddToRoundDialog.h"
 #include "ui_PromptAddToRoundDialog.h"
-#include "tournament.h"
+#include "Tournament.h"
 #include "AddToRoundDialog.h"
 
 PromptAddToRoundDialog::PromptAddToRoundDialog(std::shared_ptr<Tournament> T, int x, QWidget *parent) :

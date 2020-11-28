@@ -1,6 +1,6 @@
 #include "EnterGameResults.h"
 #include "ui_EnterGameResults.h"
-#include "match.h"
+#include "Match.h"
 #include "Game.h"
 #include <QtDebug>
 

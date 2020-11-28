@@ -2,7 +2,7 @@
 #define PROMPTADDTOROUNDDIALOG_H
 
 #include <QDialog>
-#include "tournament.h"
+#include "Tournament.h"
 
 namespace Ui {
 class PromptAddToRoundDialog;

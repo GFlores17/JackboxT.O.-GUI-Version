@@ -1,6 +1,6 @@
 #include "AddMatchDialog.h"
 #include "ui_AddMatchDialog.h"
-#include "match.h"
+#include "Match.h"
 
 AddMatchDialog::AddMatchDialog(std::shared_ptr<Round> R, QWidget *parent) :
     QDialog(parent),
