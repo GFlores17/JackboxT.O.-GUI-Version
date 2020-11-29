@@ -88,12 +88,42 @@ void MatchMenu::on_FinishGameButton_clicked()
     QListWidgetItem *item = ui->listWidget->currentItem();
     int x = ui->listWidget->row(item);
 
+    qDebug() << "GAME : " << x;
     std::shared_ptr<Game> g2 = this->match->getListOfGames().at(x);
-    EnterGameResults EGR(g2);
-    EGR.setModal(true);
-    EGR.exec();
-}
+    qDebug() << "GAME NAME : " << QString::fromStdString(g2->getName());
 
+    qDebug() << "# of Players : " << g2->getPlayers().size();
+
+    for(int i = 0; i < g2->getPlayers().size(); i++){
+
+        int res;
+        EnterGameResults EGR(g2);
+        //EGR.label.setTe
+
+
+
+        EGR.editLabel("Enter " + g2->getPlayers().at(i)->getQName() + "'s Score");
+
+        EGR.setModal(true);
+        res = EGR.exec();
+
+        if(res == QDialog::Accepted){
+
+            int gameScore = EGR.playerScore();
+
+            g2->insertResult(std::pair<std::string, int>(g2->getPlayers().at(i)->getName(), gameScore));
+
+            //int score = ui->lineEdit->text().toInt();
+
+            g2->getPlayers().at(i)->setScore(gameScore);
+            //this->game->addPlayerToGame(p);
+            qDebug()<< gameScore;
+            printPlayersAndScores();
+    }
+
+
+    }
+}
 void MatchMenu::on_listWidget_itemClicked(QListWidgetItem *item)
 {
     ui->FinishGameButton->setEnabled(true);

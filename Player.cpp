@@ -4,16 +4,16 @@
 #include "Player.h"
 
 std::string pName;
-int score;
+int totalPoints;
 
     Player::Player() {
         pName = "default constructor";
-        score = 0;
+        totalPoints = 0;
     }
 
     Player::Player(const std::string& Name) {
         pName = Name;
-        score = 0;
+        totalPoints = 0;
     }
 
     std::string Player::getName() {
@@ -26,7 +26,7 @@ int score;
 
     void Player::print() {//Print formatted player name & stats.
         std::cout << std::setfill(' ') << std::setw(10);
-        std::cout << pName << std::setw(2) << " : " << std::setw(2) << score << " pts" << std::endl;
+        std::cout << pName << std::setw(2) << " : " << std::setw(2) << totalPoints << " pts" << std::endl;
     }
 
     void Player::promptForScore() {//Ask for points scored. [Used /w manualScoreAdd();]
@@ -38,22 +38,25 @@ int score;
     }
 
     void Player::manualScoreAdd(int points) {
-        score = score + points;
+        totalPoints = totalPoints + points;
     }
 
     void Player::placementScoreAdd(int numOfPlayers, int placement) {
-        score = score + ((numOfPlayers + 1) - placement);
+        totalPoints = totalPoints + ((numOfPlayers + 1) - placement);
     }
 
     int Player::getScore() {
-        return score;
+        return totalPoints;
     }
 
-    void Player::setScore(int score) {
-        this->score = score;
+    void Player::setScore(int points) {
+        this->totalPoints = points;
     }
 
     QString Player::getQName(){
         return QString::fromStdString(this->pName);
     }
 
+    void Player::addToScore(int points){
+        this->totalPoints = this->totalPoints + points;
+    }

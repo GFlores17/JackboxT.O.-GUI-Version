@@ -45,10 +45,6 @@ TournamentMenu::TournamentMenu(std::shared_ptr<Tournament> T, QWidget *parent) :
      QString ptrStr2 = QString("0x%1").arg((quintptr)T2,
                          QT_POINTER_SIZE * 2, 16, QChar('0'));
 
-
-
-     ui->lineEdit->setText(ptrStr + " : " + ptrStr2);
-
 }
 
 TournamentMenu::~TournamentMenu()
@@ -66,24 +62,21 @@ void TournamentMenu::on_registerButton_clicked()
 
 void TournamentMenu::on_startButton_clicked()
 {
+    int res;
     RoundNameDialog RND(passedTournament);
     RND.setModal(true);
-    RND.exec();
+    res = RND.exec();
 
-    //addToRoundForm *ATRF = new addToRoundForm(passedTournament, passedTournament->getListOfRounds().size()-1);
-    //ATRF->show();
+    if(res == QDialog::Accepted){
 
-    AddToRoundDialog ATRD(passedTournament, passedTournament->getListOfRounds().size()-1);
-    ATRD.setModal(true);
-    ATRD.exec();
+        AddToRoundDialog ATRD(passedTournament, passedTournament->getListOfRounds().size()-1);
+        ATRD.setModal(true);
+        ATRD.exec();
 
-    //std::shared_ptr<Match> test = this->passedTournament->getListOfRounds()
-    //MatchMenu *MM = new MatchMenu(test);
-    //MM->show();
-
-    std::shared_ptr<Round> test = this->passedTournament->getListOfRounds().back();
-    RoundMenu *RM = new RoundMenu(test);
-    RM->show();
+        std::shared_ptr<Round> test = this->passedTournament->getListOfRounds().back();
+        RoundMenu *RM = new RoundMenu(test);
+        RM->show();
+       }
 }
 
 void TournamentMenu::on_continueButton_clicked()

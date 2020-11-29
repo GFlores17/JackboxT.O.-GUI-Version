@@ -24,7 +24,7 @@ public:
     void addMatch(std::shared_ptr<Match>m);
 
     std::vector <std::shared_ptr<Match>> getListOfMatches();
-
+    int getNumberOfPlayers();
 };
 
 #endif

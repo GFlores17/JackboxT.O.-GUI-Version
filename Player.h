@@ -10,7 +10,7 @@
 class Player {
 private:
     std::string pName;
-    int score;
+    int totalPoints;
 
 public:
     Player();
@@ -25,7 +25,8 @@ public:
     void manualScoreAdd(int points);
     void placementScoreAdd(int numOfPlayers, int placement);
     int getScore();
-    void setScore(int score);
+    void setScore(int points);
+    void addToScore(int points);
     QString getQName();
 };
 

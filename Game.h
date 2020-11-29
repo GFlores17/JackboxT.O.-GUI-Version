@@ -13,7 +13,6 @@ private:
     std::map <std::string, int> gameResults;
     std::vector<std::shared_ptr<Player>> playersInGame;
     std::string gameName;
-    std::vector<std::shared_ptr<Player>> testVec;
 
 public:
     Game();
@@ -27,6 +26,8 @@ public:
     void addPlayerToGame(std::shared_ptr<Player> p);
     void setGameResults();
     void printGameResults();
+
+    void insertResult(std::pair<std::string, int>);
 
     std::vector<std::shared_ptr<Player>> getPlayers();
 

@@ -8,6 +8,7 @@ class Match {
 private:
     std::string matchName;
     std::vector<std::shared_ptr<Game>> listOfGames;
+    std::vector <std::shared_ptr<Player>> playersInMatch;
 
 public:
     static int getEntry();
@@ -35,6 +36,7 @@ public:
     void exitProgram();
 
     std::vector<std::shared_ptr<Game>> getListOfGames();
+    std::vector <std::shared_ptr<Player>> getMatchListOfPlayers();
 };
 
 #endif

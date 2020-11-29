@@ -167,3 +167,7 @@ void Match::menuSelect(int choice) {
 std::vector<std::shared_ptr<Game>> Match::getListOfGames(){
     return listOfGames;
 }
+
+std::vector <std::shared_ptr<Player>> Match::getMatchListOfPlayers(){
+    return playersInMatch;
+}

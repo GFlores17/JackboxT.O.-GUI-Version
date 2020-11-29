@@ -32,6 +32,7 @@ void RoundMenu::on_addMatchButton_clicked()
 
     printMatches();
 
+    ui->selectMatchButton->setEnabled(false);
     /*
     std::shared_ptr<Match> test = this->round->getListOfMatches().back();
     MatchMenu *MM = new MatchMenu(test);

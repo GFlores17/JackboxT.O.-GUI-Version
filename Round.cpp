@@ -85,3 +85,7 @@ void Round::addMatch(std::shared_ptr<Match> m){
 std::vector <std::shared_ptr<Match>> Round::getListOfMatches(){
     return listOfMatches;
 }
+
+int Round::getNumberOfPlayers(){
+    return getRoundListOfPlayers().size();
+}

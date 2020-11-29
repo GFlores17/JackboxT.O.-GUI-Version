@@ -84,3 +84,7 @@
     std::vector<std::shared_ptr<Player>> Game::getPlayers(){
         return playersInGame;
     }
+
+    void Game::insertResult(std::pair<std::string, int> pair){
+        this->gameResults.insert(pair);
+    }
