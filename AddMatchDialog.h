@@ -3,6 +3,7 @@
 
 #include <QDialog>
 #include <Round.h>
+#include <QPushButton>
 
 namespace Ui {
 class AddMatchDialog;
@@ -24,6 +25,9 @@ private slots:
 
 private:
     Ui::AddMatchDialog *ui;
+    QPushButton pushButton;
+    QPushButton pushButton_2;
+
 };
 
 #endif // ADDMATCHDIALOG_H

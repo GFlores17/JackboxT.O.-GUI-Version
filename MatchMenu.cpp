@@ -6,6 +6,7 @@
 #include "EnterGameResults.h"
 #include "QDebug"
 #include "AddPlayerToGame.h"
+#include <fstream>
 
 
 MatchMenu::MatchMenu(std::shared_ptr<Match> m, QWidget *parent) :
@@ -14,22 +15,16 @@ MatchMenu::MatchMenu(std::shared_ptr<Match> m, QWidget *parent) :
 {
     //PRINT ALL GAMES IN THE MATCH HERE.
     this->match = m;
-    //printGames();
     ui->setupUi(this);
 
-    std::shared_ptr<Game> m1 = std::make_shared<Game>("Game1");
-    std::shared_ptr<Game> m3 = std::make_shared<Game>("Game3");
-    std::shared_ptr<Game> m2 = std::make_shared<Game>("Game2");
-    std::shared_ptr<Game> m7 = std::make_shared<Game>("Game7");
 
-
-    //match->addGame()
     std::string name = match->getName() + " Menu";
     this->setWindowTitle(QString::fromStdString(name));
     printGames();
 
     ui->FinishGameButton->setEnabled(false);
     ui->pushButton->setEnabled(false);
+    ui->pushButton->setVisible(false);
 
     qDebug() << "SIZE : " << this->match->getListOfGames().size();
 
@@ -63,21 +58,51 @@ void MatchMenu::printPlayersAndScores(){
     int numOfPlayersInGame = this->match->getListOfGames().at(x)->getPlayers().size();
     ui->tableWidget->setRowCount(0);
 
-    for(int i = 0; i < numOfPlayersInGame; i++){
-        ui->tableWidget->insertRow(ui->tableWidget->rowCount());
+    std::shared_ptr<Game> gameToPrint = match->getListOfGames().at(x);
 
-        QTableWidgetItem *newName = new QTableWidgetItem(this->match->getListOfGames().at(x)->getPlayers().at(i)->getQName());
-        QTableWidgetItem *newScore = new QTableWidgetItem(QString::number(this->match->getListOfGames().at(x)->getPlayers().at(i)->getScore()));
+    bool test;
+    test = gameToPrint->getResultsMap().empty();
 
-        ui->tableWidget->setItem(ui->tableWidget->rowCount()-1, NAME, newName);
-        ui->tableWidget->setItem(ui->tableWidget->rowCount()-1, SCORE, newScore);
+    if(gameToPrint->getResultsMap().empty() == true){
+        for(int i = 0; i < numOfPlayersInGame; i++){
+            ui->tableWidget->insertRow(ui->tableWidget->rowCount());
+
+            QTableWidgetItem *newName = new QTableWidgetItem(this->match->getListOfGames().at(x)->getPlayers().at(i)->getQName());
+            QTableWidgetItem *newScore = new QTableWidgetItem("0");
+
+            ui->tableWidget->setItem(ui->tableWidget->rowCount()-1, NAME, newName);
+            ui->tableWidget->setItem(ui->tableWidget->rowCount()-1, SCORE, newScore);
+         }
+    }
+    else{
+        for(int i = 0; i < numOfPlayersInGame; i++){
+            ui->tableWidget->insertRow(ui->tableWidget->rowCount());
+
+            std::string searchString = this->match->getListOfGames().at(x)->getPlayers().at(i)->getName();
+            int searchedScore = gameToPrint->getMap().at(searchString);
+
+            QTableWidgetItem *newName = new QTableWidgetItem(QString::fromStdString(searchString));
+            QTableWidgetItem *newScore = new QTableWidgetItem(QString::number(searchedScore));
+
+            ui->tableWidget->setItem(ui->tableWidget->rowCount()-1, NAME, newName);
+            ui->tableWidget->setItem(ui->tableWidget->rowCount()-1, SCORE, newScore);
+         }
+
+
     }
 }
 
 void MatchMenu::on_pushButton_3_clicked()
 {
-     std::shared_ptr<Game> m1 = std::make_shared<Game>("Game " + std::to_string(this->match->getListOfGames().size()+1));
-     match->addGame(m1);
+     std::shared_ptr<Game> g1 = std::make_shared<Game>("Game " + std::to_string(this->match->getListOfGames().size()+1));
+
+     for(int i = 0; i < match->getMatchListOfPlayers().size(); i++){
+         g1->addPlayerToGame(match->getMatchListOfPlayers().at(i));
+     }
+
+     initializeScoresTable(g1);
+     match->addGame(g1);
+
      ui->listWidget->clear();
      printGames();
 }
@@ -98,31 +123,28 @@ void MatchMenu::on_FinishGameButton_clicked()
 
         int res;
         EnterGameResults EGR(g2);
-        //EGR.label.setTe
-
-
-
         EGR.editLabel("Enter " + g2->getPlayers().at(i)->getQName() + "'s Score");
-
         EGR.setModal(true);
         res = EGR.exec();
 
         if(res == QDialog::Accepted){
 
             int gameScore = EGR.playerScore();
-
             g2->insertResult(std::pair<std::string, int>(g2->getPlayers().at(i)->getName(), gameScore));
-
-            //int score = ui->lineEdit->text().toInt();
-
-            g2->getPlayers().at(i)->setScore(gameScore);
+            g2->getPlayers().at(i)->addToScore(gameScore);
             //this->game->addPlayerToGame(p);
-            qDebug()<< gameScore;
-            printPlayersAndScores();
-    }
 
 
+            for (std::pair<std::string, int> element : g2->getMap()) {
+                    // Accessing KEY from element
+                    std::string word = element.first;
+                    // Accessing VALUE from element.
+                    int count = element.second;
+                    std::cout << word << " :: " << count << std::endl;
+                }
+        }
     }
+    printPlayersAndScores();
 }
 void MatchMenu::on_listWidget_itemClicked(QListWidgetItem *item)
 {
@@ -149,4 +171,37 @@ void MatchMenu::on_pushButton_clicked()
     this->match->getListOfGames().at(x)->addPlayerToGame(p);
 
     printPlayersAndScores();
+}
+
+void MatchMenu::initializeScoresTable(std::shared_ptr<Game> g){
+
+    //ui->tableWidget->setRowCount(0);
+
+    int numOfPlayersInGame = g->getPlayers().size();
+
+    for(int i = 0; i < numOfPlayersInGame; i++){
+        ui->tableWidget->insertRow(ui->tableWidget->rowCount());
+
+        QTableWidgetItem *newName = new QTableWidgetItem(g->getPlayers().at(i)->getQName());
+        QTableWidgetItem *newScore = new QTableWidgetItem(QString::number(g->getPlayers().at(i)->getScore()));
+
+        ui->tableWidget->setItem(ui->tableWidget->rowCount()-1, NAME, newName);
+        ui->tableWidget->setItem(ui->tableWidget->rowCount()-1, SCORE, newScore);
+    }
+
+
+}
+
+void MatchMenu::on_ExitButton_clicked()
+{
+
+    std::ofstream OUTFILE;
+    OUTFILE.open("C:\\Users\\George\\Desktop\\games.txt", std::ofstream::trunc);
+
+    //delete above after you figure out hhow to properly serialize this.
+
+    for(int i = 0; i < this->match->getListOfGames().size(); i ++){
+        this->match->getListOfGames().at(i)->serializeGame();
+    }
+    OUTFILE.close();
 }

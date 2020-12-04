@@ -8,6 +8,12 @@ MatchNameDialog::MatchNameDialog(std::shared_ptr<Round> r, QWidget *parent) :
 {
     ui->setupUi(this);
     this->round = r;
+
+    ui->buttonBox->button(QDialogButtonBox::Ok)->setStyleSheet("QPushButton::hover{background-color : lightgreen;}"
+                                                               "QPushButton {background-color: #FFFFFF}");
+
+    ui->buttonBox->button(QDialogButtonBox::Cancel)->setStyleSheet("QPushButton::hover{background-color : lightgreen;}"
+                                                               "QPushButton {background-color: #FFFFFF}");
 }
 
 MatchNameDialog::~MatchNameDialog()

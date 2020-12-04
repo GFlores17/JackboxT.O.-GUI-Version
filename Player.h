@@ -5,6 +5,8 @@
 #include <iomanip>
 #include <string>
 #include <QString>
+#include <memory>
+#include <vector>
 
 
 class Player {
@@ -28,6 +30,11 @@ public:
     void setScore(int points);
     void addToScore(int points);
     QString getQName();
+
+    //Serialization methods below
+
+    void serializePlayer();
+    std::vector<std::shared_ptr<Player>> deserializePlayer();
 };
 
 #endif // PLAYER_H

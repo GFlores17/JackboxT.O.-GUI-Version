@@ -23,6 +23,8 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
+    void formatPlayersInTournamentFile();
+
 private slots:
     void on_exitButton_clicked();
 

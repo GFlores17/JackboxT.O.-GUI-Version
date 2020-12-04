@@ -22,6 +22,7 @@ public:
     void printGames();
 
     void printPlayersAndScores();
+    void initializeScoresTable(std::shared_ptr<Game> g);
 
 private slots:
     void on_pushButton_3_clicked();
@@ -31,6 +32,8 @@ private slots:
     void on_listWidget_itemClicked(QListWidgetItem *item);
 
     void on_pushButton_clicked();
+
+    void on_ExitButton_clicked();
 
 private:
     Ui::MatchMenu *ui;

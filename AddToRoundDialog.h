@@ -6,6 +6,8 @@
 #include <QListWidget>
 #include <QTextEdit>
 #include <QLabel>
+#include <QPushButton>
+#include <QDialogButtonBox>
 
 namespace Ui {
 class AddToRoundDialog;
@@ -24,7 +26,7 @@ public:
     std::shared_ptr<Round> round;
 
 private slots:
-    void on_pushButton_clicked();
+    void on_AddToRoundButton_clicked();
 
     void on_tournamentListWidget_itemDoubleClicked(QListWidgetItem *item);
 
@@ -38,5 +40,8 @@ private:
     QListWidget roundListWidget;
     QTextEdit textEdit;
     QLabel label_3;
+    QPushButton AddToRoundButton;
+    QPushButton RemoveFromRoundButton;
+    QDialogButtonBox buttonBox;
 };
 #endif // ADDTOROUNDDIALOG_H

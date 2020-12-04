@@ -1,5 +1,6 @@
 #include "PlayerRegistrationDialog.h"
 #include "ui_playerRegistrationDialog.h"
+#include "fstream"
 
 PlayerRegistrationDialog::PlayerRegistrationDialog(std::shared_ptr<Tournament>T, QWidget *parent) :
     QDialog(parent),
@@ -21,5 +22,12 @@ void PlayerRegistrationDialog::on_lineEdit_returnPressed()
 {
     QString name = ui->lineEdit->text();
     ui->lineEdit->setText("");
-    tournamentPtr->registerPlayer(name);
+
+    //Testing
+    std::shared_ptr<Player> p = std::make_shared<Player>(name.toStdString());
+    p->serializePlayer();
+    //Testing
+
+    tournamentPtr->registerPlayer(p);
+
 }

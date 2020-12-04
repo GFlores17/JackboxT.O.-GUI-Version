@@ -2,6 +2,8 @@
 #define MATCHNAMEDIALOG_H
 
 #include <QDialog>
+#include <QDialogButtonBox>
+#include <QPushButton>
 #include "Round.h"
 
 namespace Ui {
@@ -22,6 +24,7 @@ private slots:
 
 private:
     Ui::MatchNameDialog *ui;
+    QDialogButtonBox buttonBox;
 };
 
 #endif // MATCHNAMEDIALOG_H

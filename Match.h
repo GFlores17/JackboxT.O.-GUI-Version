@@ -37,6 +37,9 @@ public:
 
     std::vector<std::shared_ptr<Game>> getListOfGames();
     std::vector <std::shared_ptr<Player>> getMatchListOfPlayers();
+
+    void addPlayer(std::shared_ptr<Player> p);
+    int getNumOfPlayers();
 };
 
 #endif

@@ -8,6 +8,12 @@ RoundNameDialog::RoundNameDialog(std::shared_ptr<Tournament> T, QWidget *parent)
     ui->setupUi(this);
     passedTournament = T;
 
+    ui->buttonBox->button(QDialogButtonBox::Ok)->setStyleSheet("QPushButton::hover{background-color : lightgreen;}"
+                                                               "QPushButton {background-color: #FFFFFF}");
+
+    ui->buttonBox->button(QDialogButtonBox::Cancel)->setStyleSheet("QPushButton::hover{background-color : lightgreen;}"
+                                                               "QPushButton {background-color: #FFFFFF}");
+
     this->setWindowTitle("Round Name Dialog");
 
 }

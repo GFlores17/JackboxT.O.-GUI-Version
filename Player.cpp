@@ -1,7 +1,10 @@
 #include <iostream>
 #include <iomanip>
 #include <string>
+#include <fstream>
 #include "Player.h"
+#include <memory>
+#include "Tournament.h"
 
 std::string pName;
 int totalPoints;
@@ -60,3 +63,44 @@ int totalPoints;
     void Player::addToScore(int points){
         this->totalPoints = this->totalPoints + points;
     }
+
+    void Player::serializePlayer(){
+        try{
+
+        std::ofstream OUTFILE;
+        OUTFILE.open("C:\\Users\\George\\Desktop\\people.txt", std::ios_base::app);
+
+        OUTFILE << this->getName() << "\n";
+        OUTFILE << this->getScore() << "\n";
+        //OUTFILE.close();
+        }
+        catch(int e){
+
+        }
+    }
+
+    std::vector<std::shared_ptr<Player>> Player::deserializePlayer(){
+        std::ifstream INFILE;
+        INFILE.open("C:\\Users\\George\\Desktop\\people.txt", std::ios::in);
+
+        std::vector<std::shared_ptr<Player>> vec;
+
+        while(!INFILE.eof()){
+            std::string name;
+
+            std::string tScore;
+            getline(INFILE,tScore);
+
+            int score = stoi(tScore);
+
+            getline(INFILE,name);
+
+
+            std::shared_ptr<Player> p = std::make_shared<Player>(name);
+            p->setScore(score);
+
+            vec.push_back(std::move(p));
+        }
+        return vec;
+    }
+

@@ -30,7 +30,10 @@ public:
     void insertResult(std::pair<std::string, int>);
 
     std::vector<std::shared_ptr<Player>> getPlayers();
+    std::map<std::string,int> getResultsMap();
 
+    void serializeGame();
+    void deserializeGame(std::shared_ptr<Game> g);
 
 };
 

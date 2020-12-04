@@ -20,6 +20,17 @@ AddToRoundDialog::AddToRoundDialog(std::shared_ptr<Tournament> T, int x, QWidget
     ui->label_3->setWordWrap(true);
     ui->label_3->setAlignment(Qt::AlignCenter);
 
+    ui->AddToRoundButton->setStyleSheet("QPushButton::hover{background-color : lightgreen;}"
+                                        "QPushButton {background-color: #FFFFFF}");
+
+    ui->RemoveFromRoundButton->setStyleSheet("QPushButton::hover{background-color : lightgreen;}"
+                                             "QPushButton {background-color: #FFFFFF}");
+
+    ui->buttonBox->button(QDialogButtonBox::Ok)->setStyleSheet("QPushButton::hover{background-color : lightgreen;}"
+                                                               "QPushButton {background-color: #FFFFFF}");
+
+    ui->buttonBox->button(QDialogButtonBox::Cancel)->setStyleSheet("QPushButton::hover{background-color : lightgreen;}"
+                                                               "QPushButton {background-color: #FFFFFF}");
 
     for(int i = 0; i < passedTournament->getNumberOfPlayers(); i++){
         int j = i+1;
@@ -37,7 +48,7 @@ AddToRoundDialog::AddToRoundDialog(std::shared_ptr<Tournament> T, int x, QWidget
         }
     }
 
-    ui->pushButton->setEnabled(false);
+    ui->AddToRoundButton->setEnabled(false);
 }
 
 AddToRoundDialog::~AddToRoundDialog()
@@ -45,7 +56,7 @@ AddToRoundDialog::~AddToRoundDialog()
     delete ui;
 }
 
-void AddToRoundDialog::on_pushButton_clicked()
+void AddToRoundDialog::on_AddToRoundButton_clicked()
 {
 
     QListWidgetItem *item = ui->tournamentListWidget->currentItem();
@@ -82,7 +93,7 @@ void AddToRoundDialog::on_tournamentListWidget_itemDoubleClicked(QListWidgetItem
 
 void AddToRoundDialog::on_tournamentListWidget_itemClicked(QListWidgetItem *item)
 {
-    ui->pushButton->setEnabled(true);
+    ui->AddToRoundButton->setEnabled(true);
 }
 
 void AddToRoundDialog::on_buttonBox_accepted()

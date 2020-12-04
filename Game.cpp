@@ -2,7 +2,9 @@
 #include <map>
 #include <vector>
 #include <memory>
-
+#include <fstream>
+#include <sstream>
+#include <QtDebug>
 #include "Game.h"
 #include "Player.h"
 
@@ -87,4 +89,100 @@
 
     void Game::insertResult(std::pair<std::string, int> pair){
         this->gameResults.insert(pair);
+    }
+    std::map<std::string,int> Game::getResultsMap(){
+        return this->gameResults;
+    }
+
+    void Game::serializeGame(){
+        try{
+        std::ofstream OUTFILE;
+        OUTFILE.open("C:\\Users\\George\\Desktop\\games.txt", std::ios_base::app);
+
+        for (std::map<std::string,int>::iterator it=this->gameResults.begin(); it!=this->gameResults.end(); ++it){
+            std::cout << it->first << " => " << it->second << '\n';
+            OUTFILE << it->first << "\n";
+            OUTFILE << it->second << "\n";
+        }
+
+        OUTFILE << "PLAYERSLIST" << "\n";
+
+        for(int i = 0; i < this->playersInGame.size(); i++){
+            OUTFILE << this->playersInGame.at(i)->getName() << "\n";
+        }
+
+            OUTFILE.close();
+        }
+
+        catch(int e){
+
+        }
+    }
+
+    void Game::deserializeGame(std::shared_ptr<Game> g){
+        std::ifstream INFILE;
+        INFILE.open("C:\\Users\\George\\Desktop\\games.txt", std::ios::in);
+
+        std::vector<std::shared_ptr<Player>> vec;
+
+        bool playersWrite = true;
+        bool resultsWrite = false;
+        bool gameNameWrite = false;
+
+        while(!INFILE.eof()){
+
+                while(playersWrite == true){
+                    std::string name;
+                    std::string tScore;
+
+                    getline(INFILE,name);
+
+                    if(name.compare("PLAYERSLIST")==0){
+                        playersWrite = false;
+                        resultsWrite = true;
+                        break;
+                    }
+
+                    getline(INFILE,tScore);
+
+                    std::stringstream degree(tScore);
+
+                    int score;
+                    degree >> score;
+
+
+
+
+                    std::shared_ptr<Player> p = std::make_shared<Player>(name);
+                    p->setScore(score);
+
+                    this->playersInGame.push_back(std::move(p));
+                }
+
+                while(resultsWrite == true){
+                    std::string name;
+                    std::string gameScore;
+
+                    getline(INFILE,name);
+
+                    if(name.compare("")==0){
+                        qDebug() << "BREAK" << "\n";
+                        break;
+                    }
+
+                    getline(INFILE,gameScore);
+
+                    std::stringstream degree(gameScore);
+
+                    int score;
+                    degree >> score;
+
+                    std::pair<std::string,int> gameResult (name, score);
+
+                    this->insertResult(gameResult);
+                }
+
+
+        }
+
     }

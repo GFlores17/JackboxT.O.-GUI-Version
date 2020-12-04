@@ -4,6 +4,8 @@
 #include "MatchNameDialog.h"
 #include "MatchMenu.h"
 #include "qdebug.h"
+#include "AddPlayerToMatchDialog.h"
+#include "Match.h"
 
 RoundMenu::RoundMenu(std::shared_ptr<Round> R, QWidget *parent) :
     QWidget(parent),
@@ -15,6 +17,14 @@ RoundMenu::RoundMenu(std::shared_ptr<Round> R, QWidget *parent) :
     ui->selectMatchButton->setEnabled(false);
     this->setWindowTitle("Round Menu");
 
+    ui->addMatchButton->setStyleSheet("QPushButton::hover{background-color : lightgreen;}"
+                                      "QPushButton {background-color: #FFFFFF}");
+
+    ui->selectMatchButton->setStyleSheet("QPushButton::hover{background-color : lightgreen;}"
+                                         "QPushButton {background-color: #FFFFFF}");
+
+    ui->exitButton->setStyleSheet("QPushButton::hover{background-color : lightgreen;}"
+                                  "QPushButton {background-color: #FFFFFF}");
     printMatches();
 }
 
@@ -30,9 +40,19 @@ void RoundMenu::on_addMatchButton_clicked()
     MND.setModal(true);
     MND.exec();
 
+    AddPlayerToMatchDialog ADTMD(this->round, round->getListOfMatches().size()-1);
+    ADTMD.setModal(true);
+    ADTMD.exec();
+
     printMatches();
 
     ui->selectMatchButton->setEnabled(false);
+
+    std::shared_ptr<Match> createdMatch = this->round->getListOfMatches().back();
+
+    MatchMenu *MM = new MatchMenu(createdMatch);
+    MM->show();
+
     /*
     std::shared_ptr<Match> test = this->round->getListOfMatches().back();
     MatchMenu *MM = new MatchMenu(test);

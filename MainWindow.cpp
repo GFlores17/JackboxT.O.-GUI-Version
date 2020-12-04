@@ -5,6 +5,7 @@
 #include "TournamentMenu.h"
 #include "gamewindow.h"
 #include <memory>
+#include <fstream>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -18,11 +19,18 @@ MainWindow::MainWindow(QWidget *parent)
 
     ui->textBrowser->setStyleSheet("QTextBrowser {background-color: #FFFFFF}");
 
-    ui->startTournamentButton->setStyleSheet("QPushButton {background-color: #FFFFFF}");
-    ui->continueTournamentButton->setStyleSheet("QPushButton {background-color: #A9A9A9}");
-    ui->exitButton->setStyleSheet("QPushButton {background-color: #FFFFFF}");
+    ui->startTournamentButton->setStyleSheet("QPushButton::hover{background-color : lightgreen;}"
+                                             "QPushButton {background-color: #FFFFFF}");
 
-    ui->continueTournamentButton->setEnabled(false);
+    ui->continueTournamentButton->setStyleSheet("QPushButton::hover{background-color : lightgreen;}"
+                                                "QPushButton {background-color: #FFFFFF}");
+
+    ui->exitButton->setStyleSheet("QPushButton::hover{background-color : lightgreen;}"
+                                  "QPushButton {background-color: #FFFFFF}");
+
+
+
+    //ui->continueTournamentButton->setEnabled(true);
 
     this->setWindowTitle("Jackbox Tournament Manager");
     this->setMinimumWidth(100);
@@ -53,6 +61,8 @@ void MainWindow::on_exitButton_clicked()
 
 void MainWindow::on_startTournamentButton_clicked()
 {
+
+    formatPlayersInTournamentFile();
     std::shared_ptr<Tournament> T = std::make_shared<Tournament>();
     TournamentMenu *TM = new TournamentMenu(std::move(T));
     TM->show();
@@ -60,5 +70,16 @@ void MainWindow::on_startTournamentButton_clicked()
 
 void MainWindow::on_continueTournamentButton_clicked()
 {
+    std::shared_ptr<Tournament> T = std::make_shared<Tournament>();
+    T->deserializePlayer();
+    TournamentMenu *TM = new TournamentMenu(std::move(T));
+    TM->show();
+}
+
+void MainWindow::formatPlayersInTournamentFile(){
+    std::ofstream OUTFILE;
+    OUTFILE.open("C:\\Users\\George\\Desktop\\people.txt");
+    //OUTFILE << "LIST OF PLAYERS IN TOURNAMENT" << "\n";
+    OUTFILE.close();
 
 }

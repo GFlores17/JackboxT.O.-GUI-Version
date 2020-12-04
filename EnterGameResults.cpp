@@ -11,6 +11,7 @@ EnterGameResults::EnterGameResults(std::shared_ptr<Game> g, QWidget *parent) :
     this->game = g;
 
     ui->setupUi(this);
+    ui->label->setAlignment(Qt::AlignCenter);
 }
 
 EnterGameResults::~EnterGameResults()

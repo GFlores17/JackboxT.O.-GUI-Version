@@ -44,7 +44,7 @@
     <string>Tournament Roster</string>
    </property>
   </widget>
-  <widget class="QPushButton" name="pushButton_2">
+  <widget class="QPushButton" name="RemoveFromRoundButton">
    <property name="geometry">
     <rect>
      <x>390</x>
@@ -57,7 +57,7 @@
     <string>Remove From Round</string>
    </property>
   </widget>
-  <widget class="QPushButton" name="pushButton">
+  <widget class="QPushButton" name="AddToRoundButton">
    <property name="geometry">
     <rect>
      <x>170</x>

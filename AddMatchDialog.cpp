@@ -10,6 +10,12 @@ AddMatchDialog::AddMatchDialog(std::shared_ptr<Round> R, QWidget *parent) :
 
     ui->pushButton->setVisible(false);
     this->round = R;
+
+    ui->pushButton->setStyleSheet("QPushButton::hover{background-color : lightgreen;}"
+                                             "QPushButton {background-color: #FFFFFF}");
+
+    ui->pushButton_2->setStyleSheet("QPushButton::hover{background-color : lightgreen;}"
+                                             "QPushButton {background-color: #FFFFFF}");
 }
 
 AddMatchDialog::~AddMatchDialog()

@@ -3,7 +3,6 @@
 #include "Tournament.h"
 #include "TournamentRoster.h"
 #include "RoundMenu.h"
-#include "ui_addToRoundForm.h"
 #include "PlayerRegistrationDialog.h"
 #include "ui_playerRegistrationDialog.h"
 #include <memory>
@@ -12,6 +11,7 @@
 #include "AddToRoundDialog.h"
 #include "Round.h"
 #include "MatchMenu.h"
+#include <fstream>
 
 TournamentMenu::TournamentMenu(std::shared_ptr<Tournament> T, QWidget *parent) :
     QWidget(parent),
@@ -29,12 +29,20 @@ TournamentMenu::TournamentMenu(std::shared_ptr<Tournament> T, QWidget *parent) :
      ui->textEdit->setStyleSheet("QTextEdit {background-color: #FFFFFF}");
 
 
-     ui->startButton->setStyleSheet("QPushButton {background-color: #FFFFFF}");
-     ui->continueButton->setStyleSheet("QPushButton {background-color: #FFFFFF}");
-     ui->exitButton->setStyleSheet("QPushButton {background-color: #FFFFFF}");
-     ui->registerButton->setStyleSheet("QPushButton {background-color: #FFFFFF}");
-     ui->printPlayersButton->setStyleSheet("QPushButton {background-color: #FFFFFF}");
+     ui->startButton->setStyleSheet("QPushButton::hover{background-color : lightgreen;}"
+                                    "QPushButton {background-color: #FFFFFF}");
 
+     ui->continueButton->setStyleSheet("QPushButton::hover{background-color : lightgreen;}"
+                                       "QPushButton {background-color: #FFFFFF}");
+
+     ui->exitButton->setStyleSheet("QPushButton::hover{background-color : lightgreen;}"
+                                    "QPushButton {background-color: #FFFFFF}");
+
+     ui->registerButton->setStyleSheet("QPushButton::hover{background-color : lightgreen;}"
+                                       "QPushButton {background-color: #FFFFFF}");
+
+     ui->printPlayersButton->setStyleSheet("QPushButton::hover{background-color : lightgreen;}"
+                                           "QPushButton {background-color: #FFFFFF}");
      passedTournament = T;
      Tournament *T1 = T.get();
      Tournament *T2 = passedTournament.get();
@@ -107,5 +115,11 @@ void TournamentMenu::on_printPlayersButton_clicked()
 
 void TournamentMenu::on_exitButton_clicked()
 {
+    std::ofstream OUTFILE;
+    OUTFILE.open("C:\\Users\\George\\Desktop\\people.txt");
+
+    for(int i = 0; i < passedTournament->getListOfPlayers().size(); i++){
+        passedTournament->getListOfPlayers().at(i)->serializePlayer();
+    }
     this->close();
 }

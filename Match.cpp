@@ -19,6 +19,7 @@ int Match::getEntry() {
 
 std::string matchName;
 std::vector<std::shared_ptr<Game>> listOfGames;
+std::vector<std::shared_ptr<Player>> playersInMatch;
 
 Match::Match()
 {
@@ -170,4 +171,12 @@ std::vector<std::shared_ptr<Game>> Match::getListOfGames(){
 
 std::vector <std::shared_ptr<Player>> Match::getMatchListOfPlayers(){
     return playersInMatch;
+}
+
+void Match::addPlayer(std::shared_ptr<Player> p){
+    playersInMatch.push_back(std::move(p));
+}
+
+int Match::getNumOfPlayers(){
+    return playersInMatch.size();
 }

@@ -5,6 +5,8 @@
 #include <string>
 #include <limits>
 #include <windows.h>
+#include <fstream>
+#include <sstream>
 //these two headers are already included in the <Windows.h> header
 
 #include "Round.h"
@@ -171,3 +173,32 @@
         return listOfRounds.at(x);
     }
 
+    void Tournament::deserializePlayer(){
+        std::ifstream INFILE;
+        INFILE.open("C:\\Users\\George\\Desktop\\people.txt", std::ios::in);
+
+        std::vector<std::shared_ptr<Player>> vec;
+
+       while(!INFILE.eof()){
+            std::string name;
+            std::string tScore;
+
+            getline(INFILE,name);
+            getline(INFILE,tScore);
+
+            std::stringstream degree(tScore);
+
+            int score;
+            degree >> score;
+
+            //getline(INFILE,name);
+
+
+            std::shared_ptr<Player> p = std::make_shared<Player>(name);
+            p->setScore(score);
+
+            listOfAllPlayers.push_back(std::move(p));
+        };
+       listOfAllPlayers.erase(listOfAllPlayers.begin() + listOfAllPlayers.size()-1);
+
+    }

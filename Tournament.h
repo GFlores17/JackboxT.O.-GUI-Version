@@ -50,6 +50,7 @@ public:
     void addRound(QString roundName);
 
     std::shared_ptr<Round> getRound(int x);
+    void deserializePlayer();
 }; //end Tournament class
 
 #endif //TOURNAMENT_H
