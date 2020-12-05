@@ -5,6 +5,7 @@
 #include "Player.h"
 #include <memory>
 #include "Tournament.h"
+#include <QtDebug>
 
 std::string pName;
 int totalPoints;
@@ -69,7 +70,7 @@ int totalPoints;
 
         std::ofstream OUTFILE;
         OUTFILE.open("C:\\Users\\George\\Desktop\\people.txt", std::ios_base::app);
-
+        qDebug() << "SERIALIZING PLAYER\n";
         OUTFILE << this->getName() << "\n";
         OUTFILE << this->getScore() << "\n";
         //OUTFILE.close();

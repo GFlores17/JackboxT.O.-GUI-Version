@@ -65,3 +65,19 @@ void SelectRoundDialog::on_listWidget_itemClicked(QListWidgetItem *item)
     }
 
 }
+
+void SelectRoundDialog::on_listWidget_itemDoubleClicked(QListWidgetItem *item)
+{
+    item = ui->listWidget->currentItem();
+    int x = ui->listWidget->row(item);
+
+    PromptAddToRoundDialog PATRD(this->passedTournament, x);
+    PATRD.setModal(true);
+    this->close();
+    PATRD.exec();
+
+    RoundMenu *RM = new RoundMenu(this->passedTournament->getRound(x));
+    RM->show();
+
+    this->close();
+}

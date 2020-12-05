@@ -94,36 +94,41 @@
         return this->gameResults;
     }
 
-    void Game::serializeGame(){
+    void Game::serializeGame(std::ofstream &OUTFILE){
         try{
-        std::ofstream OUTFILE;
-        OUTFILE.open("C:\\Users\\George\\Desktop\\games.txt", std::ios_base::app);
-
-        for (std::map<std::string,int>::iterator it=this->gameResults.begin(); it!=this->gameResults.end(); ++it){
-            std::cout << it->first << " => " << it->second << '\n';
-            OUTFILE << it->first << "\n";
-            OUTFILE << it->second << "\n";
-        }
+        //std::ofstream OUTFILE;
+        //OUTFILE.open("C:\\Users\\George\\Desktop\\match.txt", std::ios_base::app);
+        OUTFILE << "GAMENAME" << "\n";
+        OUTFILE << this->gameName << "\n";
 
         OUTFILE << "PLAYERSLIST" << "\n";
 
         for(int i = 0; i < this->playersInGame.size(); i++){
             OUTFILE << this->playersInGame.at(i)->getName() << "\n";
+            OUTFILE << this->playersInGame.at(i)->getScore() << "\n";
         }
 
-            OUTFILE.close();
+        OUTFILE<< "GAMERESULT" << "\n";
+        for (std::map<std::string,int>::iterator it=this->gameResults.begin(); it!=this->gameResults.end(); ++it){
+            //std::cout << it->first << " => " << it->second << '\n';
+            OUTFILE << it->first << "\n";
+            OUTFILE << it->second << "\n";
+        }
+
+            //OUTFILE.close();
         }
 
         catch(int e){
 
         }
-    }
+
+    }//serializeGame end.
 
     void Game::deserializeGame(std::shared_ptr<Game> g){
         std::ifstream INFILE;
         INFILE.open("C:\\Users\\George\\Desktop\\games.txt", std::ios::in);
 
-        std::vector<std::shared_ptr<Player>> vec;
+        //std::vector<std::shared_ptr<Player>> vec;
 
         bool playersWrite = true;
         bool resultsWrite = false;
@@ -131,37 +136,51 @@
 
         while(!INFILE.eof()){
 
+                while(gameNameWrite == true){
+                    std::string gameName;
+                    getline(INFILE, gameName);
+
+                    if(gameName.compare("PLAYERLIST") == 0){
+                        gameNameWrite = false;
+                        playersWrite = true;
+                        break;
+                    }
+                    qDebug() << QString::fromStdString(gameName) << "\n";
+                    g->setName(gameName);
+                }
+
                 while(playersWrite == true){
                     std::string name;
-                    std::string tScore;
+                    std::string stringTotalScore;
 
                     getline(INFILE,name);
 
-                    if(name.compare("PLAYERSLIST")==0){
+                    if(name.compare("GAMERESULT")==0){
                         playersWrite = false;
                         resultsWrite = true;
                         break;
                     }
 
-                    getline(INFILE,tScore);
+                    getline(INFILE,stringTotalScore);
 
-                    std::stringstream degree(tScore);
+                    std::stringstream stringToIntConverter(stringTotalScore);
+                    //Convert the score saved as string to int.
 
-                    int score;
-                    degree >> score;
-
-
-
+                    int intTotalScore;
+                    stringToIntConverter >> intTotalScore;
+                    //Store converted score in int variable.
 
                     std::shared_ptr<Player> p = std::make_shared<Player>(name);
-                    p->setScore(score);
+                    p->setScore(intTotalScore);
+
+                    qDebug() << p->getQName() << " : " << QString::fromStdString(stringTotalScore);
 
                     this->playersInGame.push_back(std::move(p));
                 }
 
                 while(resultsWrite == true){
                     std::string name;
-                    std::string gameScore;
+                    std::string stringGameScore;
 
                     getline(INFILE,name);
 
@@ -170,18 +189,18 @@
                         break;
                     }
 
-                    getline(INFILE,gameScore);
+                    getline(INFILE,stringGameScore);
 
-                    std::stringstream degree(gameScore);
+                    std::stringstream stringToIntConverter(stringGameScore);
 
-                    int score;
-                    degree >> score;
+                    int intGameScore;
+                    stringToIntConverter >> intGameScore;
 
-                    std::pair<std::string,int> gameResult (name, score);
+                    std::pair<std::string,int> gameResult (name, intGameScore);
 
+                    qDebug() << QString::fromStdString(name) << " : " << QString::fromStdString(stringGameScore);
                     this->insertResult(gameResult);
                 }
-
 
         }
 

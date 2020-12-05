@@ -40,6 +40,7 @@ public:
 
     //BELOW ARE QT SPECIFIC FUNCTIONS FOR TOURNAMENT
 
+    void setName(std::string &name);
     void registerPlayer(std::shared_ptr<Player> player);
     void registerPlayer(QString name);
     void duplicatePlayer(std::shared_ptr<Player> player);
@@ -48,9 +49,13 @@ public:
     int getNumberOfPlayers();
     void addRound();
     void addRound(QString roundName);
+    void addRound(std::shared_ptr<Round> roundToAdd);
 
     std::shared_ptr<Round> getRound(int x);
-    void deserializePlayer();
+    void serializeTournament();
+    void deserializeTournament();
+    void serializePlayers();
+    void deserializePlayers();
 }; //end Tournament class
 
 #endif //TOURNAMENT_H

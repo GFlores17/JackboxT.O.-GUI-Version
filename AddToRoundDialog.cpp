@@ -88,7 +88,29 @@ void AddToRoundDialog::on_AddToRoundButton_clicked()
 
 void AddToRoundDialog::on_tournamentListWidget_itemDoubleClicked(QListWidgetItem *item)
 {
+    item = ui->tournamentListWidget->currentItem();
     int x = ui->tournamentListWidget->row(item);
+
+
+    qDebug() << "meme";
+
+    //Duplicating shared ptr from Tournament List to put in Round List.
+    std::shared_ptr<Player> p(passedTournament->getListOfPlayers().at(x));
+
+    //Create a variable pointing directly to round instead of having to do Tournament->getRoundList->getPlayerList->.....
+    std::shared_ptr<Round> r(passedTournament->getListOfRounds().back());
+    r->addPlayer(p);
+
+    ui->roundListWidget->clear();
+
+    //Print players in Round.
+    for(int i = 0; i < r->getRoundListOfPlayers().size(); i++){
+        int j = i+1;
+        qDebug() << r->getRoundListOfPlayers().at(i)->getQName();
+        QString output = QString::number(j) + ". " + r->getRoundListOfPlayers().at(i)->getQName();
+        //output = output + "\n";
+        ui->roundListWidget->addItem(output);
+    }
 }
 
 void AddToRoundDialog::on_tournamentListWidget_itemClicked(QListWidgetItem *item)

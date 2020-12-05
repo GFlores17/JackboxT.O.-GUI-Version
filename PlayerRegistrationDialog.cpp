@@ -25,7 +25,7 @@ void PlayerRegistrationDialog::on_lineEdit_returnPressed()
 
     //Testing
     std::shared_ptr<Player> p = std::make_shared<Player>(name.toStdString());
-    p->serializePlayer();
+    //p->serializePlayer();
     //Testing
 
     tournamentPtr->registerPlayer(p);

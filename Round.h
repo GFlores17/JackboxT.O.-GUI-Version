@@ -23,8 +23,15 @@ public:
     void addPlayer(std::shared_ptr<Player> p);
     void addMatch(std::shared_ptr<Match>m);
 
+    void setName(std::string &name);
+
     std::vector <std::shared_ptr<Match>> getListOfMatches();
     int getNumberOfPlayers();
+
+    void serializePlayersInRound();
+    void deserializePlayersInRound();
+    void serializeRound(std::ofstream &OUTFILE);
+    void deserializeRound();
 };
 
 #endif

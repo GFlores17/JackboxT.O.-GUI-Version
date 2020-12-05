@@ -115,11 +115,12 @@ void TournamentMenu::on_printPlayersButton_clicked()
 
 void TournamentMenu::on_exitButton_clicked()
 {
-    std::ofstream OUTFILE;
-    OUTFILE.open("C:\\Users\\George\\Desktop\\people.txt");
+    //std::ofstream OUTFILE;
+    //OUTFILE.open("C:\\Users\\George\\Desktop\\people.txt");
 
-    for(int i = 0; i < passedTournament->getListOfPlayers().size(); i++){
-        passedTournament->getListOfPlayers().at(i)->serializePlayer();
-    }
+    this->passedTournament->serializePlayers();
+    this->passedTournament->serializeTournament();
+
+    //passedTournament->getListOfRounds().at(0)->getListOfMatches().at(0)->serializeMatch();
     this->close();
 }

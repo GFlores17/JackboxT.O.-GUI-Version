@@ -32,7 +32,7 @@ public:
     std::vector<std::shared_ptr<Player>> getPlayers();
     std::map<std::string,int> getResultsMap();
 
-    void serializeGame();
+    void serializeGame(std::ofstream &OUTFILE);
     void deserializeGame(std::shared_ptr<Game> g);
 
 };

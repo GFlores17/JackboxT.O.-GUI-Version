@@ -71,7 +71,12 @@ void MainWindow::on_startTournamentButton_clicked()
 void MainWindow::on_continueTournamentButton_clicked()
 {
     std::shared_ptr<Tournament> T = std::make_shared<Tournament>();
-    T->deserializePlayer();
+    //formatPlayersInTournamentFile();
+    T->deserializePlayers();
+    T->deserializeTournament();
+
+
+
     TournamentMenu *TM = new TournamentMenu(std::move(T));
     TM->show();
 }

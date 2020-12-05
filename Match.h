@@ -22,6 +22,7 @@ public:
     void printName();
     std::string getName();
     void setMatchName();
+    void setName(std::string &name);
     //void addGame();
     void addGame();
     void addGame(int num);
@@ -40,6 +41,9 @@ public:
 
     void addPlayer(std::shared_ptr<Player> p);
     int getNumOfPlayers();
+
+    void serializeMatch(std::ofstream &OUTFILE);
+    void deserializeMatch();
 };
 
 #endif

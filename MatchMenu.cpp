@@ -153,6 +153,15 @@ void MatchMenu::on_listWidget_itemClicked(QListWidgetItem *item)
 
     printPlayersAndScores();
 
+
+    item = ui->listWidget->currentItem();
+    int x = ui->listWidget->row(item);
+
+    for(int i = 0; i < this->match->getListOfGames().at(x)->getPlayers().size(); i++){
+        qDebug() << this->match->getListOfGames().at(x)->getPlayers().at(i)->getQName() << "\n";
+    }
+    //checking if players are successfully added during deserialization
+
 }
 
 void MatchMenu::on_pushButton_clicked()
@@ -196,12 +205,17 @@ void MatchMenu::on_ExitButton_clicked()
 {
 
     std::ofstream OUTFILE;
-    OUTFILE.open("C:\\Users\\George\\Desktop\\games.txt", std::ofstream::trunc);
+    OUTFILE.open("C:\\Users\\George\\Desktop\\Match.txt", std::ofstream::trunc);
 
     //delete above after you figure out hhow to properly serialize this.
 
-    for(int i = 0; i < this->match->getListOfGames().size(); i ++){
+    /*
+    for(int i = 0; i < this->match->getListOfGames().size(); i++){
         this->match->getListOfGames().at(i)->serializeGame();
     }
+    */
+
+    //this->match->serializeMatch();
+
     OUTFILE.close();
 }
