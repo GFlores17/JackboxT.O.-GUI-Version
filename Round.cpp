@@ -107,9 +107,9 @@ void Round::serializePlayersInRound(){
     std::ofstream OUTFILE;
     qDebug() << "PLAYERS IN ROUND : " << this->playersInRound.size() << "\n";
 
+    std::string filePath = "C:\\Users\\George\\Desktop\\SampleRounds\\" + this->roundName + ".txt";
+    OUTFILE.open(filePath);
     for(int i = 0; i < this->playersInRound.size(); i++){
-        std::string filePath = "C:\\Users\\George\\Desktop\\SampleRounds\\" + this->roundName + ".txt";
-        OUTFILE.open(filePath);
 
         qDebug() << "SAVED\n";
 
@@ -119,16 +119,7 @@ void Round::serializePlayersInRound(){
     OUTFILE.close();
 }
 
-void Round::deserializePlayersInRound(){
-
-    QDirIterator it("C:/Users/George/Desktop/SampleRounds/", QDirIterator::Subdirectories);
-    while (it.hasNext()) {
-        qDebug() << it.next();
-
-        std::string fileName = it.fileName().toStdString();
-
-        std::ifstream INFILE;
-        INFILE.open(fileName, std::ios::in);
+void Round::deserializePlayersInRound(std::ifstream &INFILE){
 
         while(!INFILE.eof()){
             std::string name;
@@ -155,13 +146,14 @@ void Round::deserializePlayersInRound(){
             std::shared_ptr<Player> p = std::make_shared<Player>(name);
             p->setScore(score);
 
+            qDebug() << p->getQName() << " ADDED" << "\n";
             this->addPlayer(p);
         }
     this->playersInRound.erase(this->playersInRound.begin() + this->playersInRound.size()-1);
     //The program always adds 1 extra blank player pointer for some reason. Just delete the dead data at the end
     //until you learn why.
     //this->getRoundListOfPlayers().erase(this->getRoundListOfPlayers().begin() + this->getRoundListOfPlayers().size()-1);
-    }
+
 }
 
 void Round::serializeRound(std::ofstream &OUTFILE){
@@ -345,4 +337,83 @@ void Round::deserializeRound(){
             }//end while newMatch == false;
             this->addMatch(m);
     }//end EOF
+}//end deserializeRound()
+
+void Round::serializeUsingQDir(QString tournamentFolderPath){
+
+    QString roundFolderPath = createRoundFolder(tournamentFolderPath);
+    //Append to the path to create a new directory.
+    //Ex "C:/Tournament1" + "/" + "Round1"
+
+    serializeRoundName(roundFolderPath);
+    serializeRoundPlayers(roundFolderPath);
+    QString matchesPath = createMatchesFolder(roundFolderPath);
+
+    for(int i = 0; i < listOfMatches.size(); i++){
+        listOfMatches.at(i)->serializeUsingQDir(matchesPath);
+    }
+
 }
+
+QString Round::createRoundFolder(QString roundPath){
+    roundPath = roundPath + QString::fromStdString(this->roundName) + "/";
+
+    if(QDir(roundPath).exists() == false){
+        QDir().mkdir(roundPath);
+        qDebug() << roundPath << "CREATED\n";
+    }
+
+    return roundPath;
+}
+
+void Round::serializeRoundName(QString path){
+    QString newFile = path + "RoundName" +  + ".txt";
+
+    if(QFileInfo(newFile).exists() == 0){
+
+        QFile file(newFile);
+        file.open(QIODevice::WriteOnly);
+        QTextStream out(&file);
+        out << QString::fromStdString(this->roundName);
+    }
+    else{
+
+    }
+}
+
+
+void Round::serializeRoundPlayers(QString path){
+    QString newFile = path + "RoundPlayers" +  + ".txt";
+
+    if(QFileInfo(newFile).exists() == 0){
+
+        QFile file(newFile);
+        for(int i =0; i<playersInRound.size();i++){
+            playersInRound.at(i)->serializePlayer(file);
+        }
+    }
+    else{
+
+    }
+}
+
+QString Round::createMatchesFolder(QString path){
+    QString matchesFolderPath = path + "Matches/";
+    //Append to the path to create a new directory.
+    //Ex "C:/Tournament1" + "/" + "Round1"
+
+    qDebug() << matchesFolderPath << "\n";
+
+    if(QDir(matchesFolderPath).exists() == false){
+        QDir().mkdir(matchesFolderPath);
+        //serializeRoundName(roundPath);
+        //serializeRoundPlayers(roundPath);
+    }
+    else{
+        //does nothing for now.
+    }
+
+    return matchesFolderPath;
+}
+
+

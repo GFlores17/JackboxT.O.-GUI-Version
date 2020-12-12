@@ -79,7 +79,7 @@ void RoundMenu::on_selectMatchButton_clicked()
 
 void RoundMenu::on_exitButton_clicked()
 {
-    //this->round->serializePlayersInRound();
+    this->round->serializePlayersInRound();
     //this->round->serializeRound();
     this->close();
 }

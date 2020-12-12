@@ -118,9 +118,15 @@ void TournamentMenu::on_exitButton_clicked()
     //std::ofstream OUTFILE;
     //OUTFILE.open("C:\\Users\\George\\Desktop\\people.txt");
 
-    this->passedTournament->serializePlayers();
-    this->passedTournament->serializeTournament();
+    //this->passedTournament->serializeAllRoundPlayers();
+    //Serialize each rounds players into a path called "C:\\Users\\George\\Desktop\\SampleRounds\\" + this->roundName + ".txt"; to be deserialized later.
 
-    //passedTournament->getListOfRounds().at(0)->getListOfMatches().at(0)->serializeMatch();
+    //this->passedTournament->serializeTournamentPlayers();
+    //Serialized the playersInTournament vector.
+
+    //this->passedTournament->serializeTournament();
+    //Serialize info of every round/match/game.
+
+    this->passedTournament->serializeUsingQDir();
     this->close();
 }

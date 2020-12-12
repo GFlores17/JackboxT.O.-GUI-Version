@@ -7,7 +7,7 @@
 #include <QString>
 #include <memory>
 #include <vector>
-
+#include <QFile>
 
 class Player {
 private:
@@ -18,16 +18,14 @@ public:
     Player();
     Player(const std::string& Name);
 
-    std::string getName();
-    void setName(const std::string& name);
 
-    void print();
-    void promptForScore();
-    void promptForPlacement();
-    void manualScoreAdd(int points);
-    void placementScoreAdd(int numOfPlayers, int placement);
-    int getScore();
+    void setName(const std::string& name);
     void setScore(int points);
+
+    std::string getName();
+    int getScore();
+
+
     void addToScore(int points);
     QString getQName();
 
@@ -35,6 +33,9 @@ public:
 
     void serializePlayer();
     std::vector<std::shared_ptr<Player>> deserializePlayer();
+
+    void serializePlayer(QFile &OUTFILE);
+    std::shared_ptr<Player> deserializePlayer(std::ifstream &INFILE);
 };
 
 #endif // PLAYER_H

@@ -1,6 +1,7 @@
 #include "TournamentRoster.h"
 #include "ui_tournamentRoster.h"
 
+
 TournamentRoster::TournamentRoster(std::shared_ptr<Tournament> T, QWidget *parent) :
     QWidget(parent),
     ui(new Ui::TournamentRoster)
@@ -8,15 +9,9 @@ TournamentRoster::TournamentRoster(std::shared_ptr<Tournament> T, QWidget *paren
     ui->setupUi(this);
     passedTournament = T;
 
-    ui->listWidget->clear();
-    QString output;
+    passedTournament->scoreSort();
+    printPlayersAndScores();
 
-    for(int i = 0; i < passedTournament->getNumberOfPlayers(); i++){
-        int j = i+1;
-        output = QString::number(j) + ". " + passedTournament->getListOfPlayers().at(i)->getQName();
-        //output = output + "\n";
-        ui->listWidget->addItem(output);
-    }
 }
 
 TournamentRoster::~TournamentRoster()
@@ -24,22 +19,35 @@ TournamentRoster::~TournamentRoster()
     delete ui;
 }
 
-void TournamentRoster::on_pushButton_clicked()
-{
+void TournamentRoster::printPlayers(){
+    /*
     ui->listWidget->clear();
     QString output;
-
     for(int i = 0; i < passedTournament->getNumberOfPlayers(); i++){
         int j = i+1;
         output = QString::number(j) + ". " + passedTournament->getListOfPlayers().at(i)->getQName();
         //output = output + "\n";
         ui->listWidget->addItem(output);
     }
-
+    */
 }
 
-void TournamentRoster::on_listWidget_itemClicked(QListWidgetItem *item)
-{
-    int x = ui->listWidget->row(item);
-    ui->textEdit->setText(QString::number(passedTournament->getListOfPlayers().at(x)->getScore()));
+void TournamentRoster::printPlayersAndScores(){
+    ui->tableWidget->setRowCount(0);
+
+    for(int i = 0; i < this->passedTournament->getNumberOfPlayers(); i++){
+        ui->tableWidget->insertRow(ui->tableWidget->rowCount());
+
+        std::string searchString = this->passedTournament->getListOfPlayers().at(i)->getName();
+        int searchedScore = this->passedTournament->getListOfPlayers().at(i)->getScore();
+
+        QTableWidgetItem *newName = new QTableWidgetItem(QString::fromStdString(searchString));
+        QTableWidgetItem *newScore = new QTableWidgetItem(QString::number(searchedScore));
+
+        ui->tableWidget->setItem(ui->tableWidget->rowCount()-1, NAME, newName);
+        ui->tableWidget->setItem(ui->tableWidget->rowCount()-1, SCORE, newScore);
+    }
+
+
+
 }

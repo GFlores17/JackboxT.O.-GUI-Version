@@ -6,6 +6,12 @@
 #include <memory>
 #include "Tournament.h"
 #include <QtDebug>
+#include <sstream>
+
+#include <QDir>
+#include <QDirIterator>
+#include <QFileInfo>
+#include <QTextStream>
 
 std::string pName;
 int totalPoints;
@@ -20,49 +26,29 @@ int totalPoints;
         totalPoints = 0;
     }
 
-    std::string Player::getName() {
-        return pName;
-    }
 
     void Player::setName(const std::string& name) {
         pName = name;
-    }
-
-    void Player::print() {//Print formatted player name & stats.
-        std::cout << std::setfill(' ') << std::setw(10);
-        std::cout << pName << std::setw(2) << " : " << std::setw(2) << totalPoints << " pts" << std::endl;
-    }
-
-    void Player::promptForScore() {//Ask for points scored. [Used /w manualScoreAdd();]
-        std::cout << "How many points did " << pName << " score?" << std::endl;
-    }
-
-    void Player::promptForPlacement() {//Ask for placement. [Used /w placementScoreAdd();]
-        std::cout << "What did " << pName << " they place?" << std::endl;
-    }
-
-    void Player::manualScoreAdd(int points) {
-        totalPoints = totalPoints + points;
-    }
-
-    void Player::placementScoreAdd(int numOfPlayers, int placement) {
-        totalPoints = totalPoints + ((numOfPlayers + 1) - placement);
-    }
-
-    int Player::getScore() {
-        return totalPoints;
     }
 
     void Player::setScore(int points) {
         this->totalPoints = points;
     }
 
-    QString Player::getQName(){
-        return QString::fromStdString(this->pName);
+    std::string Player::getName() {
+        return pName;
+    }
+
+    int Player::getScore() {
+        return totalPoints;
     }
 
     void Player::addToScore(int points){
         this->totalPoints = this->totalPoints + points;
+    }
+
+    QString Player::getQName(){
+        return QString::fromStdString(this->pName);
     }
 
     void Player::serializePlayer(){
@@ -79,6 +65,7 @@ int totalPoints;
 
         }
     }
+
 
     std::vector<std::shared_ptr<Player>> Player::deserializePlayer(){
         std::ifstream INFILE;
@@ -103,5 +90,33 @@ int totalPoints;
             vec.push_back(std::move(p));
         }
         return vec;
+    }
+
+    void Player::serializePlayer(QFile &file){
+        file.open(QIODevice::WriteOnly);
+        QTextStream OUTFILE(&file);
+        OUTFILE << QString::fromStdString(this->pName) + "\n";
+        OUTFILE << this->totalPoints << "\n";
+    }
+
+    std::shared_ptr<Player> Player::deserializePlayer(std::ifstream &INFILE){
+        std::vector<std::shared_ptr<Player>> vec;
+
+        std::shared_ptr<Player> createdPlayer = std::make_shared<Player>();
+
+        std::string playerName;
+        std::string totalScore;
+
+        getline(INFILE, playerName);
+        getline(INFILE, totalScore);
+
+        std::stringstream stringToIntConverter(totalScore);
+        int intScore;
+        stringToIntConverter >> intScore;
+
+        createdPlayer->setName(playerName);
+        createdPlayer->setScore(intScore);
+
+        return createdPlayer;
     }
 

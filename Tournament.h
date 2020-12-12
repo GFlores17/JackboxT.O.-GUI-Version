@@ -32,15 +32,14 @@ public:
     static int getEntry();
 
     Tournament();
-    void menuSelect(int choice);
+    Tournament(std::string &name);
     std::vector<std::shared_ptr<Player>> getListOfPlayers();
     std::vector<std::shared_ptr<Round>> getListOfRounds();
     std::string getTournamentName();
-
+    void setName(std::string &name);
 
     //BELOW ARE QT SPECIFIC FUNCTIONS FOR TOURNAMENT
 
-    void setName(std::string &name);
     void registerPlayer(std::shared_ptr<Player> player);
     void registerPlayer(QString name);
     void duplicatePlayer(std::shared_ptr<Player> player);
@@ -54,8 +53,21 @@ public:
     std::shared_ptr<Round> getRound(int x);
     void serializeTournament();
     void deserializeTournament();
-    void serializePlayers();
-    void deserializePlayers();
+
+
+    void deserializeTournamentPlayers();
+
+    void serializeAllRoundPlayers();
+    void deserializeRoundPlayers(std::shared_ptr<Round> createdRound);
+
+
+    void serializeUsingQDir();
+    QString createTournamentFolder(QString path);
+    void serializeTournamentPlayers(QString path);
+    void serializeTournamentName(QString path);
+    QString createRoundsFolder(QString path);
+
+    void scoreSort();
 }; //end Tournament class
 
 #endif //TOURNAMENT_H

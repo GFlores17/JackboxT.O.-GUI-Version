@@ -4,6 +4,8 @@
 #include <QWidget>
 #include <QListWidget>
 #include <QTextEdit>
+#include <QPushButton>
+#include <QTableWidget>
 #include "Tournament.h"
 
 namespace Ui {
@@ -18,16 +20,24 @@ public:
     explicit TournamentRoster(std::shared_ptr<Tournament> T, QWidget *parent = nullptr);
     ~TournamentRoster();
 
-private slots:
-    void on_pushButton_clicked();
+    void printPlayers();
+    void printPlayersAndScores();
 
-    void on_listWidget_itemClicked(QListWidgetItem *item);
+private slots:
+
 
 private:
     Ui::TournamentRoster *ui;
     QListWidget listWidget;
     QTextEdit textEdit;
+
+
     std::shared_ptr<Tournament> passedTournament;
+
+    enum PlayerStandingsColumn{
+        NAME, SCORE
+    };
+
 };
 
 #endif // TOURNAMENTROSTER_H

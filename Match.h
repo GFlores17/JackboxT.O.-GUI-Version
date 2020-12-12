@@ -23,7 +23,7 @@ public:
     std::string getName();
     void setMatchName();
     void setName(std::string &name);
-    //void addGame();
+
     void addGame();
     void addGame(int num);
     void addGame(std::shared_ptr<Game> g);
@@ -44,6 +44,12 @@ public:
 
     void serializeMatch(std::ofstream &OUTFILE);
     void deserializeMatch();
+
+    void serializeUsingQDir(QString path);
+    QString createMatchFolder(QString path);
+    void serializeMatchName(QString path);
+    void serializeMatchPlayers(QString path);
+    QString createGamesFolder(QString path);
 };
 
 #endif

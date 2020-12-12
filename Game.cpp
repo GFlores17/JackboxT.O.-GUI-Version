@@ -5,6 +5,7 @@
 #include <fstream>
 #include <sstream>
 #include <QtDebug>
+#include <QDir>
 #include "Game.h"
 #include "Player.h"
 
@@ -44,13 +45,13 @@
 
     void Game::setGameResults() {//Creates map according to
         for (int i = 0; i < playersInGame.size(); i++) {
-            playersInGame.at(i)->print();
-            playersInGame.at(i)->promptForScore();
+            //playersInGame.at(i)->print();
+            //playersInGame.at(i)->promptForScore();
 
             int gameScore;
             std::cin >> gameScore;
 
-            playersInGame.at(i)->manualScoreAdd(gameScore);
+            playersInGame.at(i)->addToScore(gameScore);
             gameResults.insert(std::pair<std::string, int>(playersInGame.at(i)->getName(), gameScore));
         }
     }
@@ -203,5 +204,75 @@
                 }
 
         }
+
+    }//end deserializeGame
+
+    void Game::serializeUsingQDir(QString path){
+        QString gameFolderPath = createGameFolder(path);
+        qDebug() << "CREATED FOLDER:" << gameFolderPath << "\n";
+        serializeGameName(gameFolderPath);
+        serializeGamePlayers(gameFolderPath);
+        serializeGameResults(gameFolderPath);
+    }
+
+    QString Game::createGameFolder(QString path){
+        QString gameFolderPath = path + QString::fromStdString(this->gameName) + "/";
+
+        if(QDir(gameFolderPath).exists() == false){
+            QDir().mkdir(gameFolderPath);
+            qDebug() << gameFolderPath << "CREATED\n";
+        }
+
+        return gameFolderPath;
+    }
+    void Game::serializeGameName(QString path){
+        QString newFile = path + "GameName" +  + ".txt";
+
+        if(QFileInfo(newFile).exists() == 0){
+
+            QFile file(newFile);
+            file.open(QIODevice::WriteOnly);
+            QTextStream out(&file);
+            out << QString::fromStdString(this->gameName);
+        }
+        else{
+
+        }
+    }
+    void Game::serializeGamePlayers(QString path){
+        QString newFile = path + "GamePlayers" +  + ".txt";
+
+        if(QFileInfo(newFile).exists() == 0){
+
+            QFile file(newFile);
+            for(int i =0; i<playersInGame.size();i++){
+                playersInGame.at(i)->serializePlayer(file);
+            }
+        }
+        else{
+
+        }
+    }
+    void Game::serializeGameResults(QString path){
+
+        QString newFile = path + "GameResults" +  + ".txt";
+
+        if(QFileInfo(newFile).exists() == 0){
+
+            QFile file(newFile);
+            file.open(QIODevice::WriteOnly);
+            QTextStream OUTFILE(&file);
+
+            for (std::map<std::string,int>::iterator it=this->gameResults.begin(); it!=this->gameResults.end(); ++it){
+                OUTFILE << QString::fromStdString(it->first) << "\n";
+                OUTFILE << it->second << "\n";
+            }
+
+        }//If file exists, write results to it.
+
+        else{
+
+        }
+
 
     }

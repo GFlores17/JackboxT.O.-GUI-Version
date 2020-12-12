@@ -4,6 +4,7 @@
 #include "Match.h"
 #include "Player.h"
 #include "GetEntry.h"
+#include <QFileInfo>
 
 class Round {
 private:
@@ -29,9 +30,16 @@ public:
     int getNumberOfPlayers();
 
     void serializePlayersInRound();
-    void deserializePlayersInRound();
+    void deserializePlayersInRound(std::ifstream &INFILE);
     void serializeRound(std::ofstream &OUTFILE);
     void deserializeRound();
+
+
+    void serializeUsingQDir(QString path);
+    QString createRoundFolder(QString path);
+    void serializeRoundName(QString path);
+    void serializeRoundPlayers(QString path);
+    QString createMatchesFolder(QString path);
 };
 
 #endif

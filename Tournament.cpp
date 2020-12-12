@@ -8,6 +8,9 @@
 #include <fstream>
 #include <sstream>
 #include <QtDebug>
+#include <QDirIterator>
+#include <QFileInfo>
+#include <QStandardPaths>
 //these two headers are already included in the <Windows.h> header
 
 #include "Round.h"
@@ -45,80 +48,12 @@
     std::vector<std::shared_ptr<Round>> listOfRounds;
 
     Tournament::Tournament() {
-        /*
-        std::cout << "Please enter Tournament name.\n";
-        std::getline(std::cin, tournamentName);
-        std::cout << "--------------[" << tournamentName << "]--------------" << "\n";
-        //Initialize name.
-
-        tournamentMenu();
-        menuSelect(getEntry());
-        //Start tournament.
-    }
-
-    void Tournament::printAllPlayers() {
-        if (listOfAllPlayers.size() == 0) {//If no people in tournament.
-            std::cout << "ERROR : Empty Tournament. No players registered." << std::endl;
-        }
-
-        else {
-            for (int i = 0; i < listOfAllPlayers.size(); i++) {//Print the names of all "Player" objects in the Tournament "arrayOfPlayers."
-                listOfAllPlayers.at(i)->print();
-            }
-
-        }
-
-        std::cout << std::endl;
-        */
         tournamentName = "Default Tournament Constructor";
     }
 
-
-    void Tournament::menuSelect(int choice) {
-        /*
-        switch (choice) {
-        case 1: //Start round, create players.
-            registerPlayers();
-
-            //Remove these 2 eventually.
-            nameSort(listOfAllPlayers);
-            printAllPlayers();
-            //^^
-
-            tournamentMenu();
-            menuSelect(getEntry());
-            break;
-
-        case 2: //Start next round.
-            startRound();
-            tournamentMenu();
-            menuSelect(getEntry());
-            break;
-
-        case 3: //Continue Round
-            continueRound();
-            tournamentMenu();
-            menuSelect(getEntry());
-            break;
-
-        case 4: //Print all registered players.
-            scoreSort(listOfAllPlayers);
-            printAllPlayers();
-            tournamentMenu();
-            menuSelect(getEntry());
-            break;
-
-        case 5: //Exit program.
-            exitProgram();
-            break;
-
-        default:
-            std::cout << "invalid option. retry now." << std::endl;
-            menuSelect(getEntry());
-        }// end switch statement
-
-        */
-    }//end menuSelect
+    Tournament::Tournament(std::string &name){
+        this->tournamentName = name;
+    }
 
     std::vector<std::shared_ptr<Player>> Tournament::getListOfPlayers(){
         return listOfAllPlayers;
@@ -396,20 +331,16 @@
                 }//end while newMatch == false;
 
                 createdRound->addMatch(createdMatch);
+                this->deserializeRoundPlayers(createdRound);
 
             }//end while newRound == false;
-
             this->addRound(createdRound);
         }//end EOF
     }
 
-    void Tournament::serializePlayers(){
-        for(int i = 0; i < this->getListOfPlayers().size(); i++){
-            this->getListOfPlayers().at(i)->serializePlayer();
-        }
-    }
 
-    void Tournament::deserializePlayers(){
+
+    void Tournament::deserializeTournamentPlayers(){
         std::ifstream INFILE;
         INFILE.open("C:\\Users\\George\\Desktop\\people.txt", std::ios::in);
 
@@ -438,3 +369,128 @@
        listOfAllPlayers.erase(listOfAllPlayers.begin() + listOfAllPlayers.size()-1);
     }
 
+    void Tournament::serializeAllRoundPlayers(){
+        for(int i = 0; i < this->listOfRounds.size();i++){
+            this->listOfRounds.at(i)->serializePlayersInRound();
+        }
+    }
+
+    void Tournament::deserializeRoundPlayers(std::shared_ptr<Round> createdRound){
+        QDirIterator it("C:/Users/George/Desktop/SampleRounds/", QDirIterator::Subdirectories);
+
+        while (it.hasNext()) {
+            QFileInfo fi = it.next();
+            qDebug() << "fi : " << fi << "\n";
+            QString base = fi.baseName();
+            if(base.compare(createdRound->getRoundName())==0){//If we find the rounds corresponding file of players in C:/Users/George/Desktop/SampleRounds/"
+                qDebug() << "FOUND ROUND FILE\n";
+                qDebug() << fi << "\n";
+                std::ifstream INFILE;
+                base = fi.absoluteFilePath();
+                INFILE.open(base.toStdString());
+                createdRound->deserializePlayersInRound(INFILE);
+                break;
+            }
+        }
+    }
+
+    void Tournament::serializeUsingQDir(){
+        QString path = QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation);
+        path = path + "/JBT Saved Tournaments/";
+        //qDebug() << path << "CREATED\n";
+        //Create a folder to store all tournaments saved by the program if one is not created already.
+
+        if(QDir(path).exists() == false){
+            QDir().mkdir(path);
+            qDebug() << path << "CREATED\n";
+            //If the folder at the path does not exist yet, create 1.
+        }
+        //Realistically, this step should be done in the "Start Tournament" button of the main window, but I'll fix that later.
+
+        path = this->createTournamentFolder(path);
+        this->serializeTournamentName(path);
+        this->serializeTournamentPlayers(path);
+        QString roundsFolderPath = this->createRoundsFolder(path);
+
+        for(int i = 0; i < this->listOfRounds.size(); i++){
+            this->listOfRounds.at(i)->serializeUsingQDir(roundsFolderPath);
+        }
+
+    }//end serializeUsingQDir
+
+    void Tournament::serializeTournamentName(QString path){
+        QString newFile = path + "/TournamentName" +  + ".txt";
+
+        if(QFileInfo(newFile).exists() == 0){
+
+            QFile file(newFile);
+            file.open(QIODevice::WriteOnly);
+            QTextStream out(&file);
+            out << QString::fromStdString(this->tournamentName);
+        }
+        else{
+
+        }
+    }//end serializeTournamentName
+
+    QString Tournament::createTournamentFolder(QString path){
+        path = path + QString::fromStdString(this->tournamentName) + "/";
+
+        if(QDir(path).exists() == false){
+            QDir().mkdir(path);
+            qDebug() << "TOURNAMENT FOLDER\n";
+            qDebug() << path << "CREATED\n";
+            //Create a folder for the newly created tournament.
+        }
+        ;
+        return path;
+    }//end createTournamentFolder();
+
+    void Tournament::serializeTournamentPlayers(QString path){
+        QString newFile = path + "/TounamentPlayers" +  + ".txt";
+
+        if(QFileInfo(newFile).exists() == 0){
+
+            QFile file(newFile);
+            for(int i =0; i<listOfAllPlayers.size();i++){
+                listOfAllPlayers.at(i)->serializePlayer(file);
+            }
+        }
+        else{
+
+        }
+    }//end serializeTournamentPlayers();
+
+    QString Tournament::createRoundsFolder(QString path){
+        QString roundFolderPath = path + "Rounds/";
+
+        if(QDir(roundFolderPath).exists() == false){
+            QDir().mkdir(roundFolderPath);
+            qDebug() << roundFolderPath << "CREATED";
+        }
+        else{
+            //does nothing for now.
+        }
+        qDebug() << path << "CREATED\n";
+        return roundFolderPath;
+    }//end createRoundFolder()
+
+    void Tournament::scoreSort(){
+
+        Player player = Player("temp");
+            Player* p = &player;
+            for (int i = 0; i < listOfAllPlayers.size(); i++) {
+                for (int j = i + 1; j < listOfAllPlayers.size(); j++) {
+                    if (listOfAllPlayers.at(j)->getScore() > listOfAllPlayers.at(i)->getScore()) {
+                        p->setName(listOfAllPlayers.at(i)->getName());
+                        p->setScore(listOfAllPlayers.at(i)->getScore());
+
+                        listOfAllPlayers.at(i)->setName(listOfAllPlayers.at(j)->getName());
+                        listOfAllPlayers.at(i)->setScore(listOfAllPlayers.at(j)->getScore());
+
+                        listOfAllPlayers.at(j)->setName(p->getName());
+                        listOfAllPlayers.at(j)->setScore(p->getScore());
+                    }
+                }
+            }
+    }

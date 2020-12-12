@@ -35,6 +35,15 @@ public:
     void serializeGame(std::ofstream &OUTFILE);
     void deserializeGame(std::shared_ptr<Game> g);
 
+
+    void deserializeUsingQDir();
+
+    void serializeUsingQDir(QString path);
+    QString createGameFolder(QString path);
+    void serializeGameName(QString path);
+    void serializeGamePlayers(QString path);
+    void serializeGameResults(QString path);
+
 };
 
 #endif //GAME_H

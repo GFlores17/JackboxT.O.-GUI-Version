@@ -4,8 +4,11 @@
 #include "secondwindow.h"
 #include "TournamentMenu.h"
 #include "gamewindow.h"
+#include "EnterTournamentName.h"
 #include <memory>
 #include <fstream>
+#include <QDir>
+#include <QFileInfo>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -62,17 +65,22 @@ void MainWindow::on_exitButton_clicked()
 void MainWindow::on_startTournamentButton_clicked()
 {
 
+    EnterTournamentName ETR(this);
+    ETR.exec();
+
+    std::string tournamentName = ETR.getTournamentName();
     formatPlayersInTournamentFile();
-    std::shared_ptr<Tournament> T = std::make_shared<Tournament>();
+    std::shared_ptr<Tournament> T = std::make_shared<Tournament>(tournamentName);
     TournamentMenu *TM = new TournamentMenu(std::move(T));
     TM->show();
+    //QDir().mkdir("C:/JBT Saved Tournaments Folder");
 }
 
 void MainWindow::on_continueTournamentButton_clicked()
 {
     std::shared_ptr<Tournament> T = std::make_shared<Tournament>();
     //formatPlayersInTournamentFile();
-    T->deserializePlayers();
+    T->deserializeTournamentPlayers();
     T->deserializeTournament();
 
 

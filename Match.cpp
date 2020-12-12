@@ -5,6 +5,7 @@
 #include <fstream>
 #include <QDebug>
 #include <sstream>
+#include <QDir>
 
 int Match::getEntry() {
     int choice;
@@ -329,4 +330,75 @@ void Match::deserializeMatch(){
             qDebug() << "GAMES IN MATCH : " << this->getListOfGames().size() << "\n";
     }//end EOF.
 }//end deserialize
+
+void Match::serializeUsingQDir(QString roundFolderPath){
+    QString matchFolder = createMatchFolder(roundFolderPath);
+    //Append to the path to create a new directory.
+    //Ex "C:/Tournament1" + "/" + "Round1"
+
+    serializeMatchName(matchFolder);
+    serializeMatchPlayers(matchFolder);
+    QString gamesFolderPath = createGamesFolder(matchFolder);
+
+    for(int i = 0; i < listOfGames.size(); i++){
+        listOfGames.at(i)->serializeUsingQDir(gamesFolderPath);
+    }
+}
+
+QString Match::createMatchFolder(QString path){
+    QString matchPath = path + QString::fromStdString(this->matchName) + "/";
+
+    if(QDir(matchPath).exists() == false){
+        QDir().mkdir(matchPath);
+        qDebug() << matchPath << "CREATED\n";
+    }
+
+    return matchPath;
+}
+void Match::serializeMatchName(QString path){
+    QString newFile = path + "MatchName" +  + ".txt";
+
+    if(QFileInfo(newFile).exists() == 0){
+
+        QFile file(newFile);
+        file.open(QIODevice::WriteOnly);
+        QTextStream out(&file);
+        out << QString::fromStdString(this->matchName);
+    }
+    else{
+
+    }
+}
+void Match::serializeMatchPlayers(QString path){
+    QString newFile = path + "MatchPlayers" +  + ".txt";
+
+    if(QFileInfo(newFile).exists() == 0){
+
+        QFile file(newFile);
+        for(int i =0; i<playersInMatch.size();i++){
+            playersInMatch.at(i)->serializePlayer(file);
+        }
+    }
+    else{
+
+    }
+}
+QString Match::createGamesFolder(QString path){
+    QString gamesFolderPath = path + "Games/";
+    //Append to the path to create a new directory.
+    //Ex "C:/Tournament1" + "/" + "Round1"
+
+    qDebug() << gamesFolderPath << "\n";
+
+    if(QDir(gamesFolderPath).exists() == false){
+        QDir().mkdir(gamesFolderPath);
+        //serializeRoundName(roundPath);
+        //serializeRoundPlayers(roundPath);
+    }
+    else{
+        //does nothing for now.
+    }
+
+    return gamesFolderPath;
+}
 
