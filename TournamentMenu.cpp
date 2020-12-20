@@ -12,6 +12,8 @@
 #include "Round.h"
 #include "MatchMenu.h"
 #include <fstream>
+#include <MainWindow.h>
+#include "MainMenu.h"
 
 TournamentMenu::TournamentMenu(std::shared_ptr<Tournament> T, QWidget *parent) :
     QWidget(parent),
@@ -21,28 +23,90 @@ TournamentMenu::TournamentMenu(std::shared_ptr<Tournament> T, QWidget *parent) :
     //ui->textEdit->setText("Welcome to menu.");
     this->setWindowTitle("Tournament Menu");
 
+    //QString meme = QString::fromStdString(this->passedTournament->getTournamentName());
+    //this->setWindowTitle(meme);
+
     this->setStyleSheet("color: black;"
-                            "background-color: cyan;"
+                            "background-color: #58CCED;"
                             "selection-color: white;"
                             "selection-background-color: blue;");
 
+    //blue 58CCED
+    //creamish F9DFCB
      ui->textEdit->setStyleSheet("QTextEdit {background-color: #FFFFFF}");
 
 
-     ui->startButton->setStyleSheet("QPushButton::hover{background-color : lightgreen;}"
-                                    "QPushButton {background-color: #FFFFFF}");
+     ui->startButton->setStyleSheet("QPushButton::hover{background-color : #58ED97;}"
+                                    "QPushButton {background-color: #FFFFFF;}"
+                                    "QPushButton {color: black;}");
 
-     ui->continueButton->setStyleSheet("QPushButton::hover{background-color : lightgreen;}"
+     ui->continueButton->setStyleSheet("QPushButton::hover{background-color : #58ED97;}"
                                        "QPushButton {background-color: #FFFFFF}");
 
-     ui->exitButton->setStyleSheet("QPushButton::hover{background-color : lightgreen;}"
+     ui->exitButton->setStyleSheet("QPushButton::hover{background-color : #58ED97;}"
                                     "QPushButton {background-color: #FFFFFF}");
 
-     ui->registerButton->setStyleSheet("QPushButton::hover{background-color : lightgreen;}"
+     ui->registerButton->setStyleSheet("QPushButton::hover{background-color : #58ED97;}"
                                        "QPushButton {background-color: #FFFFFF}");
 
-     ui->printPlayersButton->setStyleSheet("QPushButton::hover{background-color : lightgreen;}"
+     ui->printPlayersButton->setStyleSheet("QPushButton::hover{background-color : #58ED97;}"
                                            "QPushButton {background-color: #FFFFFF}");
+
+     ;
+
+     passedTournament = T;
+     Tournament *T1 = T.get();
+     Tournament *T2 = passedTournament.get();
+
+     QString ptrStr = QString("0x%1").arg((quintptr)T1,
+                         QT_POINTER_SIZE * 2, 16, QChar('0'));
+
+     QString ptrStr2 = QString("0x%1").arg((quintptr)T2,
+                         QT_POINTER_SIZE * 2, 16, QChar('0'));
+
+}
+
+TournamentMenu::TournamentMenu(std::shared_ptr<Tournament> T, QMainWindow *ptrToMainWindow) :
+    //Above is a 2nd constructor that passes a reference to the main window for the purposes of resetting the central widget depending on which menu is being used (Tournament, Round, etc.)
+    QWidget(),
+    ui(new Ui::TournamentMenu)
+{
+    ui->setupUi(this);
+    //ui->textEdit->setText("Welcome to menu.");
+    this->setWindowTitle("Tournament Menu");
+
+    //QString meme = QString::fromStdString(this->passedTournament->getTournamentName());
+    //this->setWindowTitle(meme);
+
+    this->setStyleSheet("color: black;"
+                            "background-color: #58CCED;"
+                            "selection-color: white;"
+                            "selection-background-color: blue;");
+
+    this->ptrToMainWindow = ptrToMainWindow;
+    //blue 58CCED
+    //creamish F9DFCB
+     ui->textEdit->setStyleSheet("QTextEdit {background-color: #FFFFFF}");
+
+
+     ui->startButton->setStyleSheet("QPushButton::hover{background-color : #58ED97;}"
+                                    "QPushButton {background-color: #FFFFFF;}"
+                                    "QPushButton {color: black;}");
+
+     ui->continueButton->setStyleSheet("QPushButton::hover{background-color : #58ED97;}"
+                                       "QPushButton {background-color: #FFFFFF}");
+
+     ui->exitButton->setStyleSheet("QPushButton::hover{background-color : #58ED97;}"
+                                    "QPushButton {background-color: #FFFFFF}");
+
+     ui->registerButton->setStyleSheet("QPushButton::hover{background-color : #58ED97;}"
+                                       "QPushButton {background-color: #FFFFFF}");
+
+     ui->printPlayersButton->setStyleSheet("QPushButton::hover{background-color : #58ED97;}"
+                                           "QPushButton {background-color: #FFFFFF}");
+
+     ;
+
      passedTournament = T;
      Tournament *T1 = T.get();
      Tournament *T2 = passedTournament.get();
@@ -83,7 +147,8 @@ void TournamentMenu::on_startButton_clicked()
 
         std::shared_ptr<Round> test = this->passedTournament->getListOfRounds().back();
         RoundMenu *RM = new RoundMenu(test);
-        RM->show();
+        //RM->show();
+        this->ptrToMainWindow->setCentralWidget(RM);
        }
 }
 
@@ -96,18 +161,6 @@ void TournamentMenu::on_continueButton_clicked()
 
 void TournamentMenu::on_printPlayersButton_clicked()
 {   
-    //Takes vector of all players and displays them into the 2nd lineEdit window.
-    /*
-    ui->listWidget->clear();
-    QString output;
-
-    for(int i = 0; i < passedTournament->getNumberOfPlayers(); i++){
-        int j = i+1;
-        output = QString::number(j) + ". " + passedTournament->getListOfPlayers().at(i)->getQName();
-        //output = output + "\n";
-        ui->listWidget->addItem(output);
-    }
-    */
 
     TournamentRoster *TM = new TournamentRoster(passedTournament);
     TM->show();
@@ -115,18 +168,10 @@ void TournamentMenu::on_printPlayersButton_clicked()
 
 void TournamentMenu::on_exitButton_clicked()
 {
-    //std::ofstream OUTFILE;
-    //OUTFILE.open("C:\\Users\\George\\Desktop\\people.txt");
 
-    //this->passedTournament->serializeAllRoundPlayers();
-    //Serialize each rounds players into a path called "C:\\Users\\George\\Desktop\\SampleRounds\\" + this->roundName + ".txt"; to be deserialized later.
+    this->passedTournament->serializeTournament();
+    //MainMenu *MM = new MainMenu(this->ptrToMainWindow);
+    //this->ptrToMainWindow->setCentralWidget(MM);
+    //this->close();
 
-    //this->passedTournament->serializeTournamentPlayers();
-    //Serialized the playersInTournament vector.
-
-    //this->passedTournament->serializeTournament();
-    //Serialize info of every round/match/game.
-
-    this->passedTournament->serializeUsingQDir();
-    this->close();
 }

@@ -1,5 +1,5 @@
-#include "MainWindow.h"
-#include "ui_mainwindow.h"
+#include "MainMenu.h"
+#include "ui_MainMenu.h"
 #include "playersDialogue.h"
 #include "secondwindow.h"
 #include "TournamentMenu.h"
@@ -11,11 +11,9 @@
 #include <QFileInfo>
 #include <QFileDialog>
 #include <QStandardPaths>
-
-#include "RoundMenu.h"
-MainWindow::MainWindow(QWidget *parent)
-    : QMainWindow(parent)
-    , ui(new Ui::MainWindow)
+MainMenu::MainMenu(QWidget *parent) :
+    QWidget(parent),
+    ui(new Ui::MainMenu)
 {
     ui->setupUi(this);
     this->setStyleSheet("color: black;"
@@ -54,67 +52,99 @@ MainWindow::MainWindow(QWidget *parent)
     player->setVolume(100);
     player->play();
 
+}
+
+MainMenu::MainMenu(QMainWindow *ptrToMainWindow) :
+    QWidget(),
+    ui(new Ui::MainMenu)
+{
+    ui->setupUi(this);
+    this->setStyleSheet("color: black;"
+                            "background-color: #58CCED;"
+                            "selection-color: white;"
+                            "selection-background-color: blue;");
+
+    //white FFFFFF
+    //creamish F9DFCB
+    //light blue CBEFF9
+    //medium blue 58CCED
+
+    this->ptrToMainWindow = ptrToMainWindow;
+
+    ui->textBrowser->setStyleSheet("QTextBrowser {background-color: #FFFFFF}");
+
+    ui->startTournamentButton->setStyleSheet("QPushButton::hover{background-color : lightgreen;}"
+                                             "QPushButton {background-color: #FFFFFF}");
+
+    ui->continueTournamentButton->setStyleSheet("QPushButton::hover{background-color : lightgreen;}"
+                                                "QPushButton {background-color: #FFFFFF}");
+
+    ui->exitButton->setStyleSheet("QPushButton::hover{background-color : lightgreen;}"
+                                  "QPushButton {background-color: #FFFFFF}");
+
+
+
+    //ui->continueTournamentButton->setEnabled(true);
+
+    this->setWindowTitle("Jackbox Tournament Manager");
+    this->setMinimumWidth(100);
+    this->setMinimumHeight(50);
+
+    QMediaPlayer *player = new QMediaPlayer;
+    this->player = player;
+
+    // ...
+    //player->setMedia(QUrl::fromLocalFile("C:\\TestDirectory"));
+    player->setVolume(100);
+    player->play();
 
 }
 
-MainWindow::~MainWindow()
-{      
+MainMenu::~MainMenu()
+{
     delete ui;
 }
 
-
-
-void MainWindow::on_exitButton_clicked()
+void MainMenu::on_exitButton_clicked()
 {
     delete ui;
     this->close();
 }
 
-void MainWindow::on_startTournamentButton_clicked()
+void MainMenu::on_startTournamentButton_clicked()
 {
 
     EnterTournamentName ETR(this);
     ETR.exec();
 
     std::string tournamentName = ETR.getTournamentName();
-    formatPlayersInTournamentFile();
     std::shared_ptr<Tournament> T = std::make_shared<Tournament>(tournamentName);
-    QMainWindow *ptrToWindow = this;
-    TournamentMenu *TM = new TournamentMenu(std::move(T), ptrToWindow);
-    //TM->show()
-    //instead of the above ^^^
-    setCentralWidget(TM);
-    //This makes it so that instead of popping up an entirely new window, we just update the main window by changing the central widget contents.
-    //(For every menu I want to do this with, it requires me adding a QMainWindow *PointerToMainWindow so I have a way to reference the main window and change the central widget.
+    //QMainWindow *ptrToWindow = this;
+    TournamentMenu *TM = new TournamentMenu(std::move(T), this->ptrToMainWindow);
+    //TM->show
+    //instead of
+    this->ptrToMainWindow->setCentralWidget(TM);
     //this->resize(338,528);
 
 
 }
 
-void MainWindow::on_continueTournamentButton_clicked()
+void MainMenu::on_continueTournamentButton_clicked()
 {
-    std::shared_ptr<Tournament> T = std::make_shared<Tournament>();
-
     QString path = QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation);
+    qDebug() << "PATH : " << path;
     path = path + "/JBT Saved Tournaments";
-    QString folder_name = QFileDialog::getExistingDirectory(this, "Choose a tournament to load.", path);
+    QString folder_name = QFileDialog::getExistingDirectory(this, "Choose", path);
 
+    std::shared_ptr<Tournament> T = std::make_shared<Tournament>();
     T->deserializeTournamentName(folder_name);
+    qDebug () << "T NAME : " << QString::fromStdString(T->getTournamentName()) << "\n";
     T->deserializeTournamentPlayers(folder_name);
     T->deserializeAllRounds(folder_name);
-
     TournamentMenu *TM = new TournamentMenu(std::move(T));
     TM->show();
 }
 
-void MainWindow::formatPlayersInTournamentFile(){
-    std::ofstream OUTFILE;
-    OUTFILE.open("C:\\Users\\George\\Desktop\\people.txt");
-    //OUTFILE << "LIST OF PLAYERS IN TOURNAMENT" << "\n";
-    OUTFILE.close();
 
-}
 
-QWidget* MainWindow::getCenterWidget(){
-    return this->centerWidget;
-}
+

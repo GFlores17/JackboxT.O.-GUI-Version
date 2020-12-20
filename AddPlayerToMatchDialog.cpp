@@ -1,5 +1,6 @@
 #include "AddPlayerToMatchDialog.h"
 #include "ui_AddPlayerToMatchDialog.h"
+#include <QDebug>
 
 AddPlayerToMatchDialog::AddPlayerToMatchDialog(std::shared_ptr<Round> r, int x, QWidget *parent) :
     QDialog(parent),
@@ -8,7 +9,7 @@ AddPlayerToMatchDialog::AddPlayerToMatchDialog(std::shared_ptr<Round> r, int x, 
     ui->setupUi(this);
     round = r;
     match = r->getListOfMatches().at(x);
-    this->setWindowTitle("Add To Round Dialog");
+    this->setWindowTitle("Add To Match Dialog");
 
     QString output;
 
@@ -22,7 +23,24 @@ AddPlayerToMatchDialog::AddPlayerToMatchDialog(std::shared_ptr<Round> r, int x, 
     printRoundPlayers();
     printGamePlayers();
 
-    ui->pushButton->setEnabled(false);
+    ui->AddToMatchButton->setEnabled(false);
+    ui->RemoveButton->setEnabled(false);
+
+    this->setStyleSheet("background-color: #58CCED;");
+    ui->roundRoster->setStyleSheet("background-color: #FFFFFF;");
+    ui->matchRoster->setStyleSheet("background-color: #FFFFFF;");
+
+    ui->AddToMatchButton->setStyleSheet("QPushButton::hover{background-color : lightgreen;}"
+                                        "QPushButton{background-color: #FFFFFF;}");
+
+    ui->RemoveButton->setStyleSheet("QPushButton::hover{background-color : lightgreen;}"
+                                    "QPushButton{background-color: #FFFFFF;}");
+
+    ui->buttonBox->button(QDialogButtonBox::Ok)->setStyleSheet("QPushButton::hover{background-color : lightgreen;}"
+                                                               "QPushButton {background-color: #FFFFFF}");
+
+    ui->buttonBox->button(QDialogButtonBox::Cancel)->setStyleSheet("QPushButton::hover{background-color : lightgreen;}"
+                                                               "QPushButton {background-color: #FFFFFF}");
 
 }
 
@@ -56,7 +74,7 @@ void AddPlayerToMatchDialog::printGamePlayers(){
 
 }
 
-void AddPlayerToMatchDialog::on_pushButton_clicked()
+void AddPlayerToMatchDialog::on_AddToMatchButton_clicked()
 {
 
     QListWidgetItem *item = ui->roundRoster->currentItem();
@@ -81,15 +99,84 @@ void AddPlayerToMatchDialog::on_pushButton_clicked()
 
 void AddPlayerToMatchDialog::on_roundRoster_itemDoubleClicked(QListWidgetItem *item)
 {
+    item = ui->roundRoster->currentItem();
     int x = ui->roundRoster->row(item);
+
+
+    //qDebug() << "meme";
+
+    //Duplicating shared ptr from Tournament List to put in Round List.
+    std::shared_ptr<Player> p(round->getRoundListOfPlayers().at(x));
+
+    //Create a variable pointing directly to round instead of having to do Tournament->getRoundList->getPlayerList->.....
+    std::shared_ptr<Match> m(round->getListOfMatches().back());
+    match->addPlayer(p);
+
+    ui->matchRoster->clear();
+
+    //Print players in Round.
+    printGamePlayers();
 }
 
 void AddPlayerToMatchDialog::on_roundRoster_itemClicked(QListWidgetItem *item)
 {
-    ui->pushButton->setEnabled(true);
+    ui->AddToMatchButton->setEnabled(true);
 }
 
 void AddPlayerToMatchDialog::on_buttonBox_accepted()
 {
     this->close();
+}
+
+void AddPlayerToMatchDialog::on_RemoveButton_clicked()
+{
+    //ui->matchRoster->clear();
+
+    QListWidgetItem *item = ui->matchRoster->currentItem();
+    int x = ui->matchRoster->row(item);
+
+    match->deletePlayer(x);
+
+    ui->matchRoster->clear();
+    qDebug() << "CLEARED\n";
+
+
+    //Print players in match.
+    printGamePlayers();
+
+    ui->RemoveButton->setEnabled(false);
+}
+
+void AddPlayerToMatchDialog::on_matchRoster_itemClicked(QListWidgetItem *item)
+{
+     ui->RemoveButton->setEnabled(true);
+}
+
+void AddPlayerToMatchDialog::on_matchRoster_itemDoubleClicked(QListWidgetItem *item)
+{
+    //ui->matchRoster->clear();
+
+    item = ui->matchRoster->currentItem();
+    int x = ui->matchRoster->row(item);
+
+    match->deletePlayer(x);
+
+    ui->matchRoster->clear();
+    qDebug() << "CLEARED\n";
+
+
+    //Print players in match.
+    printGamePlayers();
+
+    ui->RemoveButton->setEnabled(false);
+}
+
+void AddPlayerToMatchDialog::on_AddAllPlayersButton_clicked()
+{
+    for(int i = 0; i < round->getRoundListOfPlayers().size(); i++){
+        std::shared_ptr<Player>p = round->getRoundListOfPlayers().at(i);
+        match->addPlayer(p);
+    }
+
+    printGamePlayers();
 }

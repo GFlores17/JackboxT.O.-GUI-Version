@@ -5,6 +5,7 @@
 #include <QListWidget>
 #include <QTextEdit>
 #include <QLabel>
+#include <QPushButton>
 #include "Round.h"
 
 namespace Ui {
@@ -25,8 +26,11 @@ public:
     void printRoundPlayers();
     void printGamePlayers();
 
+signals:
+    void RemoveFromMatchButton_clicked();
+
 private slots:
-    void on_pushButton_clicked();
+    void on_AddToMatchButton_clicked();
 
     void on_roundRoster_itemDoubleClicked(QListWidgetItem *item);
 
@@ -34,12 +38,22 @@ private slots:
 
     void on_buttonBox_accepted();
 
+    void on_RemoveButton_clicked();
+
+    void on_matchRoster_itemClicked(QListWidgetItem *item);
+
+    void on_matchRoster_itemDoubleClicked(QListWidgetItem *item);
+
+    void on_AddAllPlayersButton_clicked();
+
 private:
     Ui::AddPlayerToMatchDialog *ui;
     QListWidget roundRoster;
     QListWidget matchRoster;
     QTextEdit textEdit;
     QLabel label_3;
+
+
 };
 
 #endif // ADDPLAYERTOMATCHDIALOG_H

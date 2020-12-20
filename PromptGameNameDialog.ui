@@ -32,11 +32,17 @@
   <widget class="QLabel" name="label">
    <property name="geometry">
     <rect>
-     <x>130</x>
-     <y>10</y>
-     <width>101</width>
-     <height>16</height>
+     <x>100</x>
+     <y>20</y>
+     <width>151</width>
+     <height>21</height>
     </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Bahnschrift SemiLight</family>
+     <pointsize>12</pointsize>
+    </font>
    </property>
    <property name="text">
     <string>Enter name of game.</string>

@@ -25,6 +25,7 @@ public:
     std::shared_ptr<Tournament> passedTournament;
     std::shared_ptr<Round> round;
 
+    void printRoundPlayers();
 private slots:
     void on_AddToRoundButton_clicked();
 
@@ -33,6 +34,16 @@ private slots:
     void on_tournamentListWidget_itemClicked(QListWidgetItem *item);
 
     void on_buttonBox_accepted();
+
+    void on_RemoveFromRoundButton_clicked();
+
+    void on_roundListWidget_itemDoubleClicked(QListWidgetItem *item);
+
+    void on_roundListWidget_itemClicked(QListWidgetItem *item);
+
+    void on_AddAllPlayersButton_clicked();
+
+    void on_RemoveAllPlayersButton_clicked();
 
 private:
     Ui::AddToRoundDialog *ui;

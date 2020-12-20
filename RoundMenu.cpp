@@ -17,6 +17,12 @@ RoundMenu::RoundMenu(std::shared_ptr<Round> R, QWidget *parent) :
     ui->selectMatchButton->setEnabled(false);
     this->setWindowTitle("Round Menu");
 
+    this->setStyleSheet("color: black;"
+                            "background-color: #58CCED;"
+                            "selection-color: white;"
+                            "selection-background-color: blue;");
+
+
     ui->addMatchButton->setStyleSheet("QPushButton::hover{background-color : lightgreen;}"
                                       "QPushButton {background-color: #FFFFFF}");
 
@@ -25,6 +31,10 @@ RoundMenu::RoundMenu(std::shared_ptr<Round> R, QWidget *parent) :
 
     ui->exitButton->setStyleSheet("QPushButton::hover{background-color : lightgreen;}"
                                   "QPushButton {background-color: #FFFFFF}");
+
+    ui->listWidget->setStyleSheet("QListWidget{background-color: #FFFFFF}");
+
+
     printMatches();
 }
 

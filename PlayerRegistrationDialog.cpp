@@ -20,14 +20,27 @@ PlayerRegistrationDialog::~PlayerRegistrationDialog()
 
 void PlayerRegistrationDialog::on_lineEdit_returnPressed()
 {
+    /*
     QString name = ui->lineEdit->text();
     ui->lineEdit->setText("");
 
-    //Testing
     std::shared_ptr<Player> p = std::make_shared<Player>(name.toStdString());
-    //p->serializePlayer();
-    //Testing
+    tournamentPtr->registerPlayer(p);
+    */
 
+}
+
+void PlayerRegistrationDialog::on_OKButton_clicked()
+{
+
+    QString name = ui->lineEdit->text();
+    ui->lineEdit->setText("");
+    std::shared_ptr<Player> p = std::make_shared<Player>(name.toStdString());
     tournamentPtr->registerPlayer(p);
 
+}
+
+void PlayerRegistrationDialog::on_CancelButton_clicked()
+{
+    this->close();
 }

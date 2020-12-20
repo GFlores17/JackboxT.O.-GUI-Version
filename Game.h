@@ -44,6 +44,10 @@ public:
     void serializeGamePlayers(QString path);
     void serializeGameResults(QString path);
 
+    void deserializeGameName(QString path);
+    void deserializeGamePlayers(QString path);
+    void deserializeGameResults(QString path  );
+
 };
 
 #endif //GAME_H

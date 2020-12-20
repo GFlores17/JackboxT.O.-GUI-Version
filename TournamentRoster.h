@@ -6,6 +6,7 @@
 #include <QTextEdit>
 #include <QPushButton>
 #include <QTableWidget>
+#include <QLabel>
 #include "Tournament.h"
 
 namespace Ui {
@@ -30,6 +31,7 @@ private:
     Ui::TournamentRoster *ui;
     QListWidget listWidget;
     QTextEdit textEdit;
+    QLabel label;
 
 
     std::shared_ptr<Tournament> passedTournament;

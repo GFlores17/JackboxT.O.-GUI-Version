@@ -22,6 +22,10 @@ public:
 private slots:
     void on_lineEdit_returnPressed();
 
+    void on_OKButton_clicked();
+
+    void on_CancelButton_clicked();
+
 private:
     Ui::PlayerRegistrationDialog *ui;
     QLineEdit lineEdit;

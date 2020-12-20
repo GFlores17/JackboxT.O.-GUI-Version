@@ -14,7 +14,15 @@ RoundNameDialog::RoundNameDialog(std::shared_ptr<Tournament> T, QWidget *parent)
     ui->buttonBox->button(QDialogButtonBox::Cancel)->setStyleSheet("QPushButton::hover{background-color : lightgreen;}"
                                                                "QPushButton {background-color: #FFFFFF}");
 
+    ui->lineEdit->setStyleSheet("QLineEdit{background-color:#FFFFFF}");
+
     this->setWindowTitle("Round Name Dialog");
+
+    this->setStyleSheet("color: black;"
+                            "background-color: #F9DFCB;"
+                            "selection-color: white;"
+                            "selection-background-color: blue;");
+
 
 }
 
@@ -28,3 +36,5 @@ void RoundNameDialog::on_buttonBox_accepted()
     QString name = (ui->lineEdit->text());
     passedTournament->addRound(name);
 }
+
+

@@ -6,6 +6,7 @@
 #include <QLineEdit>
 #include <QPushButton>
 #include <QListWidget>
+#include <QMainWindow>
 #include "Tournament.h"
 
 
@@ -19,6 +20,7 @@ class TournamentMenu : public QWidget
 
 public:
     explicit TournamentMenu(std::shared_ptr<Tournament> T, QWidget *parent = nullptr);
+    TournamentMenu(std::shared_ptr<Tournament> T, QMainWindow *ptrToMainWindow);
     //TournamentMenu(QWidget *parent = nullptr, Tournament T);
     ~TournamentMenu();
 
@@ -47,6 +49,7 @@ private:
     QPushButton printPlayersButton;
     QPushButton exitButton;
     QListWidget listWidget;
+    QMainWindow *ptrToMainWindow;
 };
 
 #endif // TOURNAMENTMENU_H

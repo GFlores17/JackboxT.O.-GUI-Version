@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>656</width>
-    <height>532</height>
+    <height>540</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -61,19 +61,6 @@
     <string>Round Roster</string>
    </property>
   </widget>
-  <widget class="QPushButton" name="pushButton">
-   <property name="geometry">
-    <rect>
-     <x>140</x>
-     <y>390</y>
-     <width>121</width>
-     <height>23</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Add To Match</string>
-   </property>
-  </widget>
   <widget class="QLabel" name="label_2">
    <property name="geometry">
     <rect>
@@ -87,34 +74,61 @@
     <string>Match Roster</string>
    </property>
   </widget>
-  <widget class="QPushButton" name="pushButton_2">
+  <widget class="QWidget" name="verticalLayoutWidget_2">
    <property name="geometry">
     <rect>
-     <x>360</x>
-     <y>390</y>
-     <width>131</width>
-     <height>23</height>
+     <x>330</x>
+     <y>120</y>
+     <width>231</width>
+     <height>301</height>
     </rect>
    </property>
-   <property name="text">
-    <string>Remove From Match</string>
-   </property>
+   <layout class="QVBoxLayout" name="verticalLayout_2">
+    <item>
+     <widget class="QListWidget" name="matchRoster"/>
+    </item>
+    <item>
+     <widget class="QPushButton" name="RemoveButton">
+      <property name="text">
+       <string>Remove Player From Match</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QPushButton" name="RemoveAllPlayersButton">
+      <property name="text">
+       <string>Remove All Players</string>
+      </property>
+     </widget>
+    </item>
+   </layout>
   </widget>
-  <widget class="QWidget" name="horizontalLayoutWidget">
+  <widget class="QWidget" name="verticalLayoutWidget">
    <property name="geometry">
     <rect>
-     <x>90</x>
-     <y>110</y>
-     <width>451</width>
-     <height>261</height>
+     <x>80</x>
+     <y>120</y>
+     <width>241</width>
+     <height>301</height>
     </rect>
    </property>
-   <layout class="QHBoxLayout" name="horizontalLayout">
+   <layout class="QVBoxLayout" name="verticalLayout">
     <item>
      <widget class="QListWidget" name="roundRoster"/>
     </item>
     <item>
-     <widget class="QListWidget" name="matchRoster"/>
+     <widget class="QPushButton" name="AddToMatchButton">
+      <property name="text">
+       <string>Add Player To Match</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QPushButton" name="AddAllPlayersButton">
+      <property name="text">
+       <string>Add All Players</string>
+      </property>
+     </widget>
     </item>
    </layout>
   </widget>

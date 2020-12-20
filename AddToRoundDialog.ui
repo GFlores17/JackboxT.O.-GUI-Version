@@ -13,24 +13,6 @@
   <property name="windowTitle">
    <string>Dialog</string>
   </property>
-  <widget class="QWidget" name="horizontalLayoutWidget">
-   <property name="geometry">
-    <rect>
-     <x>120</x>
-     <y>100</y>
-     <width>451</width>
-     <height>261</height>
-    </rect>
-   </property>
-   <layout class="QHBoxLayout" name="horizontalLayout">
-    <item>
-     <widget class="QListWidget" name="tournamentListWidget"/>
-    </item>
-    <item>
-     <widget class="QListWidget" name="roundListWidget"/>
-    </item>
-   </layout>
-  </widget>
   <widget class="QLabel" name="label">
    <property name="geometry">
     <rect>
@@ -42,32 +24,6 @@
    </property>
    <property name="text">
     <string>Tournament Roster</string>
-   </property>
-  </widget>
-  <widget class="QPushButton" name="RemoveFromRoundButton">
-   <property name="geometry">
-    <rect>
-     <x>390</x>
-     <y>380</y>
-     <width>131</width>
-     <height>23</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Remove From Round</string>
-   </property>
-  </widget>
-  <widget class="QPushButton" name="AddToRoundButton">
-   <property name="geometry">
-    <rect>
-     <x>170</x>
-     <y>380</y>
-     <width>121</width>
-     <height>23</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Add To Round</string>
    </property>
   </widget>
   <widget class="QLabel" name="label_2">
@@ -117,6 +73,64 @@
    <property name="standardButtons">
     <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
    </property>
+  </widget>
+  <widget class="QWidget" name="verticalLayoutWidget">
+   <property name="geometry">
+    <rect>
+     <x>110</x>
+     <y>100</y>
+     <width>231</width>
+     <height>351</height>
+    </rect>
+   </property>
+   <layout class="QVBoxLayout" name="verticalLayout">
+    <item>
+     <widget class="QListWidget" name="tournamentListWidget"/>
+    </item>
+    <item>
+     <widget class="QPushButton" name="AddToRoundButton">
+      <property name="text">
+       <string>Add Player To Round</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QPushButton" name="AddAllPlayersButton">
+      <property name="text">
+       <string>Add All Players</string>
+      </property>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QWidget" name="verticalLayoutWidget_2">
+   <property name="geometry">
+    <rect>
+     <x>350</x>
+     <y>100</y>
+     <width>231</width>
+     <height>351</height>
+    </rect>
+   </property>
+   <layout class="QVBoxLayout" name="verticalLayout_2">
+    <item>
+     <widget class="QListWidget" name="roundListWidget"/>
+    </item>
+    <item>
+     <widget class="QPushButton" name="RemoveFromRoundButton">
+      <property name="text">
+       <string>Remove Player From Round</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QPushButton" name="RemoveAllPlayersButton">
+      <property name="text">
+       <string>Remove All Players</string>
+      </property>
+     </widget>
+    </item>
+   </layout>
   </widget>
  </widget>
  <resources/>

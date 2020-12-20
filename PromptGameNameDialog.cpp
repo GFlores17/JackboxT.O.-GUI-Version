@@ -9,6 +9,11 @@ PromptGameNameDialog::PromptGameNameDialog(std::shared_ptr<Match> m, QWidget *pa
     this->match = m;
     ui->setupUi(this);
 
+    this->setStyleSheet("color: black;"
+                            "background-color: #58CCED;"
+                            "selection-color: white;"
+                            "selection-background-color: blue;");
+
 }
 
 PromptGameNameDialog::~PromptGameNameDialog()

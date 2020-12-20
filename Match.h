@@ -28,6 +28,7 @@ public:
     void addGame(int num);
     void addGame(std::shared_ptr<Game> g);
 
+    void deletePlayer(int x);
     void viewGamesResults();
     void startGame();
     void enterGameResults();
@@ -50,6 +51,10 @@ public:
     void serializeMatchName(QString path);
     void serializeMatchPlayers(QString path);
     QString createGamesFolder(QString path);
+
+    void deserializeMatchName(QString path);
+    void deserializeMatchPlayers(QString path);
+    void deserializeAllGames(QString path  );
 };
 
 #endif

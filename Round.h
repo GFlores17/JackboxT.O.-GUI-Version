@@ -16,6 +16,7 @@ public:
 
     Round();
     Round(std::string name);
+    void deletePlayer(int x);
     void menu();
     void menuSelect(int choice);
     std::vector <std::shared_ptr<Player>> getRoundListOfPlayers();
@@ -25,6 +26,8 @@ public:
     void addMatch(std::shared_ptr<Match>m);
 
     void setName(std::string &name);
+
+    void deleteAllPlayers();
 
     std::vector <std::shared_ptr<Match>> getListOfMatches();
     int getNumberOfPlayers();
@@ -40,6 +43,10 @@ public:
     void serializeRoundName(QString path);
     void serializeRoundPlayers(QString path);
     QString createMatchesFolder(QString path);
+
+    void deserializeRoundName(QString path );
+    void deserializeRoundPlayers(QString path  );
+    void deserializeAllMatches(QString path  );
 };
 
 #endif

@@ -1,6 +1,7 @@
-#ifndef MAINWINDOW_H
-#define MAINWINDOW_H
+#ifndef MAINMENU_H
+#define MAINMENU_H
 
+#include <QWidget>
 #include <QMainWindow>
 #include <QLineEdit>
 #include <QButtonGroup>
@@ -9,20 +10,21 @@
 #include <QWindow>
 #include <QTextBrowser>
 #include <QMediaPlayer>
-#include <QWidget>
-#include "secondwindow.h"
+#include <QMainWindow>
 
-QT_BEGIN_NAMESPACE
-namespace Ui { class MainWindow; }
-QT_END_NAMESPACE
+namespace Ui {
+class MainMenu;
+}
 
-class MainWindow : public QMainWindow
+class MainMenu : public QWidget
 {
     Q_OBJECT
 
 public:
-    MainWindow(QWidget *parent = nullptr);
-    ~MainWindow();
+    explicit MainMenu(QWidget *parent = nullptr);
+    MainMenu(QMainWindow *ptrToMainWindow);
+    ~MainMenu();
+
 
     void formatPlayersInTournamentFile();
 
@@ -36,15 +38,16 @@ private slots:
     void on_continueTournamentButton_clicked();
 
 private:
-    Ui::MainWindow *ui;
+    Ui::MainMenu *ui;
     QLineEdit lineEdit;
     QPushButton pushButton;
     QPushButton newWindowButton;
-    SecondWindow *s;
     QTextBrowser textBrowser;
     QMediaPlayer *player;
     QPushButton exitButton;
     QPushButton startTournamentButton;
     QWidget *centerWidget;
+    QMainWindow *ptrToMainWindow;
 };
-#endif // MAINWINDOW_H
+
+#endif // MAINMENU_H

@@ -26,11 +26,27 @@ MatchMenu::MatchMenu(std::shared_ptr<Match> m, QWidget *parent) :
     ui->pushButton->setEnabled(false);
     ui->pushButton->setVisible(false);
 
+    this->setStyleSheet("color: black;"
+                            "background-color: #58CCED;"
+                            "selection-color: white;"
+                            "selection-background-color: blue;");
+
+
     qDebug() << "SIZE : " << this->match->getListOfGames().size();
 
     //ui->tableWidget->insertRow(ui->tableWidget->rowCount());
     //QTableWidgetItem *newItem = new QTableWidgetItem("TEST");
     //ui->tableWidget->setItem(ui->tableWidget->rowCount()-1, 0, newItem);
+
+    ui->listWidget->setStyleSheet("QListWidget{background-color: #FFFFFF}");
+    ui->tableWidget->setStyleSheet("QTableWidget{background-color: #FFFFFF}");
+
+    ui->pushButton_3->setStyleSheet("QPushButton::hover{background-color : lightgreen;}"
+                                    "QPushButton{background-color: #FFFFFF;}");
+
+    ui->FinishGameButton->setStyleSheet("QPushButton::hover{background-color : lightgreen;}"
+                                    "QPushButton{background-color: #FFFFFF;}");
+
 }
 
 MatchMenu::~MatchMenu()

@@ -6,6 +6,7 @@
 #include <sstream>
 #include <QtDebug>
 #include <QDir>
+#include <QDirIterator>
 #include "Game.h"
 #include "Player.h"
 
@@ -91,6 +92,7 @@
     void Game::insertResult(std::pair<std::string, int> pair){
         this->gameResults.insert(pair);
     }
+
     std::map<std::string,int> Game::getResultsMap(){
         return this->gameResults;
     }
@@ -276,3 +278,150 @@
 
 
     }
+
+    void Game::deserializeGameName(QString path){
+        //QString path = QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation);
+
+        //path = path + "/JBT Saved Tournaments/Testes";
+        qDebug () << "ENTERED deserializeGameName() method\n";
+        qDebug() << "PASSED PATH:" << path;
+        QDir rootdir(path);
+        QDirIterator it(rootdir);
+
+        //qDebug() << "CURRENT NAME" << QString::fromStdString(this->tournamentName);
+
+
+        while (it.hasNext()) {
+            QFileInfo file = it.next();
+            qDebug () << file.fileName() << "\n";
+
+            if(file.fileName() == "GameName.txt"){
+
+                qDebug() << "FOUND GAME NAME file\n";
+
+                QFile TestFile(file.absoluteFilePath());
+
+                TestFile.open(QIODevice::ReadOnly);
+
+                QTextStream in(&TestFile);
+
+                QString readline = in.readLine();
+                qDebug () << "NAME : " << readline;
+
+                //qDebug() << "READLINE : " << readline;
+                std::string newName = readline.toStdString();
+                qDebug () << "NEWNAME MADE";
+                this->setName(newName);
+                //qDebug() << "NEW ROUND NAME : " << QString::fromStdString(this->roundName) << "\n";
+                qDebug() << "BREAK\n";
+                break;
+            }
+            else{
+                //qDebug() << "wrong file\n";
+            }
+            //qDebug() << "NEW ROUND NAME : " << QString::fromStdString(this->roundName) << "\n";
+        }
+    }
+
+    void Game::deserializeGamePlayers(QString path){
+        //QString path = QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation);
+
+        //path = path + "/JBT Saved Tournaments/Testes";
+        qDebug () << "ENTERED deserializeGamePlayers() method\n";
+        qDebug() << "PASSED PATH:" << path;
+        QDir rootdir(path);
+        QDirIterator it(rootdir);
+
+        //qDebug() << "CURRENT NAME" << QString::fromStdString(this->tournamentName);
+
+
+        while (it.hasNext()) {
+            QFileInfo file = it.next();
+            qDebug () << file.fileName() << "\n";
+
+            if(file.fileName() == "GamePlayers.txt"){
+
+                qDebug() << "FOUND GAME PLAYERS file\n";
+                QFile TestFile(file.absoluteFilePath());
+                TestFile.open(QIODevice::ReadOnly);
+                QTextStream in(&TestFile);
+
+                while(!in.atEnd()){
+
+                    std::string playerName = in.readLine().toStdString();
+                    qDebug () << QString::fromStdString(playerName) << "\n";
+
+                    std::string stringPlayerScore = in.readLine().toStdString();
+                    qDebug () << QString::fromStdString(stringPlayerScore) << "\n";
+
+
+                    std::stringstream ss(stringPlayerScore);
+                    int intPlayerScore;
+                    ss >> intPlayerScore;
+
+                    std::shared_ptr<Player> newPlayer = std::make_shared<Player>(playerName);
+                    newPlayer->setScore(intPlayerScore);
+                    addPlayerToGame(newPlayer);
+                    qDebug() << newPlayer->getQName() << "ADDED\n";
+                }
+            }
+            else{
+                //qDebug() << "wrong file\n";
+            }
+            qDebug() << "PLAYERS IN GAME : " << this->getPlayers().size()<< "\n";
+            //qDebug() << "NEW ROUND NAME : " << QString::fromStdString(this->roundName) << "\n";
+        }
+    }
+
+    void Game::deserializeGameResults(QString path){
+        //path = path + "/JBT Saved Tournaments/Testes";
+        qDebug () << "ENTERED deserializeGameResults() method\n";
+        qDebug() << "ITERATING THROUGH: " << path;
+        QDir rootdir(path);
+        QDirIterator it(rootdir);
+
+        //qDebug() << "CURRENT NAME" << QString::fromStdString(this->tournamentName);
+
+
+        while (it.hasNext()) {
+            QFileInfo file = it.next();
+            qDebug () << file.fileName() << "\n";
+
+            if(file.fileName() == "GameResults.txt"){
+
+                qDebug() << "FOUND GAME RESULTS file\n";
+                QFile TestFile(file.absoluteFilePath());
+                TestFile.open(QIODevice::ReadOnly);
+                QTextStream in(&TestFile);
+
+                while(!in.atEnd()){
+
+                    std::string playerName = in.readLine().toStdString();
+                    qDebug () << "PLAYER NAME " << QString::fromStdString(playerName) << "\n";
+
+                    std::string stringPlayerScore = in.readLine().toStdString();
+                    qDebug () << "PLAYER SCORE : " << QString::fromStdString(stringPlayerScore) << "\n";
+
+                    std::stringstream ss(stringPlayerScore);
+                    int intPlayerScore;
+                    ss >> intPlayerScore;
+
+                    std::pair<std::string, int> singularGameResult = std::make_pair(playerName, intPlayerScore);
+                    //singularGameResult.first = playerName;
+                    //singularGameResult.second = intPlayerScore;
+
+                    //g2->insertResult(std::pair<std::string, int>(g2->getPlayers().at(i)->getName(), gameScore));
+                    this->insertResult(std::pair<std::string, int>(playerName, intPlayerScore));
+                    qDebug () << "GAME RESULT INSERTED\n";
+                }
+            }
+            else{
+                //qDebug() << "wrong file\n";
+            }
+            //qDebug() << "NEW ROUND NAME : " << QString::fromStdString(this->roundName) << "\n";
+        }
+
+        qDebug() << "EXIT deserializeGameResults()\n";
+    }
+
+

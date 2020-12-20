@@ -12,6 +12,10 @@ TournamentRoster::TournamentRoster(std::shared_ptr<Tournament> T, QWidget *paren
     passedTournament->scoreSort();
     printPlayersAndScores();
 
+    if(this->passedTournament->getListOfRounds().size() > 0){
+        ui->label->setText("Standings after " + this->passedTournament->getListOfRounds().back()->getRoundName());
+        ui->label->setAlignment(Qt::AlignCenter);
+    }
 }
 
 TournamentRoster::~TournamentRoster()
@@ -47,7 +51,5 @@ void TournamentRoster::printPlayersAndScores(){
         ui->tableWidget->setItem(ui->tableWidget->rowCount()-1, NAME, newName);
         ui->tableWidget->setItem(ui->tableWidget->rowCount()-1, SCORE, newScore);
     }
-
-
 
 }

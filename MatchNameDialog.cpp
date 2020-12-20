@@ -14,6 +14,13 @@ MatchNameDialog::MatchNameDialog(std::shared_ptr<Round> r, QWidget *parent) :
 
     ui->buttonBox->button(QDialogButtonBox::Cancel)->setStyleSheet("QPushButton::hover{background-color : lightgreen;}"
                                                                "QPushButton {background-color: #FFFFFF}");
+
+    this->setStyleSheet("color: black;"
+                            "background-color: #58CCED;"
+                            "selection-color: white;"
+                            "selection-background-color: blue;");
+
+    ui->lineEdit->setStyleSheet("QLineEdit{background-color:#FFFFFF}");
 }
 
 MatchNameDialog::~MatchNameDialog()
