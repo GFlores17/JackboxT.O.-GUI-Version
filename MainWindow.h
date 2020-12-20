@@ -10,7 +10,6 @@
 #include <QTextBrowser>
 #include <QMediaPlayer>
 #include <QWidget>
-#include "secondwindow.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -40,7 +39,6 @@ private:
     QLineEdit lineEdit;
     QPushButton pushButton;
     QPushButton newWindowButton;
-    SecondWindow *s;
     QTextBrowser textBrowser;
     QMediaPlayer *player;
     QPushButton exitButton;

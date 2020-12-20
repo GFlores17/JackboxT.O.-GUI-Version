@@ -1,7 +1,6 @@
 #include "MainMenu.h"
 #include "ui_MainMenu.h"
 #include "playersDialogue.h"
-#include "secondwindow.h"
 #include "TournamentMenu.h"
 #include "gamewindow.h"
 #include "EnterTournamentName.h"
