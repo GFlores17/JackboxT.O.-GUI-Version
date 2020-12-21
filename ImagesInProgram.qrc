@@ -1,1 +1,7 @@
-<RCC/>
+<RCC>
+    <qresource prefix="/">
+        <file>Photos/JBT Against Ocean Tide.jpg</file>
+        <file>Photos/City At Night.jpg</file>
+        <file>Photos/JBT Manager Wolf Logo.png</file>
+    </qresource>
+</RCC>

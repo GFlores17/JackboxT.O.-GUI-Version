@@ -41,7 +41,6 @@ private:
     Ui::TournamentMenu *ui;
     QTextEdit textEdit;
     QTextEdit textEdit_2;
-    //QLineEdit lineEdit;
     QLineEdit lineEdit_2;
     QPushButton registerButton;
     QPushButton startButton;

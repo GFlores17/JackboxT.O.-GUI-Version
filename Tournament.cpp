@@ -192,8 +192,11 @@
     }//end createRoundFolder()
 
 
-    void Tournament::deserializeTournament(){
-
+    void Tournament::deserializeTournament(QString folder_name){
+        this->deserializeTournamentName(folder_name);
+        //qDebug () << "T NAME : " << QString::fromStdString(T->getTournamentName()) << "\n";
+        this->deserializeTournamentPlayers(folder_name);
+        this->deserializeAllRounds(folder_name);
     }
 
     void Tournament::deserializeTournamentName(QString path){

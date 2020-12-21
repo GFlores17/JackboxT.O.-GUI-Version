@@ -6,6 +6,7 @@
 #include "qdebug.h"
 #include "AddPlayerToMatchDialog.h"
 #include "Match.h"
+#include "TournamentMenu.h"
 
 RoundMenu::RoundMenu(std::shared_ptr<Round> R, QWidget *parent) :
     QWidget(parent),
@@ -15,6 +16,41 @@ RoundMenu::RoundMenu(std::shared_ptr<Round> R, QWidget *parent) :
     this->round = R;
 
     ui->selectMatchButton->setEnabled(false);
+    this->setWindowTitle("Round Menu");
+
+    this->setStyleSheet("color: black;"
+                            "background-color: #58CCED;"
+                            "selection-color: white;"
+                            "selection-background-color: blue;");
+
+
+    ui->addMatchButton->setStyleSheet("QPushButton::hover{background-color : lightgreen;}"
+                                      "QPushButton {background-color: #FFFFFF}");
+
+    ui->selectMatchButton->setStyleSheet("QPushButton::hover{background-color : lightgreen;}"
+                                         "QPushButton {background-color: #FFFFFF}");
+
+    ui->exitButton->setStyleSheet("QPushButton::hover{background-color : lightgreen;}"
+                                  "QPushButton {background-color: #FFFFFF}");
+
+    ui->listWidget->setStyleSheet("QListWidget{background-color: #FFFFFF}");
+
+
+    printMatches();
+}
+
+RoundMenu::RoundMenu(std::shared_ptr<Round> R, std::shared_ptr<Tournament> T, QMainWindow *pointerToMainWindow) :
+    QWidget(),
+    ui(new Ui::RoundMenu)
+{
+    ui->setupUi(this);
+    this->round = R;
+
+    ui->selectMatchButton->setEnabled(false);
+
+    this->pointerToMainWindow = pointerToMainWindow;
+    this->hostTournament = T;
+
     this->setWindowTitle("Round Menu");
 
     this->setStyleSheet("color: black;"
@@ -69,7 +105,7 @@ void RoundMenu::on_addMatchButton_clicked()
     MM->show();
     */
 
-
+    //TournamentMenu *TM = new TournamentMenu(this->hostTournament, this->pointerToMainWindow);
 }
 
 void RoundMenu::on_selectMatchButton_clicked()
@@ -90,8 +126,12 @@ void RoundMenu::on_selectMatchButton_clicked()
 void RoundMenu::on_exitButton_clicked()
 {
     this->round->serializePlayersInRound();
-    //this->round->serializeRound();
-    this->close();
+
+    qDebug() << "BEFORE TM CREATE\n";
+    TournamentMenu *TM = new TournamentMenu(this->hostTournament, this->pointerToMainWindow);
+
+    qDebug() << "AFTER TM CREATE\n";
+    this->pointerToMainWindow->setCentralWidget(TM);
 }
 
 

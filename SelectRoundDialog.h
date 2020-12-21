@@ -3,6 +3,7 @@
 
 #include <QDialog>
 #include <QListWidget>
+#include "QMainWindow"
 #include "Tournament.h"
 
 namespace Ui {
@@ -15,6 +16,7 @@ class SelectRoundDialog : public QDialog
 
 public:
     explicit SelectRoundDialog(std::shared_ptr<Tournament> T, QWidget *parent = nullptr);
+    SelectRoundDialog(std::shared_ptr<Tournament> T, QMainWindow *pointerToMainWindow);
     ~SelectRoundDialog();
     std::shared_ptr<Tournament> passedTournament;
 private slots:
@@ -26,6 +28,7 @@ private slots:
 
 private:
     Ui::SelectRoundDialog *ui;
+    QMainWindow *pointerToMainWindow;
 };
 
 #endif // SELECTROUNDDIALOG_H

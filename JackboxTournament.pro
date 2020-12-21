@@ -76,6 +76,7 @@ FORMS += \
     RoundNameDialog.ui \
     SelectRoundDialog.ui \
     mainwindow.ui \
+    mainwindow.ui \
     playerRegistrationDialog.ui \
     roundMenu.ui \
     tournamentMenu.ui \
@@ -88,3 +89,4 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 
 RESOURCES += \
     ImagesInProgram.qrc
+

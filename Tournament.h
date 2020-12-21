@@ -51,7 +51,7 @@ public:
     std::shared_ptr<Round> getRound(int x);
 
 
-    void deserializeTournament();
+    void deserializeTournament(QString folder_name);
     void deserializeTournamentName(QString path);
     void deserializeTournamentPlayers(QString path);
     void deserializeAllRounds(QString path);

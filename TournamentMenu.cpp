@@ -105,7 +105,7 @@ TournamentMenu::TournamentMenu(std::shared_ptr<Tournament> T, QMainWindow *ptrTo
      ui->printPlayersButton->setStyleSheet("QPushButton::hover{background-color : #58ED97;}"
                                            "QPushButton {background-color: #FFFFFF}");
 
-     ;
+
 
      passedTournament = T;
      Tournament *T1 = T.get();
@@ -146,15 +146,15 @@ void TournamentMenu::on_startButton_clicked()
         ATRD.exec();
 
         std::shared_ptr<Round> test = this->passedTournament->getListOfRounds().back();
-        RoundMenu *RM = new RoundMenu(test);
-        //RM->show();
+        //RoundMenu *RM = new RoundMenu(test, this->passedTournament, this->ptrToMainWindow);
+        RoundMenu *RM = new RoundMenu(test, this->passedTournament, this->ptrToMainWindow);
         this->ptrToMainWindow->setCentralWidget(RM);
        }
 }
 
 void TournamentMenu::on_continueButton_clicked()
 {
-    SelectRoundDialog SRD(passedTournament);
+    SelectRoundDialog SRD(passedTournament, this->ptrToMainWindow);
     SRD.setModal(true);
     SRD.exec();
 }
@@ -170,8 +170,8 @@ void TournamentMenu::on_exitButton_clicked()
 {
 
     this->passedTournament->serializeTournament();
-    //MainMenu *MM = new MainMenu(this->ptrToMainWindow);
-    //this->ptrToMainWindow->setCentralWidget(MM);
+    MainMenu *MM = new MainMenu(this->ptrToMainWindow);
+    this->ptrToMainWindow->setCentralWidget(MM);
     //this->close();
 
 }

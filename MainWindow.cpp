@@ -1,9 +1,12 @@
 #include "MainWindow.h"
 #include "ui_mainwindow.h"
-#include "playersDialogue.h"
+\
 #include "TournamentMenu.h"
-#include "gamewindow.h"
+
 #include "EnterTournamentName.h"
+
+#include "MainMenu.h"
+#include <QVBoxLayout>
 #include <memory>
 #include <fstream>
 #include <QDir>
@@ -26,6 +29,9 @@ MainWindow::MainWindow(QWidget *parent)
     //creamish F9DFCB
     //light blue CBEFF9
     //medium blue 58CCED
+
+    pointerToMainWindow = this;
+
     ui->textBrowser->setStyleSheet("QTextBrowser {background-color: #FFFFFF}");
 
     ui->startTournamentButton->setStyleSheet("QPushButton::hover{background-color : lightgreen;}"
@@ -53,11 +59,20 @@ MainWindow::MainWindow(QWidget *parent)
     player->setVolume(100);
     player->play();
 
+    MainMenu *MM = new MainMenu(this->pointerToMainWindow);
+    this->setCentralWidget(MM);
+}
+
+MainWindow::MainWindow(QMainWindow *pointerToMainWindow){
+
+    this->pointerToMainWindow = pointerToMainWindow;
+    MainMenu *MM = new MainMenu(this->pointerToMainWindow);
+    this->setCentralWidget(MM);
 
 }
 
 MainWindow::~MainWindow()
-{      
+{
     delete ui;
 }
 
