@@ -110,6 +110,7 @@ void MainMenu::on_exitButton_clicked()
 {
     delete ui;
     this->close();
+    this->ptrToMainWindow->close();
 }
 
 void MainMenu::on_startTournamentButton_clicked()

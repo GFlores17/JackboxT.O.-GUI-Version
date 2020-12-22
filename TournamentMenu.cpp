@@ -157,6 +157,12 @@ void TournamentMenu::on_continueButton_clicked()
     SelectRoundDialog SRD(passedTournament, this->ptrToMainWindow);
     SRD.setModal(true);
     SRD.exec();
+
+    int selectedRound = SRD.getSelectedRound();
+    qDebug() << "Selected Round: " << selectedRound << "\n";
+    RoundMenu *RM = new RoundMenu(this->passedTournament->getRound(selectedRound), this->passedTournament, this->ptrToMainWindow);
+    this->ptrToMainWindow->setCentralWidget(RM);
+
 }
 
 void TournamentMenu::on_printPlayersButton_clicked()
