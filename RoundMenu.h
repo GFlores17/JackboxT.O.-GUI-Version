@@ -4,6 +4,7 @@
 #include <QWidget>
 #include <QListWidget>
 #include <QPushButton>
+#include <QLabel>
 #include <QMainWindow>
 #include "Tournament.h"
 #include "TournamentMenu.h"
@@ -24,6 +25,7 @@ public:
     std::shared_ptr<Round>round;
 
     void printMatches();
+    void printMatchStandings();
 
 private slots:
 
@@ -38,16 +40,22 @@ private slots:
 
     void on_listWidget_itemClicked(QListWidgetItem *item);
 
+    void on_listWidget_itemDoubleClicked(QListWidgetItem *item);
+
 private:
     Ui::RoundMenu *ui;
     QPushButton addMatchButton;
     QPushButton selectMatchButton;
     QPushButton exitMatchButton;
+    QLabel label;
     QListWidget listWidget;
     QMainWindow *pointerToMainWindow;
     std::shared_ptr<Tournament> hostTournament;
     std::shared_ptr<TournamentMenu> testMenu;
 
+    enum MatchResultsColumn{
+        NAME, SCORE
+    };
 };
 
 #endif // ROUNDMENU_H

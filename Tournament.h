@@ -48,6 +48,8 @@ public:
     void addRound(QString roundName);
     void addRound(std::shared_ptr<Round> roundToAdd);
 
+    void deletePlayer(int arrayIndex);
+
     std::shared_ptr<Round> getRound(int x);
 
 

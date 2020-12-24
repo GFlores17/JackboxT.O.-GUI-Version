@@ -44,6 +44,10 @@
         playersInGame.push_back(std::move(p));
     }
 
+    bool Game::isFinished(){
+        return !this->getMap().empty();
+    }
+
     void Game::setGameResults() {//Creates map according to
         for (int i = 0; i < playersInGame.size(); i++) {
             //playersInGame.at(i)->print();
@@ -95,6 +99,10 @@
 
     std::map<std::string,int> Game::getResultsMap(){
         return this->gameResults;
+    }
+
+    void Game::clearResultsMap(){
+        this->gameResults.clear();
     }
 
     void Game::serializeGame(std::ofstream &OUTFILE){
@@ -274,6 +282,16 @@
 
         else{
 
+            QFile file(newFile);
+            file.open(QIODevice::WriteOnly);
+            QTextStream OUTFILE(&file);
+
+            for (std::map<std::string,int>::iterator it=this->gameResults.begin(); it!=this->gameResults.end(); ++it){
+                OUTFILE << QString::fromStdString(it->first) << "\n";
+                OUTFILE << it->second << "\n";
+            }
+
+
         }
 
 
@@ -414,10 +432,19 @@
                     this->insertResult(std::pair<std::string, int>(playerName, intPlayerScore));
                     qDebug () << "GAME RESULT INSERTED\n";
                 }
+
+                //All results have been inserted, this causes already saved but unfinished games to be uneditable because their respective results map is already filled.
+                //Below, we check if everyone's points is zero, if it is, then reset the map.
+
             }
+
+
+
+
             else{
                 //qDebug() << "wrong file\n";
             }
+
             //qDebug() << "NEW ROUND NAME : " << QString::fromStdString(this->roundName) << "\n";
         }
 

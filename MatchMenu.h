@@ -2,6 +2,7 @@
 #define MATCHMENU_H
 
 #include <QWidget>
+#include <QLabel>
 #include "QListWidget"
 #include "Round.h"
 #include "Match.h"
@@ -24,6 +25,7 @@ public:
     void printPlayersAndScores();
     void initializeScoresTable(std::shared_ptr<Game> g);
 
+    void printMatchStandings();
 private slots:
     void on_pushButton_3_clicked();
 
@@ -37,7 +39,7 @@ private slots:
 
 private:
     Ui::MatchMenu *ui;
-
+    QLabel label_2;
     enum GameResultsColumns{
         NAME, SCORE
     };

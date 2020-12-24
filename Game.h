@@ -22,12 +22,15 @@ public:
     std::string getName();
 
     std::map <std::string, int> getMap();
+    void clearResultsMap();
 
     void addPlayerToGame(std::shared_ptr<Player> p);
     void setGameResults();
     void printGameResults();
 
     void insertResult(std::pair<std::string, int>);
+
+    bool isFinished();
 
     std::vector<std::shared_ptr<Player>> getPlayers();
     std::map<std::string,int> getResultsMap();

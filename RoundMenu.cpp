@@ -2,6 +2,7 @@
 #include "ui_roundMenu.h"
 #include "Round.h"
 #include "MatchNameDialog.h"
+#include "Match.h"
 #include "MatchMenu.h"
 #include "qdebug.h"
 #include "AddPlayerToMatchDialog.h"
@@ -17,6 +18,8 @@ RoundMenu::RoundMenu(std::shared_ptr<Round> R, QWidget *parent) :
 
     ui->selectMatchButton->setEnabled(false);
     this->setWindowTitle("Round Menu");
+
+    ui->label->setText(round->getRoundName() + " Menu");
 
     this->setStyleSheet("color: black;"
                             "background-color: #58CCED;"
@@ -47,6 +50,7 @@ RoundMenu::RoundMenu(std::shared_ptr<Round> R, std::shared_ptr<Tournament> T, QM
     this->round = R;
 
     ui->selectMatchButton->setEnabled(false);
+    ui->label->setText(round->getRoundName() + " Menu");
 
     this->pointerToMainWindow = pointerToMainWindow;
     this->hostTournament = T;
@@ -69,7 +73,7 @@ RoundMenu::RoundMenu(std::shared_ptr<Round> R, std::shared_ptr<Tournament> T, QM
                                   "QPushButton {background-color: #FFFFFF}");
 
     ui->listWidget->setStyleSheet("QListWidget{background-color: #FFFFFF}");
-
+    ui->tableWidget->setStyleSheet("QTableWidget{background-color: #FFFFFF}");
 
     printMatches();
 }
@@ -156,4 +160,63 @@ void RoundMenu::printMatches(){
 void RoundMenu::on_listWidget_itemClicked(QListWidgetItem *item)
 {
      ui->selectMatchButton->setEnabled(true);
+     printMatchStandings();
+}
+
+void RoundMenu::on_listWidget_itemDoubleClicked(QListWidgetItem *item)
+{
+    item = ui->listWidget->currentItem();
+    int x = ui->listWidget->row(item);
+    this->round->getListOfMatches().at(x);
+
+    std::shared_ptr<Match> test;
+    test = this->round->getListOfMatches().at(x);
+
+    MatchMenu *MM = new MatchMenu(test);
+    MM->show();
+}
+
+
+void RoundMenu::printMatchStandings(){
+
+    QListWidgetItem *item = ui->listWidget->currentItem();
+    int x = ui->listWidget->row(item);
+    std::shared_ptr<Match> match = this->round->getListOfMatches().at(x);
+
+    if(match->getListOfGames().empty() == 0 && match->getListOfGames().at(0)->getMap().empty() == 0){
+
+        qDebug() << "ENTERED IF";
+        ui->tableWidget->setRowCount(0);
+
+        qDebug() << match->getMatchListOfPlayers().size() << " Players\n";
+        for(int i = 0; i < match->getMatchListOfPlayers().size(); i++){
+            std::string searchString = match->getMatchListOfPlayers().at(i)->getName();
+            qDebug() << "TOTALING : " << match->getMatchListOfPlayers().at(i)->getQName() << "\n";
+            int TotalMatchScore = 0;
+
+                for(int j = 0; j < match->getListOfGames().size(); j++){
+                    qDebug () << match->getListOfGames().size() << "Games\n";
+                    qDebug () << match->getListOfGames().at(j)->isFinished() << "\n";
+                    if(match->getListOfGames().at(j)->isFinished()){
+                        std::shared_ptr<Game> gameToPrint = match->getListOfGames().at(j);
+                        TotalMatchScore = TotalMatchScore + gameToPrint->getMap().at(searchString);
+                        qDebug() << "Game : " << j+1 << "\n";
+                    }
+                }
+
+                ui->tableWidget->insertRow(ui->tableWidget->rowCount());
+
+                QTableWidgetItem *newName = new QTableWidgetItem(QString::fromStdString(searchString));
+                QTableWidgetItem *newScore = new QTableWidgetItem(QString::number(TotalMatchScore));
+
+                ui->tableWidget->setItem(ui->tableWidget->rowCount()-1, NAME, newName);
+                ui->tableWidget->setItem(ui->tableWidget->rowCount()-1, SCORE, newScore);
+                qDebug() << "ITEM " << i << " ADDED\n";
+         }
+    }
+
+    else{
+        qDebug() << "No Games finished\n";
+    }
+
 }

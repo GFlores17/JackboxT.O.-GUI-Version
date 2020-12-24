@@ -104,6 +104,11 @@
         listOfRounds.push_back(std::move(roundToAdd));
     }
 
+    void Tournament::deletePlayer(int x){
+        listOfAllPlayers.at(x).reset();
+        listOfAllPlayers.erase(listOfAllPlayers.begin() + x);
+    }
+
     std::shared_ptr<Round> Tournament::getRound(int x){
         return listOfRounds.at(x);
     }

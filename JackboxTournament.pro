@@ -13,6 +13,7 @@ SOURCES += \
     AddPlayerToGame.cpp \
     AddPlayerToMatchDialog.cpp \
     AddToRoundDialog.cpp \
+    EditPlayerDialog.cpp \
     EnterGameResults.cpp \
     EnterTournamentName.cpp \
     Game.cpp \
@@ -40,6 +41,7 @@ HEADERS += \
     AddPlayerToGame.h \
     AddPlayerToMatchDialog.h \
     AddToRoundDialog.h \
+    EditPlayerDialog.h \
     EnterGameResults.h \
     EnterTournamentName.h \
     Game.h \
@@ -66,6 +68,7 @@ FORMS += \
     AddPlayerToGame.ui \
     AddPlayerToMatchDialog.ui \
     AddToRoundDialog.ui \
+    EditPlayerDialog.ui \
     EnterGameResults.ui \
     EnterTournamentName.ui \
     MainMenu.ui \

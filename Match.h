@@ -29,6 +29,7 @@ public:
     void addGame(std::shared_ptr<Game> g);
 
     void deletePlayer(int x);
+    void deleteAllPlayers();
     void viewGamesResults();
     void startGame();
     void enterGameResults();

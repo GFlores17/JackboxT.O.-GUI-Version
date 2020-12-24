@@ -121,12 +121,11 @@ void MainMenu::on_startTournamentButton_clicked()
 
     std::string tournamentName = ETR.getTournamentName();
     std::shared_ptr<Tournament> T = std::make_shared<Tournament>(tournamentName);
-    //QMainWindow *ptrToWindow = this;
+
     TournamentMenu *TM = new TournamentMenu(std::move(T), this->ptrToMainWindow);
-    //TM->show
-    //instead of
+
     this->ptrToMainWindow->setCentralWidget(TM);
-    //this->resize(338,528);
+
 
 
 }

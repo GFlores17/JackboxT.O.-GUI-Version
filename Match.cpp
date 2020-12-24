@@ -59,6 +59,24 @@ void Match::deletePlayer(int x){
     playersInMatch.at(x).reset();
     playersInMatch.erase(playersInMatch.begin()+x);
 }
+
+void Match::deleteAllPlayers(){
+
+    /*
+    for(int i = 0; i < playersInMatch.size(); i++){
+        playersInMatch.at(i).reset();
+    }
+    */
+
+    while(playersInMatch.empty() != true){
+        qDebug() << " NOT EMPTY, DELETING\n";
+        playersInMatch.erase(playersInMatch.begin());
+    }
+
+    qDebug() << "DONE\n";
+
+
+}
 void Match::setMatchName() {
     std::cout << "Enter match name.\n";
     std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');

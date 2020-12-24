@@ -15,9 +15,56 @@
   </property>
   <layout class="QVBoxLayout" name="verticalLayout_3">
    <item>
+    <widget class="QLabel" name="label_2">
+     <property name="text">
+      <string>List Of Matches</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
+    </widget>
+   </item>
+   <item>
     <layout class="QVBoxLayout" name="verticalLayout_2">
      <item>
-      <widget class="QListWidget" name="listWidget"/>
+      <widget class="QListWidget" name="listWidget">
+       <property name="enabled">
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="label_3">
+       <property name="text">
+        <string>Match Standings</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QTableWidget" name="tableWidget">
+       <property name="editTriggers">
+        <set>QAbstractItemView::NoEditTriggers</set>
+       </property>
+       <attribute name="horizontalHeaderStretchLastSection">
+        <bool>true</bool>
+       </attribute>
+       <attribute name="verticalHeaderStretchLastSection">
+        <bool>true</bool>
+       </attribute>
+       <column>
+        <property name="text">
+         <string>Name</string>
+        </property>
+       </column>
+       <column>
+        <property name="text">
+         <string>Score</string>
+        </property>
+       </column>
+      </widget>
      </item>
      <item>
       <widget class="QLabel" name="label">

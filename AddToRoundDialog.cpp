@@ -31,6 +31,12 @@ AddToRoundDialog::AddToRoundDialog(std::shared_ptr<Tournament> T, int x, QWidget
     ui->RemoveFromRoundButton->setStyleSheet("QPushButton::hover{background-color : lightgreen;}"
                                              "QPushButton {background-color: #FFFFFF}");
 
+    ui->AddAllPlayersButton->setStyleSheet("QPushButton::hover{background-color : lightgreen;}"
+                                        "QPushButton{background-color: #FFFFFF;}");
+
+    ui->RemoveAllPlayersButton->setStyleSheet("QPushButton::hover{background-color : lightgreen;}"
+                                        "QPushButton{background-color: #FFFFFF;}");
+
     ui->buttonBox->button(QDialogButtonBox::Ok)->setStyleSheet("QPushButton::hover{background-color : lightgreen;}"
                                                                "QPushButton {background-color: #FFFFFF}");
 

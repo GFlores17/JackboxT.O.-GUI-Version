@@ -156,12 +156,23 @@ void TournamentMenu::on_continueButton_clicked()
 {
     SelectRoundDialog SRD(passedTournament, this->ptrToMainWindow);
     SRD.setModal(true);
-    SRD.exec();
+    bool continueRound = SRD.exec();
 
-    int selectedRound = SRD.getSelectedRound();
-    qDebug() << "Selected Round: " << selectedRound << "\n";
-    RoundMenu *RM = new RoundMenu(this->passedTournament->getRound(selectedRound), this->passedTournament, this->ptrToMainWindow);
-    this->ptrToMainWindow->setCentralWidget(RM);
+    if (continueRound == true){
+        int selectedRound = SRD.getSelectedRound();
+
+        //Ask if they'd like to modify round roster with "PromptAddToRound", if user says yes, do the block below, else go straight into making RoundMenu.
+        AddToRoundDialog ATRD(passedTournament, selectedRound);
+        ATRD.setModal(true);
+        ATRD.exec();
+
+        qDebug() << "Selected Round: " << selectedRound << "\n";
+        RoundMenu *RM = new RoundMenu(this->passedTournament->getRound(selectedRound), this->passedTournament, this->ptrToMainWindow);
+        this->ptrToMainWindow->setCentralWidget(RM);
+    }
+    else{
+
+    }
 
 }
 

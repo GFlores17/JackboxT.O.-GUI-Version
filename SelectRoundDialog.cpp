@@ -17,6 +17,19 @@ SelectRoundDialog::SelectRoundDialog(std::shared_ptr<Tournament> T, QWidget *par
 
     this->setWindowTitle("Select Round Dialog");
 
+    this->setStyleSheet("color: black;"
+                            "background-color: #58CCED;"
+                            "selection-color: white;"
+                            "selection-background-color: blue;");
+
+    ui->PlayersWidget->setStyleSheet("background-color: #FFFFFF;");
+    ui->RoundsWidget->setStyleSheet("background-color: #FFFFFF;");
+
+    ui->pushButton->setStyleSheet("QPushButton::hover{background-color : lightgreen;}"
+                                             "QPushButton {background-color: #FFFFFF}");
+
+    ui->pushButton_2->setStyleSheet("QPushButton::hover{background-color : lightgreen;}"
+                                             "QPushButton {background-color: #FFFFFF}");
 
 }
 
@@ -29,9 +42,26 @@ SelectRoundDialog::SelectRoundDialog(std::shared_ptr<Tournament> passedTournamen
     this->pointerToMainWindow = pointerToMainWindow;
     this->passedTournament = passedTournament;
 
-    ui->pushButton->setEnabled(false);
 
     this->setWindowTitle("Select Round Dialog");
+
+    this->setStyleSheet("color: black;"
+                            "background-color: #58CCED;"
+                            "selection-color: white;"
+                            "selection-background-color: blue;");
+
+    ui->PlayersWidget->setStyleSheet("background-color: #FFFFFF;");
+    ui->RoundsWidget->setStyleSheet("background-color: #FFFFFF;");
+
+    ui->pushButton->setStyleSheet("QPushButton::hover{background-color : lightgreen;}"
+                                             "QPushButton {background-color: #FFFFFF}");
+
+    ui->pushButton_2->setStyleSheet("QPushButton::hover{background-color : lightgreen;}"
+                                             "QPushButton {background-color: #FFFFFF}");
+
+    ui->pushButton->setEnabled(false);
+
+
     printRounds();
 }
 
@@ -42,6 +72,7 @@ SelectRoundDialog::~SelectRoundDialog()
 
 void SelectRoundDialog::on_pushButton_clicked()
 {
+    accept();
     this->close();
 }
 
@@ -68,6 +99,7 @@ void SelectRoundDialog::on_RoundsWidget_itemClicked(QListWidgetItem *item)
 
 void SelectRoundDialog::on_RoundsWidget_itemDoubleClicked(QListWidgetItem *item)
 {
+    accept();
     this->close();
 }
 
