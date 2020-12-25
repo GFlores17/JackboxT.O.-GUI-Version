@@ -25,6 +25,8 @@ TournamentRoster::TournamentRoster(std::shared_ptr<Tournament> T, QWidget *paren
                             "selection-color: white;"
                             "selection-background-color: blue;");
 
+    ui->tableWidget->setStyleSheet("QTableWidget{background-color: #FFFFFF}");
+
     ui->pushButton->setStyleSheet("QPushButton::hover{background-color : cyan;}"
                                     "QPushButton{background-color: #FFFFFF;}");
     ui->pushButton_2->setStyleSheet("QPushButton::hover{background-color : cyan;}"
