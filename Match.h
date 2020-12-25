@@ -54,7 +54,7 @@ public:
     QString createGamesFolder(QString path);
 
     void deserializeMatchName(QString path);
-    void deserializeMatchPlayers(QString path);
+    void deserializeMatchPlayers(QString path, std::vector<std::shared_ptr<Player>> roundPlayersArray);
     void deserializeAllGames(QString path  );
 };
 

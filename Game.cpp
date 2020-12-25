@@ -341,7 +341,7 @@
         }
     }
 
-    void Game::deserializeGamePlayers(QString path){
+    void Game::deserializeGamePlayers(QString path, std::vector<std::shared_ptr<Player>> matchPlayersArray){
         //QString path = QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation);
 
         //path = path + "/JBT Saved Tournaments/Testes";
@@ -377,10 +377,22 @@
                     int intPlayerScore;
                     ss >> intPlayerScore;
 
+                    for(int i = 0; i < matchPlayersArray.size(); i++){
+                        if(playerName==matchPlayersArray.at(i)->getName()){
+                            std::shared_ptr<Player>newPlayer = matchPlayersArray.at(i);
+                            qDebug() << "MATCH PLAYER : " << matchPlayersArray.at(i)->getQName();
+                            qDebug() << "GAME DUPLICATE : " << newPlayer->getQName();
+                            addPlayerToGame(newPlayer);
+                            break;
+                        }
+                    }
+
+                    /*
                     std::shared_ptr<Player> newPlayer = std::make_shared<Player>(playerName);
                     newPlayer->setScore(intPlayerScore);
                     addPlayerToGame(newPlayer);
                     qDebug() << newPlayer->getQName() << "ADDED\n";
+                    */
                 }
             }
             else{

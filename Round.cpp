@@ -477,7 +477,7 @@ void Round::deserializeRoundName(QString path){
 }
 
 
-void Round::deserializeRoundPlayers(QString path ){
+void Round::deserializeRoundPlayers(QString path, std::vector<std::shared_ptr<Player>> tournamentPlayersArray){
     //QString path = QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation);
 
     //path = path + "/JBT Saved Tournaments/Testes";
@@ -513,9 +513,24 @@ void Round::deserializeRoundPlayers(QString path ){
                 int intPlayerScore;
                 ss >> intPlayerScore;
 
+                //Block below makes it so a player deserialized in round is cross referenced with an existing player in the tournamentPlayers array, and their shared_pointers
+                //are made to point to the same object.
+
+                for(int i = 0; i < tournamentPlayersArray.size(); i++){
+                    if(playerName==tournamentPlayersArray.at(i)->getName()){
+                        std::shared_ptr<Player>newPlayer = tournamentPlayersArray.at(i);
+                        qDebug() << "TOURNAMENT PLAYER : " << tournamentPlayersArray.at(i)->getQName();
+                        qDebug() << "ROUND DUPLICATE : " << newPlayer->getQName();
+                        addPlayer(newPlayer);
+                        break;
+                    }
+                }
+
+                /*
                 std::shared_ptr<Player> newPlayer = std::make_shared<Player>(playerName);
                 newPlayer->setScore(intPlayerScore);
                 addPlayer(newPlayer);
+                */
             }
         }
         else{
@@ -551,7 +566,7 @@ void Round::deserializeAllMatches(QString path){
         //qDebug() << "SEARCHING IN : " << path << "\n";
         std::shared_ptr<Match> newMatch = std::make_shared<Match>();
         newMatch->deserializeMatchName(path);
-        newMatch->deserializeMatchPlayers(path);
+        newMatch->deserializeMatchPlayers(path, this->getRoundListOfPlayers());
         newMatch->deserializeAllGames(path);
         if(newMatch->getName() != "default match constructor"){
             //this is in place until I can figure out why there are ghost directories inside the tournament directories.

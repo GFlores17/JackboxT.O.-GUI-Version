@@ -48,7 +48,7 @@ public:
     void serializeGameResults(QString path);
 
     void deserializeGameName(QString path);
-    void deserializeGamePlayers(QString path);
+    void deserializeGamePlayers(QString path, std::vector<std::shared_ptr<Player>> matchPlayersArray);
     void deserializeGameResults(QString path  );
 
 };

@@ -295,7 +295,7 @@
             //qDebug() << "SEARCHING IN : " << path << "\n";
             std::shared_ptr<Round> newRound = std::make_shared<Round>();
             newRound->deserializeRoundName(path);
-            newRound->deserializeRoundPlayers(path);
+            newRound->deserializeRoundPlayers(path, this->listOfAllPlayers);
             newRound->deserializeAllMatches(path);
             if(newRound->getRoundName().toStdString() != "default"){
                 //this is in place until I can figure out why there are ghost directories inside the tournament directories.
