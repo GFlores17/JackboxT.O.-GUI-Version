@@ -9,6 +9,7 @@
 #include "RoundNameDialog.h"
 #include "SelectRoundDialog.h"
 #include "AddToRoundDialog.h"
+#include "PromptAddToRoundDialog.h"
 #include "Round.h"
 #include "MatchMenu.h"
 #include <fstream>
@@ -162,9 +163,13 @@ void TournamentMenu::on_continueButton_clicked()
         int selectedRound = SRD.getSelectedRound();
 
         //Ask if they'd like to modify round roster with "PromptAddToRound", if user says yes, do the block below, else go straight into making RoundMenu.
-        AddToRoundDialog ATRD(passedTournament, selectedRound);
-        ATRD.setModal(true);
-        ATRD.exec();
+        PromptAddToRoundDialog PATRD;
+        bool addPlayers = PATRD.exec();
+        if(addPlayers == true){
+            AddToRoundDialog ATRD(passedTournament, selectedRound);
+            ATRD.setModal(true);
+            ATRD.exec();
+        }
 
         qDebug() << "Selected Round: " << selectedRound << "\n";
         RoundMenu *RM = new RoundMenu(this->passedTournament->getRound(selectedRound), this->passedTournament, this->ptrToMainWindow);

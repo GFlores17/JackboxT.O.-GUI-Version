@@ -3,14 +3,12 @@
 #include "Tournament.h"
 #include "AddToRoundDialog.h"
 
-PromptAddToRoundDialog::PromptAddToRoundDialog(std::shared_ptr<Tournament> T, int x, QWidget *parent) :
+PromptAddToRoundDialog::PromptAddToRoundDialog(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::PromptAddToRoundDialog)
 {
     ui->setupUi(this);
-    passedTournament = T;
-    num = x;
-    int y;
+
 }
 
 PromptAddToRoundDialog::~PromptAddToRoundDialog()
@@ -20,14 +18,11 @@ PromptAddToRoundDialog::~PromptAddToRoundDialog()
 
 void PromptAddToRoundDialog::on_pushButton_clicked()
 {
-    AddToRoundDialog ATRD(passedTournament, this->num);
-    ATRD.setModal(true);
-    this->close();
-    ATRD.exec();
+    accept();
 
 }
 
 void PromptAddToRoundDialog::on_pushButton_2_clicked()
 {
-    this->close();
+    reject();
 }

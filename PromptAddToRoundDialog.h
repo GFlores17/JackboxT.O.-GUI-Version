@@ -13,7 +13,7 @@ class PromptAddToRoundDialog : public QDialog
     Q_OBJECT
 
 public:
-    explicit PromptAddToRoundDialog(std::shared_ptr<Tournament> T, int x, QWidget *parent = nullptr);
+    explicit PromptAddToRoundDialog(QWidget *parent = nullptr);
     ~PromptAddToRoundDialog();
 
     std::shared_ptr<Tournament> passedTournament;

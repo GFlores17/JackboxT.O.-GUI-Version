@@ -76,7 +76,7 @@ p, li { white-space: pre-wrap; }
       </font>
      </property>
      <property name="text">
-      <string>Continue Tournament</string>
+      <string>Load Tournament</string>
      </property>
     </widget>
    </item>

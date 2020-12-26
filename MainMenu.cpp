@@ -108,8 +108,8 @@ MainMenu::~MainMenu()
 
 void MainMenu::on_exitButton_clicked()
 {
-    delete ui;
-    this->close();
+    //delete ui;
+    //this->close();
     this->ptrToMainWindow->close();
 }
 

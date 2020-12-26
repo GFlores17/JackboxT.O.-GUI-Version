@@ -27,6 +27,7 @@ public:
     void formatPlayersInTournamentFile();
 
     QWidget* getCenterWidget();
+    void closeEvent(QCloseEvent *event);
 
 private slots:
     void on_exitButton_clicked();
