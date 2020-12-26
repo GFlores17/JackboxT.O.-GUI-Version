@@ -48,10 +48,12 @@ public:
     void addRound(QString roundName);
     void addRound(std::shared_ptr<Round> roundToAdd);
 
+    void deletePlayer(int arrayIndex);
+
     std::shared_ptr<Round> getRound(int x);
 
 
-    void deserializeTournament();
+    void deserializeTournament(QString folder_name);
     void deserializeTournamentName(QString path);
     void deserializeTournamentPlayers(QString path);
     void deserializeAllRounds(QString path);

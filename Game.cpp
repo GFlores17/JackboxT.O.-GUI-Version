@@ -44,6 +44,10 @@
         playersInGame.push_back(std::move(p));
     }
 
+    bool Game::isFinished(){
+        return !this->getMap().empty();
+    }
+
     void Game::setGameResults() {//Creates map according to
         for (int i = 0; i < playersInGame.size(); i++) {
             //playersInGame.at(i)->print();
@@ -95,6 +99,10 @@
 
     std::map<std::string,int> Game::getResultsMap(){
         return this->gameResults;
+    }
+
+    void Game::clearResultsMap(){
+        this->gameResults.clear();
     }
 
     void Game::serializeGame(std::ofstream &OUTFILE){
@@ -274,6 +282,16 @@
 
         else{
 
+            QFile file(newFile);
+            file.open(QIODevice::WriteOnly);
+            QTextStream OUTFILE(&file);
+
+            for (std::map<std::string,int>::iterator it=this->gameResults.begin(); it!=this->gameResults.end(); ++it){
+                OUTFILE << QString::fromStdString(it->first) << "\n";
+                OUTFILE << it->second << "\n";
+            }
+
+
         }
 
 
@@ -323,7 +341,7 @@
         }
     }
 
-    void Game::deserializeGamePlayers(QString path){
+    void Game::deserializeGamePlayers(QString path, std::vector<std::shared_ptr<Player>> matchPlayersArray){
         //QString path = QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation);
 
         //path = path + "/JBT Saved Tournaments/Testes";
@@ -359,10 +377,22 @@
                     int intPlayerScore;
                     ss >> intPlayerScore;
 
+                    for(int i = 0; i < matchPlayersArray.size(); i++){
+                        if(playerName==matchPlayersArray.at(i)->getName()){
+                            std::shared_ptr<Player>newPlayer = matchPlayersArray.at(i);
+                            qDebug() << "MATCH PLAYER : " << matchPlayersArray.at(i)->getQName();
+                            qDebug() << "GAME DUPLICATE : " << newPlayer->getQName();
+                            addPlayerToGame(newPlayer);
+                            break;
+                        }
+                    }
+
+                    /*
                     std::shared_ptr<Player> newPlayer = std::make_shared<Player>(playerName);
                     newPlayer->setScore(intPlayerScore);
                     addPlayerToGame(newPlayer);
                     qDebug() << newPlayer->getQName() << "ADDED\n";
+                    */
                 }
             }
             else{
@@ -414,10 +444,19 @@
                     this->insertResult(std::pair<std::string, int>(playerName, intPlayerScore));
                     qDebug () << "GAME RESULT INSERTED\n";
                 }
+
+                //All results have been inserted, this causes already saved but unfinished games to be uneditable because their respective results map is already filled.
+                //Below, we check if everyone's points is zero, if it is, then reset the map.
+
             }
+
+
+
+
             else{
                 //qDebug() << "wrong file\n";
             }
+
             //qDebug() << "NEW ROUND NAME : " << QString::fromStdString(this->roundName) << "\n";
         }
 

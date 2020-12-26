@@ -1,15 +1,21 @@
 #include "MainWindow.h"
 #include "ui_mainwindow.h"
-#include "playersDialogue.h"
+\
 #include "TournamentMenu.h"
-#include "gamewindow.h"
+
 #include "EnterTournamentName.h"
+
+#include "MainMenu.h"
+#include <QVBoxLayout>
 #include <memory>
 #include <fstream>
 #include <QDir>
 #include <QFileInfo>
 #include <QFileDialog>
 #include <QStandardPaths>
+#include <QCloseEvent>
+#include <QMessageBox>
+
 
 #include "RoundMenu.h"
 MainWindow::MainWindow(QWidget *parent)
@@ -26,6 +32,9 @@ MainWindow::MainWindow(QWidget *parent)
     //creamish F9DFCB
     //light blue CBEFF9
     //medium blue 58CCED
+
+    pointerToMainWindow = this;
+
     ui->textBrowser->setStyleSheet("QTextBrowser {background-color: #FFFFFF}");
 
     ui->startTournamentButton->setStyleSheet("QPushButton::hover{background-color : lightgreen;}"
@@ -53,11 +62,26 @@ MainWindow::MainWindow(QWidget *parent)
     player->setVolume(100);
     player->play();
 
+    MainMenu *MM = new MainMenu(this->pointerToMainWindow);
+    this->setCentralWidget(MM);
+
+    //setStyleSheet("QMessageBox{background: rgb(255,0,0);  border: none;font-family: Arial; font-style: normal;  font-size: 15pt; color: #000000 ; }");
+
+}
+
+MainWindow::MainWindow(QMainWindow *pointerToMainWindow){
+
+    this->pointerToMainWindow = pointerToMainWindow;
+    MainMenu *MM = new MainMenu(this->pointerToMainWindow);
+    this->setCentralWidget(MM);
+
+    //setStyleSheet("QMessageBox{background: rgb(255,0,0);  border: none;font-family: Arial; font-style: normal;  font-size: 15pt; color: #000000 ; }");
+
 
 }
 
 MainWindow::~MainWindow()
-{      
+{
     delete ui;
 }
 
@@ -65,8 +89,8 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_exitButton_clicked()
 {
-    delete ui;
-    this->close();
+    //delete ui;
+    //this->close();
 }
 
 void MainWindow::on_startTournamentButton_clicked()
@@ -116,4 +140,15 @@ void MainWindow::formatPlayersInTournamentFile(){
 
 QWidget* MainWindow::getCenterWidget(){
     return this->centerWidget;
+}
+
+void MainWindow::closeEvent(QCloseEvent *event)  // show prompt when user wants to close app
+{
+    event->ignore();
+    if (QMessageBox::Yes == QMessageBox::question(this, "Close Confirmation", "Exit?\nUNSAVED CHANGES WILL BE LOST", QMessageBox::Yes | QMessageBox::No))
+    {
+        event->accept();
+    }
+
+
 }

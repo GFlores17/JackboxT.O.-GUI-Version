@@ -9,6 +9,7 @@
 #include "RoundNameDialog.h"
 #include "SelectRoundDialog.h"
 #include "AddToRoundDialog.h"
+#include "PromptAddToRoundDialog.h"
 #include "Round.h"
 #include "MatchMenu.h"
 #include <fstream>
@@ -105,7 +106,7 @@ TournamentMenu::TournamentMenu(std::shared_ptr<Tournament> T, QMainWindow *ptrTo
      ui->printPlayersButton->setStyleSheet("QPushButton::hover{background-color : #58ED97;}"
                                            "QPushButton {background-color: #FFFFFF}");
 
-     ;
+
 
      passedTournament = T;
      Tournament *T1 = T.get();
@@ -146,17 +147,38 @@ void TournamentMenu::on_startButton_clicked()
         ATRD.exec();
 
         std::shared_ptr<Round> test = this->passedTournament->getListOfRounds().back();
-        RoundMenu *RM = new RoundMenu(test);
-        //RM->show();
+        //RoundMenu *RM = new RoundMenu(test, this->passedTournament, this->ptrToMainWindow);
+        RoundMenu *RM = new RoundMenu(test, this->passedTournament, this->ptrToMainWindow);
         this->ptrToMainWindow->setCentralWidget(RM);
        }
 }
 
 void TournamentMenu::on_continueButton_clicked()
 {
-    SelectRoundDialog SRD(passedTournament);
+    SelectRoundDialog SRD(passedTournament, this->ptrToMainWindow);
     SRD.setModal(true);
-    SRD.exec();
+    bool continueRound = SRD.exec();
+
+    if (continueRound == true){
+        int selectedRound = SRD.getSelectedRound();
+
+        //Ask if they'd like to modify round roster with "PromptAddToRound", if user says yes, do the block below, else go straight into making RoundMenu.
+        PromptAddToRoundDialog PATRD;
+        bool addPlayers = PATRD.exec();
+        if(addPlayers == true){
+            AddToRoundDialog ATRD(passedTournament, selectedRound);
+            ATRD.setModal(true);
+            ATRD.exec();
+        }
+
+        qDebug() << "Selected Round: " << selectedRound << "\n";
+        RoundMenu *RM = new RoundMenu(this->passedTournament->getRound(selectedRound), this->passedTournament, this->ptrToMainWindow);
+        this->ptrToMainWindow->setCentralWidget(RM);
+    }
+    else{
+
+    }
+
 }
 
 void TournamentMenu::on_printPlayersButton_clicked()
@@ -170,8 +192,8 @@ void TournamentMenu::on_exitButton_clicked()
 {
 
     this->passedTournament->serializeTournament();
-    //MainMenu *MM = new MainMenu(this->ptrToMainWindow);
-    //this->ptrToMainWindow->setCentralWidget(MM);
+    MainMenu *MM = new MainMenu(this->ptrToMainWindow);
+    this->ptrToMainWindow->setCentralWidget(MM);
     //this->close();
 
 }

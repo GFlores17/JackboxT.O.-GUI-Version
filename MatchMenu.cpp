@@ -17,6 +17,8 @@ MatchMenu::MatchMenu(std::shared_ptr<Match> m, QWidget *parent) :
     this->match = m;
     ui->setupUi(this);
 
+    ui->label_2->setText("Results Of All Games.");
+    printMatchStandings();
 
     std::string name = match->getName() + " Menu";
     this->setWindowTitle(QString::fromStdString(name));
@@ -39,6 +41,7 @@ MatchMenu::MatchMenu(std::shared_ptr<Match> m, QWidget *parent) :
     //ui->tableWidget->setItem(ui->tableWidget->rowCount()-1, 0, newItem);
 
     ui->listWidget->setStyleSheet("QListWidget{background-color: #FFFFFF}");
+    ui->listWidget->setStyleSheet("QListWidget{background-color: #FFFFFF}");
     ui->tableWidget->setStyleSheet("QTableWidget{background-color: #FFFFFF}");
 
     ui->pushButton_3->setStyleSheet("QPushButton::hover{background-color : lightgreen;}"
@@ -47,6 +50,11 @@ MatchMenu::MatchMenu(std::shared_ptr<Match> m, QWidget *parent) :
     ui->FinishGameButton->setStyleSheet("QPushButton::hover{background-color : lightgreen;}"
                                     "QPushButton{background-color: #FFFFFF;}");
 
+    ui->ExitButton->setStyleSheet("QPushButton::hover{background-color : lightgreen;}"
+                                    "QPushButton{background-color: #FFFFFF;}");
+
+    ui->tableWidget->viewport()->setAutoFillBackground(false);
+    ui->listWidget->viewport()->setAutoFillBackground(false);
 }
 
 MatchMenu::~MatchMenu()
@@ -135,6 +143,20 @@ void MatchMenu::on_FinishGameButton_clicked()
 
     qDebug() << "# of Players : " << g2->getPlayers().size();
 
+    if(g2->getMap().empty() == 0){
+        qDebug() << "MAP EMPTY : " << g2->getMap().empty() << "\n";
+        g2->clearResultsMap();
+        qDebug() << "MAP EMPTY : " << g2->getMap().empty() << "\n";
+        qDebug() << "GAME RESULTS CLEARED\n";
+
+        printPlayersAndScores();
+        _sleep(300);
+    }
+    else{
+        g2->clearResultsMap();
+        qDebug() << "Game not finished.";
+    }
+
     for(int i = 0; i < g2->getPlayers().size(); i++){
 
         int res;
@@ -148,6 +170,7 @@ void MatchMenu::on_FinishGameButton_clicked()
             int gameScore = EGR.playerScore();
             g2->insertResult(std::pair<std::string, int>(g2->getPlayers().at(i)->getName(), gameScore));
             g2->getPlayers().at(i)->addToScore(gameScore);
+            qDebug() << "SCORE ADDED\n" << "\n";
             //this->game->addPlayerToGame(p);
 
 
@@ -156,22 +179,43 @@ void MatchMenu::on_FinishGameButton_clicked()
                     std::string word = element.first;
                     // Accessing VALUE from element.
                     int count = element.second;
-                    std::cout << word << " :: " << count << std::endl;
+                    //std::cout << word << " :: " << count << std::endl;
                 }
         }
     }
+
+    ui->FinishGameButton->setEnabled(false);
+    ui->FinishGameButton->setStyleSheet("QPushButton::hover{background-color : lightgreen;}"
+                                    "QPushButton{background-color: grey;}");
     printPlayersAndScores();
 }
 void MatchMenu::on_listWidget_itemClicked(QListWidgetItem *item)
 {
+
+
+    ui->FinishGameButton->setStyleSheet("QPushButton::hover{background-color : lightgreen;}"
+                                    "QPushButton{background-color: #FFFFFF;}");
     ui->FinishGameButton->setEnabled(true);
+
     ui->pushButton->setEnabled(true);
+
 
     printPlayersAndScores();
 
 
     item = ui->listWidget->currentItem();
     int x = ui->listWidget->row(item);
+
+    /*
+    if(match->getListOfGames().at(x)->isFinished()){
+        ui->FinishGameButton->setEnabled(false);
+        ui->FinishGameButton->setStyleSheet("QPushButton::hover{background-color : lightgreen;}"
+                                        "QPushButton{background-color: grey;}");
+    }
+    */
+
+
+    ui->label_2->setText("Game Results");
 
     for(int i = 0; i < this->match->getListOfGames().at(x)->getPlayers().size(); i++){
         qDebug() << this->match->getListOfGames().at(x)->getPlayers().at(i)->getQName() << "\n";
@@ -217,21 +261,47 @@ void MatchMenu::initializeScoresTable(std::shared_ptr<Game> g){
 
 }
 
+void MatchMenu::printMatchStandings(){
+
+    if(match->getListOfGames().empty() == 0 && match->getListOfGames().at(0)->getMap().empty() == 0){
+
+        qDebug() << "ENTERED IF";
+        ui->tableWidget->setRowCount(0);
+
+        qDebug() << match->getMatchListOfPlayers().size() << " Players\n";
+        for(int i = 0; i < match->getMatchListOfPlayers().size(); i++){
+            std::string searchString = this->match->getMatchListOfPlayers().at(i)->getName();
+            qDebug() << "TOTALING : " << this->match->getMatchListOfPlayers().at(i)->getQName() << "\n";
+            int TotalMatchScore = 0;
+
+                for(int j = 0; j < match->getListOfGames().size(); j++){
+                    qDebug () << match->getListOfGames().size() << "Games\n";
+                    qDebug () << match->getListOfGames().at(j)->isFinished() << "\n";
+                    if(match->getListOfGames().at(j)->isFinished()){
+                        std::shared_ptr<Game> gameToPrint = match->getListOfGames().at(j);
+                        TotalMatchScore = TotalMatchScore + gameToPrint->getMap().at(searchString);
+                        qDebug() << "Game : " << j+1 << "\n";
+                    }
+                }
+
+                ui->tableWidget->insertRow(ui->tableWidget->rowCount());
+
+                QTableWidgetItem *newName = new QTableWidgetItem(QString::fromStdString(searchString));
+                QTableWidgetItem *newScore = new QTableWidgetItem(QString::number(TotalMatchScore));
+
+                ui->tableWidget->setItem(ui->tableWidget->rowCount()-1, NAME, newName);
+                ui->tableWidget->setItem(ui->tableWidget->rowCount()-1, SCORE, newScore);
+                qDebug() << "ITEM " << i << " ADDED\n";
+         }
+    }
+
+    else{
+        qDebug() << "No Games finished\n";
+    }
+}
+
 void MatchMenu::on_ExitButton_clicked()
 {
 
-    std::ofstream OUTFILE;
-    OUTFILE.open("C:\\Users\\George\\Desktop\\Match.txt", std::ofstream::trunc);
-
-    //delete above after you figure out hhow to properly serialize this.
-
-    /*
-    for(int i = 0; i < this->match->getListOfGames().size(); i++){
-        this->match->getListOfGames().at(i)->serializeGame();
-    }
-    */
-
-    //this->match->serializeMatch();
-
-    OUTFILE.close();
+    this->close();
 }

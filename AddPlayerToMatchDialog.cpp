@@ -13,9 +13,6 @@ AddPlayerToMatchDialog::AddPlayerToMatchDialog(std::shared_ptr<Round> r, int x, 
 
     QString output;
 
-    //std::shared_ptr<Round> r = passedTournament->getListOfRounds().at(x);
-    //std::shared_ptr<Match> m = r->getListOfMatches().at(x);
-    //ui->label_3
     ui->label_3->setText(QString::fromStdString(match->getName()) + " Menu");
     ui->label_3->setWordWrap(true);
     ui->label_3->setAlignment(Qt::AlignCenter);
@@ -26,6 +23,9 @@ AddPlayerToMatchDialog::AddPlayerToMatchDialog(std::shared_ptr<Round> r, int x, 
     ui->AddToMatchButton->setEnabled(false);
     ui->RemoveButton->setEnabled(false);
 
+    ui->AddAllPlayersButton->setEnabled(true);
+    ui->RemoveAllPlayersButton->setEnabled(true);
+
     this->setStyleSheet("background-color: #58CCED;");
     ui->roundRoster->setStyleSheet("background-color: #FFFFFF;");
     ui->matchRoster->setStyleSheet("background-color: #FFFFFF;");
@@ -35,6 +35,12 @@ AddPlayerToMatchDialog::AddPlayerToMatchDialog(std::shared_ptr<Round> r, int x, 
 
     ui->RemoveButton->setStyleSheet("QPushButton::hover{background-color : lightgreen;}"
                                     "QPushButton{background-color: #FFFFFF;}");
+
+    ui->AddAllPlayersButton->setStyleSheet("QPushButton::hover{background-color : lightgreen;}"
+                                        "QPushButton{background-color: #FFFFFF;}");
+
+    ui->RemoveAllPlayersButton->setStyleSheet("QPushButton::hover{background-color : lightgreen;}"
+                                        "QPushButton{background-color: #FFFFFF;}");
 
     ui->buttonBox->button(QDialogButtonBox::Ok)->setStyleSheet("QPushButton::hover{background-color : lightgreen;}"
                                                                "QPushButton {background-color: #FFFFFF}");
@@ -62,6 +68,8 @@ void AddPlayerToMatchDialog::printRoundPlayers(){
 
 void AddPlayerToMatchDialog::printGamePlayers(){
     QString output;
+
+    ui->matchRoster->clear();
 
     if(match->getMatchListOfPlayers().size() > 0){
         for(int i = 0; i < match->getNumOfPlayers(); i++){
@@ -178,5 +186,11 @@ void AddPlayerToMatchDialog::on_AddAllPlayersButton_clicked()
         match->addPlayer(p);
     }
 
+    printGamePlayers();
+}
+
+void AddPlayerToMatchDialog::on_RemoveAllPlayersButton_clicked()
+{
+    match->deleteAllPlayers();
     printGamePlayers();
 }

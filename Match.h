@@ -29,6 +29,7 @@ public:
     void addGame(std::shared_ptr<Game> g);
 
     void deletePlayer(int x);
+    void deleteAllPlayers();
     void viewGamesResults();
     void startGame();
     void enterGameResults();
@@ -53,7 +54,7 @@ public:
     QString createGamesFolder(QString path);
 
     void deserializeMatchName(QString path);
-    void deserializeMatchPlayers(QString path);
+    void deserializeMatchPlayers(QString path, std::vector<std::shared_ptr<Player>> roundPlayersArray);
     void deserializeAllGames(QString path  );
 };
 

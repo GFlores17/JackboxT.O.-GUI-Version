@@ -46,6 +46,8 @@ private slots:
 
     void on_AddAllPlayersButton_clicked();
 
+    void on_RemoveAllPlayersButton_clicked();
+
 private:
     Ui::AddPlayerToMatchDialog *ui;
     QListWidget roundRoster;

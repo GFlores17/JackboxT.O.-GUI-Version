@@ -59,6 +59,24 @@ void Match::deletePlayer(int x){
     playersInMatch.at(x).reset();
     playersInMatch.erase(playersInMatch.begin()+x);
 }
+
+void Match::deleteAllPlayers(){
+
+    /*
+    for(int i = 0; i < playersInMatch.size(); i++){
+        playersInMatch.at(i).reset();
+    }
+    */
+
+    while(playersInMatch.empty() != true){
+        qDebug() << " NOT EMPTY, DELETING\n";
+        playersInMatch.erase(playersInMatch.begin());
+    }
+
+    qDebug() << "DONE\n";
+
+
+}
 void Match::setMatchName() {
     std::cout << "Enter match name.\n";
     std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
@@ -451,7 +469,7 @@ void Match::deserializeMatchName(QString path){
     }
 }
 
-void Match::deserializeMatchPlayers(QString path){
+void Match::deserializeMatchPlayers(QString path, std::vector<std::shared_ptr<Player>> roundPlayersArray){
     //QString path = QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation);
 
     //path = path + "/JBT Saved Tournaments/Testes";
@@ -487,9 +505,21 @@ void Match::deserializeMatchPlayers(QString path){
                 int intPlayerScore;
                 ss >> intPlayerScore;
 
+                for(int i = 0; i < roundPlayersArray.size(); i++){
+                    if(playerName==roundPlayersArray.at(i)->getName()){
+                        std::shared_ptr<Player>newPlayer = roundPlayersArray.at(i);
+                        qDebug() << "ROUND PLAYER : " << roundPlayersArray.at(i)->getQName();
+                        qDebug() << "MATCH DUPLICATE : " << newPlayer->getQName();
+                        addPlayer(newPlayer);
+                        break;
+                    }
+                }
+
+                /*
                 std::shared_ptr<Player> newPlayer = std::make_shared<Player>(playerName);
                 newPlayer->setScore(intPlayerScore);
                 addPlayer(newPlayer);
+                */
             }
         }
         else{
@@ -526,7 +556,7 @@ void Match::deserializeAllGames(QString path){
         qDebug() << "SEARCHING IN : " << path << "\n";
         std::shared_ptr<Game> newGame = std::make_shared<Game>();
         newGame->deserializeGameName(path);
-        newGame->deserializeGamePlayers(path);
+        newGame->deserializeGamePlayers(path, this->getMatchListOfPlayers());
         newGame->deserializeGameResults(path);
         if(newGame->getName() != "default"){
             //this is in place until I can figure out why there are ghost directories inside the tournament directories.

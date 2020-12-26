@@ -21,11 +21,13 @@ class MainWindow : public QMainWindow
 
 public:
     MainWindow(QWidget *parent = nullptr);
+    MainWindow(QMainWindow *pointerToMainWindow);
     ~MainWindow();
 
     void formatPlayersInTournamentFile();
 
     QWidget* getCenterWidget();
+    void closeEvent(QCloseEvent *event);
 
 private slots:
     void on_exitButton_clicked();
@@ -44,5 +46,6 @@ private:
     QPushButton exitButton;
     QPushButton startTournamentButton;
     QWidget *centerWidget;
+    QMainWindow *pointerToMainWindow;
 };
 #endif // MAINWINDOW_H

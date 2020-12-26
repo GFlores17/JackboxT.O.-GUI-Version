@@ -104,6 +104,11 @@
         listOfRounds.push_back(std::move(roundToAdd));
     }
 
+    void Tournament::deletePlayer(int x){
+        listOfAllPlayers.at(x).reset();
+        listOfAllPlayers.erase(listOfAllPlayers.begin() + x);
+    }
+
     std::shared_ptr<Round> Tournament::getRound(int x){
         return listOfRounds.at(x);
     }
@@ -192,8 +197,11 @@
     }//end createRoundFolder()
 
 
-    void Tournament::deserializeTournament(){
-
+    void Tournament::deserializeTournament(QString folder_name){
+        this->deserializeTournamentName(folder_name);
+        //qDebug () << "T NAME : " << QString::fromStdString(T->getTournamentName()) << "\n";
+        this->deserializeTournamentPlayers(folder_name);
+        this->deserializeAllRounds(folder_name);
     }
 
     void Tournament::deserializeTournamentName(QString path){
@@ -287,7 +295,7 @@
             //qDebug() << "SEARCHING IN : " << path << "\n";
             std::shared_ptr<Round> newRound = std::make_shared<Round>();
             newRound->deserializeRoundName(path);
-            newRound->deserializeRoundPlayers(path);
+            newRound->deserializeRoundPlayers(path, this->listOfAllPlayers);
             newRound->deserializeAllMatches(path);
             if(newRound->getRoundName().toStdString() != "default"){
                 //this is in place until I can figure out why there are ghost directories inside the tournament directories.
