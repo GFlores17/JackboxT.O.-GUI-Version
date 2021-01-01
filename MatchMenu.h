@@ -37,6 +37,8 @@ private slots:
 
     void on_ExitButton_clicked();
 
+    void on_DeleteGameButton_clicked();
+
 private:
     Ui::MatchMenu *ui;
     QLabel label_2;

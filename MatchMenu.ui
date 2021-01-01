@@ -147,6 +147,13 @@
       </widget>
      </item>
      <item>
+      <widget class="QPushButton" name="DeleteGameButton">
+       <property name="text">
+        <string>Delete Game</string>
+       </property>
+      </widget>
+     </item>
+     <item>
       <widget class="QPushButton" name="FinishGameButton">
        <property name="text">
         <string>Finish Game</string>

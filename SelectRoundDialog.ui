@@ -82,7 +82,7 @@
     </rect>
    </property>
    <property name="text">
-    <string>Players</string>
+    <string>Matches</string>
    </property>
   </widget>
  </widget>

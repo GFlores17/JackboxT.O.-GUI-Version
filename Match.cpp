@@ -55,6 +55,14 @@ std::string Match::getName() {
     return matchName;
 }
 
+void Match::deleteGame(int indexOfGame){
+    listOfGames.at(indexOfGame).reset();
+    listOfGames.erase(listOfGames.begin()+indexOfGame);
+}
+
+std::shared_ptr<Game> Match::getGame(int indexOfGame){
+    return listOfGames.at(indexOfGame);
+}
 void Match::deletePlayer(int x){
     playersInMatch.at(x).reset();
     playersInMatch.erase(playersInMatch.begin()+x);

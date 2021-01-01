@@ -23,6 +23,7 @@ public:
     std::string getName();
     void setMatchName();
     void setName(std::string &name);
+    std::shared_ptr<Game> getGame(int indexOfGame);
 
     void addGame();
     void addGame(int num);
@@ -37,6 +38,8 @@ public:
     void menu();
     void menuSelect(int choice);
     void exitProgram();
+
+    void deleteGame(int indexOfGame);
 
     std::vector<std::shared_ptr<Game>> getListOfGames();
     std::vector <std::shared_ptr<Player>> getMatchListOfPlayers();

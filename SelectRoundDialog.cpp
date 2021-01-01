@@ -89,9 +89,9 @@ void SelectRoundDialog::on_RoundsWidget_itemClicked(QListWidgetItem *item)
 
     ui->PlayersWidget->clear();
 
-    for(int i = 0; i < r->getRoundListOfPlayers().size(); i++){
+    for(int i = 0; i < r->getListOfMatches().size(); i++){
         int j = i+1;
-        QString output = QString::number(j) + ". " + r->getRoundListOfPlayers().at(i)->getQName();
+        QString output = QString::number(j) + ". " + QString::fromStdString(r->getListOfMatches().at(i)->getName());
         //output = output + "\n";
         ui->PlayersWidget->addItem(output);
     }

@@ -10,7 +10,7 @@ TournamentRoster::TournamentRoster(std::shared_ptr<Tournament> T, QWidget *paren
     ui->setupUi(this);
     passedTournament = T;
 
-    passedTournament->scoreSort();
+    //passedTournament->scoreSort();
     printPlayersAndScores();
 
     ui->label->setAlignment(Qt::AlignCenter);

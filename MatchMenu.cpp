@@ -305,3 +305,24 @@ void MatchMenu::on_ExitButton_clicked()
 
     this->close();
 }
+
+void MatchMenu::on_DeleteGameButton_clicked()
+{
+    QListWidgetItem *item = ui->listWidget->currentItem();
+    int x = ui->listWidget->row(item);
+
+    for(int i = 0; i < this->match->getGame(x)->getPlayers().size(); i++){
+        std::map<std::string, int>::iterator it;
+        for (it = this->match->getGame(x)->getMap().begin(); it != this->match->getGame(x)->getMap().end(); it++)
+        {
+            if(this->match->getMatchListOfPlayers().at(i)->getName() == it->first){
+                this->match->getMatchListOfPlayers().at(i)->addToScore(-it->second);
+                break;
+            }
+        }
+    }//end of updating players score
+
+    this->match->deleteGame(x);
+    printGames();
+    //printMatchStandings();
+}
