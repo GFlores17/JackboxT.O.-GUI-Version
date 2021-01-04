@@ -30,6 +30,7 @@ SOURCES += \
     RoundMenu.cpp \
     RoundNameDialog.cpp \
     SelectRoundDialog.cpp \
+    SelectTournamentTypeDialog.cpp \
     Tournament.cpp \
     TournamentMenu.cpp \
     TournamentRoster.cpp \
@@ -59,6 +60,7 @@ HEADERS += \
     RoundMenu.h \
     RoundNameDialog.h \
     SelectRoundDialog.h \
+    SelectTournamentTypeDialog.h \
     Tournament.h \
     TournamentMenu.h \
     TournamentRoster.h
@@ -78,6 +80,7 @@ FORMS += \
     PromptGameNameDialog.ui \
     RoundNameDialog.ui \
     SelectRoundDialog.ui \
+    SelectTournamentTypeDialog.ui \
     mainwindow.ui \
     mainwindow.ui \
     playerRegistrationDialog.ui \
