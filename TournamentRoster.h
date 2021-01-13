@@ -25,19 +25,21 @@ public:
     void printPlayersAndScores();
 
 private slots:
+    void on_editPlayerButton_clicked();
 
-
-    void on_pushButton_clicked();
-
-    void on_pushButton_2_clicked();
+    void on_deletePlayerButton_clicked();
 
     void on_tableWidget_itemClicked(QTableWidgetItem *item);
 
 private:
     Ui::TournamentRoster *ui;
-    QListWidget listWidget;
-    QTextEdit textEdit;
+
     QLabel label;
+
+    QTableWidget tableWidget;
+
+    QPushButton editPlayerButton;
+    QPushButton deletePlayerButton;
 
 
     std::shared_ptr<Tournament> passedTournament;

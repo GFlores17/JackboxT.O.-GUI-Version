@@ -6,6 +6,13 @@ EditPlayerDialog::EditPlayerDialog(QWidget *parent) :
     ui(new Ui::EditPlayerDialog)
 {
     ui->setupUi(this);
+
+    ui->buttonBox->button(QDialogButtonBox::Ok)->setStyleSheet("QPushButton::hover{background-color : lightgreen;}"
+                                                               "QPushButton {background-color: #FFFFFF}");
+
+    ui->buttonBox->button(QDialogButtonBox::Cancel)->setStyleSheet("QPushButton::hover{background-color : lightgreen;}"
+                                                               "QPushButton {background-color: #FFFFFF}");
+
 }
 
 EditPlayerDialog::~EditPlayerDialog()

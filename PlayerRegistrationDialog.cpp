@@ -30,7 +30,7 @@ void PlayerRegistrationDialog::on_lineEdit_returnPressed()
 
 }
 
-void PlayerRegistrationDialog::on_OKButton_clicked()
+void PlayerRegistrationDialog::on_okButton_clicked()
 {
 
     QString name = ui->lineEdit->text();
@@ -40,7 +40,7 @@ void PlayerRegistrationDialog::on_OKButton_clicked()
 
 }
 
-void PlayerRegistrationDialog::on_CancelButton_clicked()
+void PlayerRegistrationDialog::on_cancelButton_clicked()
 {
     this->close();
 }

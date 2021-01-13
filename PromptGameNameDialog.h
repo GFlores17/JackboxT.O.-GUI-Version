@@ -2,6 +2,12 @@
 #define PROMPTGAMENAMEDIALOG_H
 
 #include <QDialog>
+
+#include <QLabel>
+#include <QLineEdit>
+#include <QDialogButtonBox>
+#include <QPushButton>
+
 #include "Match.h"
 
 namespace Ui {
@@ -23,6 +29,10 @@ private slots:
 
 private:
     Ui::PromptGameNameDialog *ui;
+
+    QLabel lable;
+    QLineEdit lineEdit;
+    QDialogButtonBox buttonBox;
 };
 
 #endif // PROMPTGAMENAMEDIALOG_H

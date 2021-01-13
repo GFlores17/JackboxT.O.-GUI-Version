@@ -103,6 +103,12 @@
 
     void Game::clearResultsMap(){
         this->gameResults.clear();
+
+        /* Need to develop a custom method.
+         * Delete pairs 1 by 1 from the map.
+         * As each pair is deleted from the map, update the corresponding player's total score based on the game score that was just deleted.
+         * This is needed to keep consistency with regards to total player's scores.
+         */
     }
 
     void Game::serializeGame(std::ofstream &OUTFILE){

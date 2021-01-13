@@ -30,6 +30,6 @@ MatchNameDialog::~MatchNameDialog()
 
 void MatchNameDialog::on_buttonBox_accepted()
 {
-    std::shared_ptr<Match> m = std::make_shared<Match>(ui->lineEdit->text());
-    this->round->addMatch(m);
+    std::shared_ptr<Match> createdMatch = std::make_shared<Match>(ui->lineEdit->text());
+    this->round->addMatch(createdMatch);
 }

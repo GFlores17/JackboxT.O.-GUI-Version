@@ -4,6 +4,9 @@
 #include <QDialog>
 #include <QDialogButtonBox>
 #include <QPushButton>
+#include <QLabel>
+#include <QLineEdit>
+
 #include "Round.h"
 
 namespace Ui {
@@ -24,6 +27,9 @@ private slots:
 
 private:
     Ui::MatchNameDialog *ui;
+
+    QLabel lable;
+    QLineEdit lineEdit;
     QDialogButtonBox buttonBox;
 };
 

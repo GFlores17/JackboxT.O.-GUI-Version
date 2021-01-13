@@ -16,13 +16,13 @@ PromptAddToRoundDialog::~PromptAddToRoundDialog()
     delete ui;
 }
 
-void PromptAddToRoundDialog::on_pushButton_clicked()
+void PromptAddToRoundDialog::on_yesButton_clicked()
 {
     accept();
 
 }
 
-void PromptAddToRoundDialog::on_pushButton_2_clicked()
+void PromptAddToRoundDialog::on_noButton_clicked()
 {
     reject();
 }

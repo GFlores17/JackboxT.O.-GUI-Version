@@ -1,4 +1,4 @@
-#include "AddPlayerToGame.h"
+#include "AddPlayerToGameDialog.h"
 #include "ui_AddPlayerToGame.h"
 
 AddPlayerToGame::AddPlayerToGame(QWidget *parent) :
@@ -13,6 +13,6 @@ AddPlayerToGame::~AddPlayerToGame()
     delete ui;
 }
 
-std::string AddPlayerToGame::playerName() const{
+std::string AddPlayerToGame::getPlayerName() const{
     return ui->playerName->text().toStdString();
 }

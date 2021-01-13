@@ -158,6 +158,7 @@
             file.open(QIODevice::WriteOnly);
             QTextStream out(&file);
             out << QString::fromStdString(this->tournamentName);
+            file.remove();
         }
         else{
 
@@ -226,6 +227,8 @@
 
                 //qDebug() << "READLINE : " << readline;
                 this->tournamentName = readline.toStdString();
+
+                //TestFile.close();
             }
             else{
                 //qDebug() << "wrong file\n";
@@ -267,8 +270,12 @@
                      std::shared_ptr<Player> p = std::make_shared<Player>(playerName);
                      p->setScore(intPlayerScore);
                      registerPlayer(p);
-                }
-            }
+                }//While loop deserializes all player objects in the text file.
+
+                //TestFile.close();
+
+            }//end if(TournamentPlayers is found)
+
         }//end while
     }
 

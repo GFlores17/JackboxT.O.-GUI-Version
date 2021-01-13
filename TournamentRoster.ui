@@ -107,14 +107,14 @@
    </property>
    <layout class="QHBoxLayout" name="horizontalLayout">
     <item>
-     <widget class="QPushButton" name="pushButton">
+     <widget class="QPushButton" name="editPlayerButton">
       <property name="text">
        <string>Edit Player</string>
       </property>
      </widget>
     </item>
     <item>
-     <widget class="QPushButton" name="pushButton_2">
+     <widget class="QPushButton" name="deletePlayerButton">
       <property name="text">
        <string>Delete Player</string>
       </property>

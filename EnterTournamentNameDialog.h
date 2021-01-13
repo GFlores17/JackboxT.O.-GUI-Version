@@ -4,6 +4,8 @@
 #include <QDialog>
 #include <QLineEdit>
 #include <QLabel>
+#include <QDialogButtonBox>
+#include <QPushButton>
 
 namespace Ui {
 class EnterTournamentName;
@@ -24,8 +26,9 @@ private slots:
 
 private:
     Ui::EnterTournamentName *ui;
-    QLabel label;
+    QLabel lable;
     QLineEdit lineEdit;
+    QDialogButtonBox buttonBox;
 };
 
 #endif // ENTERTOURNAMENTNAME_H

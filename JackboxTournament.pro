@@ -10,12 +10,12 @@ CONFIG += c++11
 
 SOURCES += \
     AddMatchDialog.cpp \
-    AddPlayerToGame.cpp \
+    AddPlayerToGameDialog.cpp \
     AddPlayerToMatchDialog.cpp \
     AddToRoundDialog.cpp \
     EditPlayerDialog.cpp \
-    EnterGameResults.cpp \
-    EnterTournamentName.cpp \
+    EnterGameResultsDialog.cpp \
+    EnterTournamentNameDialog.cpp \
     Game.cpp \
     MainMenu.cpp \
     MainWindow.cpp \
@@ -39,12 +39,12 @@ SOURCES += \
 
 HEADERS += \
     AddMatchDialog.h \
-    AddPlayerToGame.h \
+    AddPlayerToGameDialog.h \
     AddPlayerToMatchDialog.h \
     AddToRoundDialog.h \
     EditPlayerDialog.h \
-    EnterGameResults.h \
-    EnterTournamentName.h \
+    EnterGameResultsDialog.h \
+    EnterTournamentNameDialog.h \
     Game.h \
     GetEntry.h \
     MainMenu.h \
@@ -67,26 +67,58 @@ HEADERS += \
 
 FORMS += \
     AddMatchDialog.ui \
-    AddPlayerToGame.ui \
+    AddPlayerToGameDialog.ui \
     AddPlayerToMatchDialog.ui \
     AddToRoundDialog.ui \
     EditPlayerDialog.ui \
-    EnterGameResults.ui \
-    EnterTournamentName.ui \
+    EnterGameResultsDialog.ui \
+    EnterTournamentNameDialog.ui \
     MainMenu.ui \
+    MainWindow.ui \
+    MainWindow.ui \
     MatchMenu.ui \
     MatchNameDialog.ui \
+    PlayerRegistrationDialog.ui \
     PromptAddToRoundDialog.ui \
     PromptGameNameDialog.ui \
+    RoundMenu.ui \
     RoundNameDialog.ui \
     SelectRoundDialog.ui \
     SelectTournamentTypeDialog.ui \
-    mainwindow.ui \
-    mainwindow.ui \
-    playerRegistrationDialog.ui \
-    roundMenu.ui \
-    tournamentMenu.ui \
-    tournamentRoster.ui
+    TournamentMenu.ui \
+    TournamentRoster.ui
+
+# Default rules for deployment.
+qnx: target.path = /tmp/$${TARGET}/bin
+else: unix:!android: target.path = /opt/$${TARGET}/bin
+!isEmpty(target.path): INSTALLS += target
+
+RESOURCES += \
+    ImagesInProgram.qrc
+
+
+
+FORMS += \
+    AddMatchDialog.ui \
+    AddPlayerToGameDialog.ui \
+    AddPlayerToMatchDialog.ui \
+    AddToRoundDialog.ui \
+    EditPlayerDialog.ui \
+    EnterGameResultsDialog.ui \
+    EnterTournamentNameDialog.ui \
+    MainMenu.ui \
+    MainWindow.ui \
+    MatchMenu.ui \
+    MatchNameDialog.ui \
+    PlayerRegistrationDialog.ui \
+    PromptAddToRoundDialog.ui \
+    PromptGameNameDialog.ui \
+    RoundMenu.ui \
+    RoundNameDialog.ui \
+    SelectRoundDialog.ui \
+    SelectTournamentTypeDialog.ui \
+    TournamentMenu.ui \
+    TournamentRoster.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

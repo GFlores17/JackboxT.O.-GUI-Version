@@ -2,6 +2,11 @@
 #define EDITPLAYERDIALOG_H
 
 #include <QDialog>
+#include <QLabel>
+#include <QLineEdit>
+#include <QDialogButtonBox>
+#include <QPushButton>
+
 
 namespace Ui {
 class EditPlayerDialog;
@@ -19,6 +24,9 @@ public:
 
 private:
     Ui::EditPlayerDialog *ui;
+    QLabel lable;
+    QLineEdit lineEdit;
+    QDialogButtonBox buttonBox;
 };
 
 #endif // EDITPLAYERDIALOG_H

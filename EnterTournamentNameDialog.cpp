@@ -1,4 +1,4 @@
-#include "EnterTournamentName.h"
+#include "EnterTournamentNameDialog.h"
 #include "ui_EnterTournamentName.h"
 #include "QPushButton"
 
