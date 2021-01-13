@@ -27,32 +27,36 @@ public:
 
     void printRoundPlayers();
 private slots:
-    void on_AddToRoundButton_clicked();
+    void on_addToRoundButton_clicked();
 
-    void on_tournamentListWidget_itemDoubleClicked(QListWidgetItem *item);
+    void on_tournamentRosterListWidget_itemDoubleClicked(QListWidgetItem *item);
 
-    void on_tournamentListWidget_itemClicked(QListWidgetItem *item);
+    void on_tournamentRosterListWidget_itemClicked(QListWidgetItem *item);
 
     void on_buttonBox_accepted();
 
-    void on_RemoveFromRoundButton_clicked();
+    void on_removeFromRoundButton_clicked();
 
-    void on_roundListWidget_itemDoubleClicked(QListWidgetItem *item);
+    void on_roundRosterListWidget_itemDoubleClicked(QListWidgetItem *item);
 
-    void on_roundListWidget_itemClicked(QListWidgetItem *item);
+    void on_roundRosterListWidget_itemClicked(QListWidgetItem *item);
 
-    void on_AddAllPlayersButton_clicked();
+    void on_addAllPlayersButton_clicked();
 
-    void on_RemoveAllPlayersButton_clicked();
+    void on_removeAllPlayersButton_clicked();
 
 private:
     Ui::AddToRoundDialog *ui;
-    QListWidget tournamentListWidget;
-    QListWidget roundListWidget;
+    QListWidget tournamentRosterListWidget;
+    QListWidget roundRosterListWidget;
     QTextEdit textEdit;
-    QLabel label_3;
-    QPushButton AddToRoundButton;
-    QPushButton RemoveFromRoundButton;
+    QLabel menuLabel;
+    QLabel tournamentRosterLabel;
+    QLabel roundRosterLabel;
+    QPushButton addToRoundButton;
+    QPushButton removeFromRoundButton;
+    QPushButton addAllPlayersButton;
+    QPushButton removeAllPlayersButton;
     QDialogButtonBox buttonBox;
 };
 #endif // ADDTOROUNDDIALOG_H

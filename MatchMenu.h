@@ -3,7 +3,9 @@
 
 #include <QWidget>
 #include <QLabel>
-#include "QListWidget"
+#include <QListWidget>
+#include <QPushButton>
+
 #include "Round.h"
 #include "Match.h"
 
@@ -27,21 +29,27 @@ public:
 
     void printMatchStandings();
 private slots:
-    void on_pushButton_3_clicked();
+    void on_addGameButton_clicked();
 
-    void on_FinishGameButton_clicked();
+    void on_finishGameButton_clicked();
 
     void on_listWidget_itemClicked(QListWidgetItem *item);
 
-    void on_pushButton_clicked();
+    void on_exitButton_clicked();
 
-    void on_ExitButton_clicked();
-
-    void on_DeleteGameButton_clicked();
+    void on_deleteGameButton_clicked();
 
 private:
     Ui::MatchMenu *ui;
-    QLabel label_2;
+
+    QPushButton addGameButton;
+    QPushButton finishGameButton;
+    QPushButton deleteGameButton;
+    QPushButton exitButton;
+
+    QLabel listOfGamesLabel;
+    QLabel gameResultsLabel;
+
     enum GameResultsColumns{
         NAME, SCORE
     };

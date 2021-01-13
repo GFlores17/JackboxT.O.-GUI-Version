@@ -3,7 +3,7 @@
 \
 #include "TournamentMenu.h"
 
-#include "EnterTournamentName.h"
+#include "EnterTournamentNameDialog.h"
 
 #include "MainMenu.h"
 #include <QVBoxLayout>

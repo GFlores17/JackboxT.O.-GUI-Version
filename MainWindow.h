@@ -27,7 +27,6 @@ public:
     void formatPlayersInTournamentFile();
 
     QWidget* getCenterWidget();
-    void closeEvent(QCloseEvent *event);
 
 private slots:
     void on_exitButton_clicked();
@@ -36,16 +35,22 @@ private slots:
 
     void on_continueTournamentButton_clicked();
 
-private:
+private:  
     Ui::MainWindow *ui;
-    QLineEdit lineEdit;
-    QPushButton pushButton;
-    QPushButton newWindowButton;
+
+    QTextEdit textEdit;
     QTextBrowser textBrowser;
+
     QMediaPlayer *player;
-    QPushButton exitButton;
+
     QPushButton startTournamentButton;
+    QPushButton continueTournamentButton;
+    QPushButton exitButton;
+
     QWidget *centerWidget;
     QMainWindow *pointerToMainWindow;
+
+    void closeEvent(QCloseEvent *event);
+
 };
 #endif // MAINWINDOW_H

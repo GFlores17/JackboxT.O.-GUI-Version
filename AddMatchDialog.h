@@ -2,8 +2,12 @@
 #define ADDMATCHDIALOG_H
 
 #include <QDialog>
-#include <Round.h>
+#include <QLabel>
+
 #include <QPushButton>
+#include <QLineEdit>
+
+#include "Round.h"
 
 namespace Ui {
 class AddMatchDialog;
@@ -20,13 +24,17 @@ public:
 
 private slots:
     void on_lineEdit_textChanged(const QString &arg1);
-
-    void on_pushButton_clicked();
+    void on_okButton_clicked();
 
 private:
+
     Ui::AddMatchDialog *ui;
-    QPushButton pushButton;
-    QPushButton pushButton_2;
+
+    QLabel label;
+    QLineEdit lineEdit;
+
+    QPushButton okButton;
+    QPushButton cancelButton;
 
 };
 

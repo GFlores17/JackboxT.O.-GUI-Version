@@ -23,37 +23,39 @@ public:
     std::shared_ptr<Round> round;
     std::shared_ptr<Match> match;
 
+    void printMatchPlayers();
     void printRoundPlayers();
-    void printGamePlayers();
 
 signals:
     void RemoveFromMatchButton_clicked();
 
 private slots:
-    void on_AddToMatchButton_clicked();
+    void on_addToMatchButton_clicked();
 
-    void on_roundRoster_itemDoubleClicked(QListWidgetItem *item);
+    void on_roundRosterListWidget_itemDoubleClicked(QListWidgetItem *item);
 
-    void on_roundRoster_itemClicked(QListWidgetItem *item);
+    void on_roundRosterListWidget_itemClicked(QListWidgetItem *item);
 
     void on_buttonBox_accepted();
 
-    void on_RemoveButton_clicked();
+    void on_removeFromMatchButton_clicked();
 
-    void on_matchRoster_itemClicked(QListWidgetItem *item);
+    void on_matchRosterListWidget_itemClicked(QListWidgetItem *item);
 
-    void on_matchRoster_itemDoubleClicked(QListWidgetItem *item);
+    void on_matchRosterListWidget_itemDoubleClicked(QListWidgetItem *item);
 
-    void on_AddAllPlayersButton_clicked();
+    void on_addAllPlayersButton_clicked();
 
-    void on_RemoveAllPlayersButton_clicked();
+    void on_removeAllPlayersButton_clicked();
 
 private:
     Ui::AddPlayerToMatchDialog *ui;
-    QListWidget roundRoster;
-    QListWidget matchRoster;
+    QListWidget roundRosterListWidget;
+    QListWidget matchRosterListWidget;
     QTextEdit textEdit;
-    QLabel label_3;
+    QLabel menuLabel;
+    QLabel roundRosterLabel;
+    QLabel matchRosterLabel;
 
 
 };

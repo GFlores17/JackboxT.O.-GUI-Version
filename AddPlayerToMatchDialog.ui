@@ -29,7 +29,7 @@
     <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
    </property>
   </widget>
-  <widget class="QLabel" name="label_3">
+  <widget class="QLabel" name="menuLabel">
    <property name="geometry">
     <rect>
      <x>200</x>
@@ -48,7 +48,7 @@
     <string>TextLabel</string>
    </property>
   </widget>
-  <widget class="QLabel" name="label">
+  <widget class="QLabel" name="roundRosterLabel">
    <property name="geometry">
     <rect>
      <x>160</x>
@@ -61,7 +61,7 @@
     <string>Round Roster</string>
    </property>
   </widget>
-  <widget class="QLabel" name="label_2">
+  <widget class="QLabel" name="matchRosterLabel">
    <property name="geometry">
     <rect>
      <x>400</x>
@@ -85,17 +85,17 @@
    </property>
    <layout class="QVBoxLayout" name="verticalLayout_2">
     <item>
-     <widget class="QListWidget" name="matchRoster"/>
+     <widget class="QListWidget" name="matchRosterListWidget"/>
     </item>
     <item>
-     <widget class="QPushButton" name="RemoveButton">
+     <widget class="QPushButton" name="removeFromMatchButton">
       <property name="text">
        <string>Remove Player From Match</string>
       </property>
      </widget>
     </item>
     <item>
-     <widget class="QPushButton" name="RemoveAllPlayersButton">
+     <widget class="QPushButton" name="removeAllPlayersButton">
       <property name="text">
        <string>Remove All Players</string>
       </property>
@@ -114,17 +114,17 @@
    </property>
    <layout class="QVBoxLayout" name="verticalLayout">
     <item>
-     <widget class="QListWidget" name="roundRoster"/>
+     <widget class="QListWidget" name="roundRosterListWidget"/>
     </item>
     <item>
-     <widget class="QPushButton" name="AddToMatchButton">
+     <widget class="QPushButton" name="addToMatchButton">
       <property name="text">
        <string>Add Player To Match</string>
       </property>
      </widget>
     </item>
     <item>
-     <widget class="QPushButton" name="AddAllPlayersButton">
+     <widget class="QPushButton" name="addAllPlayersButton">
       <property name="text">
        <string>Add All Players</string>
       </property>

@@ -2,7 +2,12 @@
 #define PLAYERREGISTRATIONDIALOG_H
 
 #include <QDialog>
+
+#include <QLabel>
 #include <QLineEdit>
+#include <QDialogButtonBox>
+#include <QPushButton>
+
 #include "Tournament.h"
 
 namespace Ui {
@@ -22,13 +27,18 @@ public:
 private slots:
     void on_lineEdit_returnPressed();
 
-    void on_OKButton_clicked();
+    void on_okButton_clicked();
 
-    void on_CancelButton_clicked();
+    void on_cancelButton_clicked();
 
 private:
     Ui::PlayerRegistrationDialog *ui;
+
+    QLabel lable;
     QLineEdit lineEdit;
+    QDialogButtonBox buttonBox;
+    QPushButton okButton;
+    QPushButton cancelButton;
 
 };
 

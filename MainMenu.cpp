@@ -1,7 +1,7 @@
 #include "MainMenu.h"
 #include "ui_MainMenu.h"
 #include "TournamentMenu.h"
-#include "EnterTournamentName.h"
+#include "EnterTournamentNameDialog.h"
 #include <memory>
 #include <fstream>
 #include <QDir>

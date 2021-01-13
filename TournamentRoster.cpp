@@ -27,17 +27,17 @@ TournamentRoster::TournamentRoster(std::shared_ptr<Tournament> T, QWidget *paren
 
     ui->tableWidget->setStyleSheet("QTableWidget{background-color: #FFFFFF}");
 
-    ui->pushButton->setStyleSheet("QPushButton::hover{background-color : cyan;}"
+    ui->editPlayerButton->setStyleSheet("QPushButton::hover{background-color : cyan;}"
                                     "QPushButton{background-color: #FFFFFF;}");
-    ui->pushButton_2->setStyleSheet("QPushButton::hover{background-color : cyan;}"
+    ui->deletePlayerButton->setStyleSheet("QPushButton::hover{background-color : cyan;}"
                                     "QPushButton{background-color: #FFFFFF;}");
 
-    ui->pushButton->setEnabled(false);
-    ui->pushButton_2->setEnabled(false);
+    ui->editPlayerButton->setEnabled(false);
+    ui->deletePlayerButton->setEnabled(false);
 
-    ui->pushButton->setStyleSheet("QPushButton::hover{background-color : cyan;}"
+    ui->editPlayerButton->setStyleSheet("QPushButton::hover{background-color : cyan;}"
                                     "QPushButton{background-color: grey;}");
-    ui->pushButton_2->setStyleSheet("QPushButton::hover{background-color : cyan;}"
+    ui->deletePlayerButton->setStyleSheet("QPushButton::hover{background-color : cyan;}"
                                     "QPushButton{background-color: grey;}");
 
 }
@@ -78,7 +78,7 @@ void TournamentRoster::printPlayersAndScores(){
 
 }
 
-void TournamentRoster::on_pushButton_clicked()
+void TournamentRoster::on_editPlayerButton_clicked()
 {
     QTableWidgetItem *item = ui->tableWidget->currentItem();
     int x = ui->tableWidget->row(item);
@@ -92,17 +92,17 @@ void TournamentRoster::on_pushButton_clicked()
 
     printPlayersAndScores();
 
-    ui->pushButton->setEnabled(false);
-    ui->pushButton_2->setEnabled(false);
+    ui->editPlayerButton->setEnabled(false);
+    ui->deletePlayerButton->setEnabled(false);
 
-    ui->pushButton->setStyleSheet("QPushButton::hover{background-color : cyan;}"
+    ui->editPlayerButton->setStyleSheet("QPushButton::hover{background-color : cyan;}"
                                     "QPushButton{background-color: grey;}");
-    ui->pushButton_2->setStyleSheet("QPushButton::hover{background-color : cyan;}"
+    ui->deletePlayerButton->setStyleSheet("QPushButton::hover{background-color : cyan;}"
                                     "QPushButton{background-color: grey;}");
 
 }
 
-void TournamentRoster::on_pushButton_2_clicked()
+void TournamentRoster::on_deletePlayerButton_clicked()
 {
     QTableWidgetItem *item = ui->tableWidget->currentItem();
     int x = ui->tableWidget->row(item);
@@ -110,22 +110,22 @@ void TournamentRoster::on_pushButton_2_clicked()
     this->passedTournament->deletePlayer(x);
     printPlayersAndScores();
 
-    ui->pushButton->setEnabled(false);
-    ui->pushButton_2->setEnabled(false);
+    ui->editPlayerButton->setEnabled(false);
+    ui->deletePlayerButton->setEnabled(false);
 
-    ui->pushButton->setStyleSheet("QPushButton::hover{background-color : cyan;}"
+    ui->editPlayerButton->setStyleSheet("QPushButton::hover{background-color : cyan;}"
                                     "QPushButton{background-color: grey;}");
-    ui->pushButton_2->setStyleSheet("QPushButton::hover{background-color : cyan;}"
+    ui->deletePlayerButton->setStyleSheet("QPushButton::hover{background-color : cyan;}"
                                     "QPushButton{background-color: grey;}");
 }
 
 void TournamentRoster::on_tableWidget_itemClicked(QTableWidgetItem *item)
 {
-    ui->pushButton->setEnabled(true);
-    ui->pushButton_2->setEnabled(true);
+    ui->editPlayerButton->setEnabled(true);
+    ui->deletePlayerButton->setEnabled(true);
 
-    ui->pushButton->setStyleSheet("QPushButton::hover{background-color : cyan;}"
+    ui->editPlayerButton->setStyleSheet("QPushButton::hover{background-color : cyan;}"
                                     "QPushButton{background-color: #FFFFFF;}");
-    ui->pushButton_2->setStyleSheet("QPushButton::hover{background-color : cyan;}"
+    ui->deletePlayerButton->setStyleSheet("QPushButton::hover{background-color : cyan;}"
                                     "QPushButton{background-color: #FFFFFF;}");
 }

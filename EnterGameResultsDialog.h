@@ -20,19 +20,18 @@ public:
 
     std::shared_ptr<Game> game;
 
-    QLineEdit lineEdit;
-    QLabel label;
-
     void editLabel(QString str);
-
     int playerScore() const;
 
     void enterScores();
+
 private slots:
     void on_lineEdit_returnPressed();
 
 private:
     Ui::EnterGameResults *ui;
+    QLabel label;
+    QLineEdit lineEdit;
 
 };
 

@@ -19,7 +19,7 @@ RoundMenu::RoundMenu(std::shared_ptr<Round> R, QWidget *parent) :
     ui->selectMatchButton->setEnabled(false);
     this->setWindowTitle("Round Menu");
 
-    ui->label->setText(round->getRoundName() + " Menu");
+    ui->roundMenuLabel->setText(round->getRoundName() + " Menu");
 
     this->setStyleSheet("color: black;"
                             "background-color: #58CCED;"
@@ -50,7 +50,7 @@ RoundMenu::RoundMenu(std::shared_ptr<Round> R, std::shared_ptr<Tournament> T, QM
     this->round = R;
 
     ui->selectMatchButton->setEnabled(false);
-    ui->label->setText(round->getRoundName() + " Menu");
+    ui->roundMenuLabel->setText(round->getRoundName() + " Menu");
 
     this->pointerToMainWindow = pointerToMainWindow;
     this->hostTournament = T;

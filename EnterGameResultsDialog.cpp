@@ -1,4 +1,4 @@
-#include "EnterGameResults.h"
+#include "EnterGameResultsDialog.h"
 #include "ui_EnterGameResults.h"
 #include "Match.h"
 #include "Game.h"

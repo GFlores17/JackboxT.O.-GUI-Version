@@ -3,6 +3,7 @@
 
 #include <QWidget>
 #include <QListWidget>
+#include <QTableWidget>
 #include <QPushButton>
 #include <QLabel>
 #include <QMainWindow>
@@ -44,12 +45,19 @@ private slots:
 
 private:
     Ui::RoundMenu *ui;
+    QMainWindow *pointerToMainWindow;
+
+    QListWidget listWidget;
+    QTableWidget tableWidget;
+
+    QLabel listOfMatchesLabel;
+    QLabel matchStandingslabel;
+    QLabel roundMenuLabel;
+
     QPushButton addMatchButton;
     QPushButton selectMatchButton;
     QPushButton exitMatchButton;
-    QLabel label;
-    QListWidget listWidget;
-    QMainWindow *pointerToMainWindow;
+
     std::shared_ptr<Tournament> hostTournament;
     std::shared_ptr<TournamentMenu> testMenu;
 

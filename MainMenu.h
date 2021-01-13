@@ -3,14 +3,12 @@
 
 #include <QWidget>
 #include <QMainWindow>
-#include <QLineEdit>
-#include <QButtonGroup>
-#include <QPushButton>
-#include <QPlainTextEdit>
-#include <QWindow>
-#include <QTextBrowser>
+
 #include <QMediaPlayer>
-#include <QMainWindow>
+
+#include <QTextBrowser>
+#include <QTextEdit>
+#include <QPushButton>
 
 namespace Ui {
 class MainMenu;
@@ -39,13 +37,15 @@ private slots:
 
 private:
     Ui::MainMenu *ui;
-    QLineEdit lineEdit;
-    QPushButton pushButton;
-    QPushButton newWindowButton;
+
     QTextBrowser textBrowser;
+    QTextEdit textEdit;
     QMediaPlayer *player;
+
     QPushButton exitButton;
     QPushButton startTournamentButton;
+    QPushButton continueTournamentButton;
+
     QWidget *centerWidget;
     QMainWindow *ptrToMainWindow;
 };

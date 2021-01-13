@@ -8,13 +8,13 @@ AddMatchDialog::AddMatchDialog(std::shared_ptr<Round> R, QWidget *parent) :
 {
     ui->setupUi(this);
 
-    ui->pushButton->setVisible(false);
+    ui->okButton->setVisible(false);
     this->round = R;
 
-    ui->pushButton->setStyleSheet("QPushButton::hover{background-color : lightgreen;}"
+    ui->okButton->setStyleSheet("QPushButton::hover{background-color : lightgreen;}"
                                              "QPushButton {background-color: #FFFFFF}");
 
-    ui->pushButton_2->setStyleSheet("QPushButton::hover{background-color : lightgreen;}"
+    ui->cancelButton->setStyleSheet("QPushButton::hover{background-color : lightgreen;}"
                                              "QPushButton {background-color: #FFFFFF}");
 }
 
@@ -25,11 +25,11 @@ AddMatchDialog::~AddMatchDialog()
 
 void AddMatchDialog::on_lineEdit_textChanged(const QString &arg1)
 {
-    ui->pushButton->setVisible(true);
+    ui->okButton->setVisible(true);
 }
 
 
-void AddMatchDialog::on_pushButton_clicked()
+void AddMatchDialog::on_okButton_clicked()
 {
     std::string name =   (ui->lineEdit->text()).toStdString();
     std::shared_ptr<Match> m = std::make_shared<Match>(name);

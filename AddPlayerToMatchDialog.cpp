@@ -13,33 +13,34 @@ AddPlayerToMatchDialog::AddPlayerToMatchDialog(std::shared_ptr<Round> r, int x, 
 
     QString output;
 
-    ui->label_3->setText(QString::fromStdString(match->getName()) + " Menu");
-    ui->label_3->setWordWrap(true);
-    ui->label_3->setAlignment(Qt::AlignCenter);
+    ui->menuLabel->setText(QString::fromStdString(match->getName()) + " Menu");
+    ui->menuLabel->setWordWrap(true);
+    ui->menuLabel->setAlignment(Qt::AlignCenter);
 
     printRoundPlayers();
-    printGamePlayers();
+    printMatchPlayers();
 
-    ui->AddToMatchButton->setEnabled(false);
-    ui->RemoveButton->setEnabled(false);
+    //removeFromMatchButton
+    ui->addToMatchButton->setEnabled(false);
+    ui->removeFromMatchButton->setEnabled(false);
 
-    ui->AddAllPlayersButton->setEnabled(true);
-    ui->RemoveAllPlayersButton->setEnabled(true);
+    ui->addAllPlayersButton->setEnabled(true);
+    ui->removeAllPlayersButton->setEnabled(true);
 
     this->setStyleSheet("background-color: #58CCED;");
-    ui->roundRoster->setStyleSheet("background-color: #FFFFFF;");
-    ui->matchRoster->setStyleSheet("background-color: #FFFFFF;");
+    ui->roundRosterListWidget->setStyleSheet("background-color: #FFFFFF;");
+    ui->matchRosterListWidget->setStyleSheet("background-color: #FFFFFF;");
 
-    ui->AddToMatchButton->setStyleSheet("QPushButton::hover{background-color : lightgreen;}"
+    ui->addToMatchButton->setStyleSheet("QPushButton::hover{background-color : lightgreen;}"
                                         "QPushButton{background-color: #FFFFFF;}");
 
-    ui->RemoveButton->setStyleSheet("QPushButton::hover{background-color : lightgreen;}"
+    ui->removeFromMatchButton->setStyleSheet("QPushButton::hover{background-color : lightgreen;}"
                                     "QPushButton{background-color: #FFFFFF;}");
 
-    ui->AddAllPlayersButton->setStyleSheet("QPushButton::hover{background-color : lightgreen;}"
+    ui->addAllPlayersButton->setStyleSheet("QPushButton::hover{background-color : lightgreen;}"
                                         "QPushButton{background-color: #FFFFFF;}");
 
-    ui->RemoveAllPlayersButton->setStyleSheet("QPushButton::hover{background-color : lightgreen;}"
+    ui->removeAllPlayersButton->setStyleSheet("QPushButton::hover{background-color : lightgreen;}"
                                         "QPushButton{background-color: #FFFFFF;}");
 
     ui->buttonBox->button(QDialogButtonBox::Ok)->setStyleSheet("QPushButton::hover{background-color : lightgreen;}"
@@ -62,34 +63,31 @@ void AddPlayerToMatchDialog::printRoundPlayers(){
         int j = i+1;
         output = QString::number(j) + ". " + round->getRoundListOfPlayers().at(i)->getQName();
         //output = output + "\n";
-        ui->roundRoster->addItem(output);
+        ui->roundRosterListWidget->addItem(output);
     }
 }
 
-void AddPlayerToMatchDialog::printGamePlayers(){
+void AddPlayerToMatchDialog::printMatchPlayers(){
     QString output;
 
-    ui->matchRoster->clear();
+    ui->matchRosterListWidget->clear();
 
     if(match->getMatchListOfPlayers().size() > 0){
         for(int i = 0; i < match->getNumOfPlayers(); i++){
             int j = i+1;
             output = QString::number(j) + ". " + match->getMatchListOfPlayers().at(i)->getQName();
             //output = output + "\n";
-            ui->matchRoster->addItem(output);
+            ui->matchRosterListWidget->addItem(output);
         }
     }
 
 }
 
-void AddPlayerToMatchDialog::on_AddToMatchButton_clicked()
+void AddPlayerToMatchDialog::on_addToMatchButton_clicked()
 {
 
-    QListWidgetItem *item = ui->roundRoster->currentItem();
-    int x = ui->roundRoster->row(item);
-
-
-    //qDebug() << "meme";
+    QListWidgetItem *item = ui->roundRosterListWidget->currentItem();
+    int x = ui->roundRosterListWidget->row(item);
 
     //Duplicating shared ptr from Tournament List to put in Round List.
     std::shared_ptr<Player> p(round->getRoundListOfPlayers().at(x));
@@ -98,20 +96,17 @@ void AddPlayerToMatchDialog::on_AddToMatchButton_clicked()
     std::shared_ptr<Match> m(round->getListOfMatches().back());
     match->addPlayer(p);
 
-    ui->matchRoster->clear();
+    ui->matchRosterListWidget->clear();
 
-    //Print players in Round.
-    printGamePlayers();
+    //Print players in Match.
+    printMatchPlayers();
 
 }
 
-void AddPlayerToMatchDialog::on_roundRoster_itemDoubleClicked(QListWidgetItem *item)
+void AddPlayerToMatchDialog::on_roundRosterListWidget_itemDoubleClicked(QListWidgetItem *item)
 {
-    item = ui->roundRoster->currentItem();
-    int x = ui->roundRoster->row(item);
-
-
-    //qDebug() << "meme";
+    item = ui->roundRosterListWidget->currentItem();
+    int x = ui->roundRosterListWidget->row(item);
 
     //Duplicating shared ptr from Tournament List to put in Round List.
     std::shared_ptr<Player> p(round->getRoundListOfPlayers().at(x));
@@ -120,15 +115,15 @@ void AddPlayerToMatchDialog::on_roundRoster_itemDoubleClicked(QListWidgetItem *i
     std::shared_ptr<Match> m(round->getListOfMatches().back());
     match->addPlayer(p);
 
-    ui->matchRoster->clear();
+    ui->matchRosterListWidget->clear();
 
     //Print players in Round.
-    printGamePlayers();
+    printMatchPlayers();
 }
 
-void AddPlayerToMatchDialog::on_roundRoster_itemClicked(QListWidgetItem *item)
+void AddPlayerToMatchDialog::on_roundRosterListWidget_itemClicked(QListWidgetItem *item)
 {
-    ui->AddToMatchButton->setEnabled(true);
+    ui->addToMatchButton->setEnabled(true);
 }
 
 void AddPlayerToMatchDialog::on_buttonBox_accepted()
@@ -136,61 +131,58 @@ void AddPlayerToMatchDialog::on_buttonBox_accepted()
     this->close();
 }
 
-void AddPlayerToMatchDialog::on_RemoveButton_clicked()
+void AddPlayerToMatchDialog::on_removeFromMatchButton_clicked()
 {
-    //ui->matchRoster->clear();
+    //ui->matchRosterListWidget->clear();
 
-    QListWidgetItem *item = ui->matchRoster->currentItem();
-    int x = ui->matchRoster->row(item);
+    QListWidgetItem *item = ui->matchRosterListWidget->currentItem();
+    int x = ui->matchRosterListWidget->row(item);
 
     match->deletePlayer(x);
 
-    ui->matchRoster->clear();
+    ui->matchRosterListWidget->clear();
     qDebug() << "CLEARED\n";
 
 
     //Print players in match.
-    printGamePlayers();
+    printMatchPlayers();
 
-    ui->RemoveButton->setEnabled(false);
+    ui->removeFromMatchButton->setEnabled(false);
 }
 
-void AddPlayerToMatchDialog::on_matchRoster_itemClicked(QListWidgetItem *item)
+void AddPlayerToMatchDialog::on_matchRosterListWidget_itemClicked(QListWidgetItem *item)
 {
-     ui->RemoveButton->setEnabled(true);
+     ui->removeFromMatchButton->setEnabled(true);
 }
 
-void AddPlayerToMatchDialog::on_matchRoster_itemDoubleClicked(QListWidgetItem *item)
+void AddPlayerToMatchDialog::on_matchRosterListWidget_itemDoubleClicked(QListWidgetItem *item)
 {
-    //ui->matchRoster->clear();
 
-    item = ui->matchRoster->currentItem();
-    int x = ui->matchRoster->row(item);
+    item = ui->matchRosterListWidget->currentItem();
+    int indexToDelete = ui->matchRosterListWidget->row(item);
 
-    match->deletePlayer(x);
+    match->deletePlayer(indexToDelete);
 
-    ui->matchRoster->clear();
-    qDebug() << "CLEARED\n";
+    ui->matchRosterListWidget->clear();
 
+    printMatchPlayers();
+    //Updates players in match roster.
 
-    //Print players in match.
-    printGamePlayers();
-
-    ui->RemoveButton->setEnabled(false);
+    ui->removeFromMatchButton->setEnabled(false);
+    //Prevent out_of_range errors.
 }
 
-void AddPlayerToMatchDialog::on_AddAllPlayersButton_clicked()
+void AddPlayerToMatchDialog::on_addAllPlayersButton_clicked()
 {
     for(int i = 0; i < round->getRoundListOfPlayers().size(); i++){
         std::shared_ptr<Player>p = round->getRoundListOfPlayers().at(i);
         match->addPlayer(p);
     }
-
-    printGamePlayers();
+    printMatchPlayers();
 }
 
-void AddPlayerToMatchDialog::on_RemoveAllPlayersButton_clicked()
+void AddPlayerToMatchDialog::on_removeAllPlayersButton_clicked()
 {
     match->deleteAllPlayers();
-    printGamePlayers();
+    printMatchPlayers();
 }

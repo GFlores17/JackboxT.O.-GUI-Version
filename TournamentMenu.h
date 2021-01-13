@@ -7,6 +7,8 @@
 #include <QPushButton>
 #include <QListWidget>
 #include <QMainWindow>
+#include <QLabel>
+
 #include "Tournament.h"
 
 
@@ -21,7 +23,7 @@ class TournamentMenu : public QWidget
 public:
     explicit TournamentMenu(std::shared_ptr<Tournament> T, QWidget *parent = nullptr);
     TournamentMenu(std::shared_ptr<Tournament> T, QMainWindow *ptrToMainWindow);
-    //TournamentMenu(QWidget *parent = nullptr, Tournament T);
+
     ~TournamentMenu();
 
     std::shared_ptr<Tournament> passedTournament;
@@ -39,15 +41,17 @@ private slots:
 
 private:
     Ui::TournamentMenu *ui;
+
     QTextEdit textEdit;
-    QTextEdit textEdit_2;
-    QLineEdit lineEdit_2;
+
+    QLabel label;
+
     QPushButton registerButton;
     QPushButton startButton;
     QPushButton continueButton;
     QPushButton printPlayersButton;
     QPushButton exitButton;
-    QListWidget listWidget;
+
     QMainWindow *ptrToMainWindow;
 };
 

@@ -2,8 +2,12 @@
 #define ROUNDNAMEDIALOG_H
 
 #include <QDialog>
-#include <QPushButton>
+
+#include <QLabel>
+#include <QLineEdit>
 #include <QDialogButtonBox>
+#include <QPushButton>
+
 #include "Tournament.h"
 
 namespace Ui {
@@ -24,6 +28,9 @@ private slots:
 
 private:
     Ui::RoundNameDialog *ui;
+
+    QLabel lable;
+    QLineEdit lineEdit;
     QDialogButtonBox buttonBox;
 };
 
