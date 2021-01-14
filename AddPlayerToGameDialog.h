@@ -1,5 +1,5 @@
-#ifndef ADDPLAYERTOGAME_H
-#define ADDPLAYERTOGAME_H
+#ifndef ADDPLAYERTOGAMEDIALOG_H
+#define ADDPLAYERTOGAMEDIALOG_H
 
 #include <QDialog>
 #include <QLabel>
@@ -7,21 +7,21 @@
 #include <QDialogButtonBox>
 
 namespace Ui {
-class AddPlayerToGame;
+class AddPlayerToGameDialog;
 }
 
-class AddPlayerToGame : public QDialog
+class AddPlayerToGameDialog : public QDialog
 {
     Q_OBJECT
 
 public:
-    explicit AddPlayerToGame(QWidget *parent = nullptr);
-    ~AddPlayerToGame();
+    explicit AddPlayerToGameDialog(QWidget *parent = nullptr);
+    ~AddPlayerToGameDialog();
 
     std::string getPlayerName() const;
 
 private:
-    Ui::AddPlayerToGame *ui;
+    Ui::AddPlayerToGameDialog *ui;
 
     QLabel lineEditLabel;
     QLineEdit lineEdit;
@@ -29,4 +29,4 @@ private:
 
 };
 
-#endif // ADDPLAYERTOGAME_H
+#endif // AddPlayerToGameDialog_H

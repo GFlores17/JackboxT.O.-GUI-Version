@@ -1,5 +1,5 @@
 #include "EnterTournamentNameDialog.h"
-#include "ui_EnterTournamentName.h"
+#include "ui_EnterTournamentNameDialog.h"
 #include "QPushButton"
 
 EnterTournamentName::EnterTournamentName(QWidget *parent) :

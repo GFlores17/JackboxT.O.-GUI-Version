@@ -1,5 +1,5 @@
 #include "EnterGameResultsDialog.h"
-#include "ui_EnterGameResults.h"
+#include "ui_EnterGameResultsDialog.h"
 #include "Match.h"
 #include "Game.h"
 #include <QtDebug>
