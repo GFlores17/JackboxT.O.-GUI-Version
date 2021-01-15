@@ -20,30 +20,6 @@
 #include "Tournament.h"
 #include "GetEntry.h"
 
-    static void helloMessage() {
-        std::cout << std::setfill(' ') << std::setw(45) << "***************************************************" << std::endl;
-        std::cout << std::setfill(' ') << std::setw(33) << "Welcome to the" << std::endl << std::setfill(' ') << std::setw(39) << "JACKBOX TOURNAMENT MANAGER" << std::endl << std::setfill(' ') << std::setw(30) << "program." << std::endl;
-        std::cout << std::setfill(' ') << std::setw(45) << "***************************************************" << std::endl << std::endl;
-
-        std::cout << "This is a small scorekeeping software program written in C++\n";
-        std::cout << "that allows the user to organize tournament play using 3 functions.\n\n";
-    }
-
-    int Tournament::getEntry() {
-        int choice;
-        std::cin >> choice;
-        checkIfInt(choice);
-
-        while (choice < 1 || choice > 5) {
-            std::cout << "Invalid option. Try again." << std::endl;
-            std::cin >> choice;
-            checkIfInt(choice);
-        }
-
-        std::cout << std::endl;
-        return choice;
-    }
-
     std::string tournamentName;
     std::vector<std::shared_ptr<Player>> listOfAllPlayers;
     std::vector<std::shared_ptr<Round>> listOfRounds;
@@ -132,7 +108,7 @@
         QString roundsFolderPath = this->createRoundsFolder(path);
 
         for(int i = 0; i < this->listOfRounds.size(); i++){
-            this->listOfRounds.at(i)->serializeUsingQDir(roundsFolderPath);
+            this->listOfRounds.at(i)->serializeRound(roundsFolderPath);
         }
     }
 
@@ -145,7 +121,6 @@
             qDebug() << path << "CREATED\n";
             //Create a folder for the newly created tournament.
         }
-
         return path;
     }//end createTournamentFolder();
 
@@ -160,27 +135,16 @@
             out << QString::fromStdString(this->tournamentName);
             file.remove();
         }
-        else{
-
-        }
     }//end serializeTournamentName
 
     void Tournament::serializeTournamentPlayers(QString path){
         QString newFile = path + "/TournamentPlayers" +  + ".txt";
 
-        if(QFileInfo(newFile).exists() == 0){
+        QFile file(newFile);
+        for(int i =0; i<listOfAllPlayers.size();i++){
+            listOfAllPlayers.at(i)->serializePlayer(file);
+        }
 
-            QFile file(newFile);
-            for(int i =0; i<listOfAllPlayers.size();i++){
-                listOfAllPlayers.at(i)->serializePlayer(file);
-            }
-        }
-        else{
-            QFile file(newFile);
-            for(int i =0; i<listOfAllPlayers.size();i++){
-                listOfAllPlayers.at(i)->serializePlayer(file);
-            }
-        }
     }//end serializeTournamentPlayers();
 
     QString Tournament::createRoundsFolder(QString path){
@@ -200,7 +164,6 @@
 
     void Tournament::deserializeTournament(QString folder_name){
         this->deserializeTournamentName(folder_name);
-        //qDebug () << "T NAME : " << QString::fromStdString(T->getTournamentName()) << "\n";
         this->deserializeTournamentPlayers(folder_name);
         this->deserializeAllRounds(folder_name);
     }
@@ -218,17 +181,17 @@
 
                 //qDebug() << "found tournament name file\n";
 
-                QFile TestFile(file.absoluteFilePath());
-                TestFile.open(QIODevice::ReadOnly);
+                QFile tournamentNameFile(file.absoluteFilePath());
+                tournamentNameFile.open(QIODevice::ReadOnly);
 
-                QTextStream in(&TestFile);
+                QTextStream in(&tournamentNameFile);
 
                 QString readline = in.readLine();
 
                 //qDebug() << "READLINE : " << readline;
                 this->tournamentName = readline.toStdString();
 
-                //TestFile.close();
+                tournamentNameFile.remove();
             }
             else{
                 //qDebug() << "wrong file\n";
@@ -250,10 +213,9 @@
             QFileInfo file = it.next();
 
             if(file.fileName() == "TournamentPlayers.txt"){
-                QFile TestFile(file.absoluteFilePath());
-                //qDebug() << "FILE PATH" << file.absoluteFilePath() << "\n";
-                TestFile.open(QIODevice::ReadOnly);
-                QTextStream in(&TestFile);
+                QFile tournamentPlayersFile(file.absoluteFilePath());
+                tournamentPlayersFile.open(QIODevice::ReadOnly);
+                QTextStream in(&tournamentPlayersFile);
 
                 while(!in.atEnd()){
                      std::string playerName = in.readLine().toStdString();
@@ -272,10 +234,9 @@
                      registerPlayer(p);
                 }//While loop deserializes all player objects in the text file.
 
-                //TestFile.close();
+                tournamentPlayersFile.remove();
 
             }//end if(TournamentPlayers is found)
-
         }//end while
     }
 
@@ -300,10 +261,12 @@
             QFileInfo INFILE = it.next();
             QString path = INFILE.absoluteFilePath();
             //qDebug() << "SEARCHING IN : " << path << "\n";
+
             std::shared_ptr<Round> newRound = std::make_shared<Round>();
             newRound->deserializeRoundName(path);
             newRound->deserializeRoundPlayers(path, this->listOfAllPlayers);
             newRound->deserializeAllMatches(path);
+
             if(newRound->getRoundName().toStdString() != "default"){
                 //this is in place until I can figure out why there are ghost directories inside the tournament directories.
                 this->addRound(newRound);
@@ -311,28 +274,6 @@
 
         }//end while
     }//end method()
-
-
-
-    void Tournament::scoreSort(){
-
-        Player player = Player("temp");
-            Player* p = &player;
-            for (int i = 0; i < listOfAllPlayers.size(); i++) {
-                for (int j = i + 1; j < listOfAllPlayers.size(); j++) {
-                    if (listOfAllPlayers.at(j)->getScore() > listOfAllPlayers.at(i)->getScore()) {
-                        p->setName(listOfAllPlayers.at(i)->getName());
-                        p->setScore(listOfAllPlayers.at(i)->getScore());
-
-                        listOfAllPlayers.at(i)->setName(listOfAllPlayers.at(j)->getName());
-                        listOfAllPlayers.at(i)->setScore(listOfAllPlayers.at(j)->getScore());
-
-                        listOfAllPlayers.at(j)->setName(p->getName());
-                        listOfAllPlayers.at(j)->setScore(p->getScore());
-                    }
-                }
-            }
-    }
 
 
 

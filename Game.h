@@ -35,13 +35,12 @@ public:
     std::vector<std::shared_ptr<Player>> getPlayers();
     std::map<std::string,int> getResultsMap();
 
-    void serializeGame(std::ofstream &OUTFILE);
-    void deserializeGame(std::shared_ptr<Game> g);
+
 
 
     void deserializeUsingQDir();
 
-    void serializeUsingQDir(QString path);
+    void serializeGame(QString path);
     QString createGameFolder(QString path);
     void serializeGameName(QString path);
     void serializeGamePlayers(QString path);

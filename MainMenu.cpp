@@ -126,16 +126,13 @@ void MainMenu::on_startTournamentButton_clicked()
 
     this->ptrToMainWindow->setCentralWidget(TM);
 
-
-
 }
 
 void MainMenu::on_continueTournamentButton_clicked()
 {
-    QString path = QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation);
-    qDebug() << "PATH : " << path;
-    path = path + "/JBT Saved Tournaments";
-    QString folder_name = QFileDialog::getExistingDirectory(this, "Choose", path);
+    QString path = QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation) + "/JBT Saved Tournaments";
+
+    QString folder_name = QFileDialog::getExistingDirectory(this, "Choose tournament to load.", path);
 
     std::shared_ptr<Tournament> T = std::make_shared<Tournament>();
     T->deserializeTournament(folder_name);

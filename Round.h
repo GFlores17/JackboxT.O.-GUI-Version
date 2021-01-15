@@ -34,11 +34,9 @@ public:
 
     void serializePlayersInRound();
     void deserializePlayersInRound(std::ifstream &INFILE);
-    void serializeRound(std::ofstream &OUTFILE);
-    void deserializeRound();
 
 
-    void serializeUsingQDir(QString path);
+    void serializeRound(QString path);
     QString createRoundFolder(QString path);
     void serializeRoundName(QString path);
     void serializeRoundPlayers(QString path);

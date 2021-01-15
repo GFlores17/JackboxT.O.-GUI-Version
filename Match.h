@@ -47,10 +47,8 @@ public:
     void addPlayer(std::shared_ptr<Player> p);
     int getNumOfPlayers();
 
-    void serializeMatch(std::ofstream &OUTFILE);
-    void deserializeMatch();
 
-    void serializeUsingQDir(QString path);
+    void serializeMatch(QString path);
     QString createMatchFolder(QString path);
     void serializeMatchName(QString path);
     void serializeMatchPlayers(QString path);
