@@ -113,7 +113,6 @@
 
     void Game::serializeGame(QString path){
         QString gameFolderPath = createGameFolder(path);
-        qDebug() << "CREATED FOLDER:" << gameFolderPath << "\n";
         serializeGameName(gameFolderPath);
         serializeGamePlayers(gameFolderPath);
         serializeGameResults(gameFolderPath);
@@ -124,7 +123,6 @@
 
         if(QDir(gameFolderPath).exists() == false){
             QDir().mkdir(gameFolderPath);
-            qDebug() << gameFolderPath << "CREATED\n";
         }
 
         return gameFolderPath;
@@ -195,21 +193,16 @@
         //QString path = QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation);
 
         //path = path + "/JBT Saved Tournaments/Testes";
-        qDebug () << "ENTERED deserializeGameName() method\n";
-        qDebug() << "PASSED PATH:" << path;
         QDir rootdir(path);
         QDirIterator it(rootdir);
 
-        //qDebug() << "CURRENT NAME" << QString::fromStdString(this->tournamentName);
 
 
         while (it.hasNext()) {
             QFileInfo file = it.next();
-            qDebug () << file.fileName() << "\n";
 
             if(file.fileName() == "GameName.txt"){
 
-                qDebug() << "FOUND GAME NAME file\n";
 
                 QFile gameNameFile(file.absoluteFilePath());
                 gameNameFile.open(QIODevice::ReadOnly);
@@ -233,11 +226,9 @@
 
         while (it.hasNext()) {
             QFileInfo file = it.next();
-            qDebug () << file.fileName() << "\n";
 
             if(file.fileName() == "GamePlayers.txt"){
 
-                qDebug() << "FOUND GAME PLAYERS file\n";
                 QFile gamePlayersFile(file.absoluteFilePath());
                 gamePlayersFile.open(QIODevice::ReadOnly);
                 QTextStream in(&gamePlayersFile);
@@ -245,10 +236,8 @@
                 while(!in.atEnd()){
 
                     std::string playerName = in.readLine().toStdString();
-                    qDebug () << QString::fromStdString(playerName) << "\n";
 
                     std::string stringPlayerScore = in.readLine().toStdString();
-                    qDebug () << QString::fromStdString(stringPlayerScore) << "\n";
 
 
                     std::stringstream ss(stringPlayerScore);
@@ -258,8 +247,6 @@
                     for(int i = 0; i < matchPlayersArray.size(); i++){
                         if(playerName==matchPlayersArray.at(i)->getName()){
                             std::shared_ptr<Player>newPlayer = matchPlayersArray.at(i);
-                            qDebug() << "MATCH PLAYER : " << matchPlayersArray.at(i)->getQName();
-                            qDebug() << "GAME DUPLICATE : " << newPlayer->getQName();
                             addPlayerToGame(newPlayer);
                             break;
                         }//Check for matching player pointer in tournament roster.
@@ -277,11 +264,9 @@
 
         while (it.hasNext()) {
             QFileInfo file = it.next();
-            qDebug () << file.fileName() << "\n";
 
             if(file.fileName() == "GameResults.txt"){
 
-                qDebug() << "FOUND GAME RESULTS file\n";
 
                 QFile gameResultsFile(file.absoluteFilePath());
                 gameResultsFile.open(QIODevice::ReadOnly);
@@ -289,10 +274,8 @@
 
                 while(!in.atEnd()){
                     std::string playerName = in.readLine().toStdString();
-                    qDebug () << "PLAYER NAME " << QString::fromStdString(playerName) << "\n";
 
                     std::string stringPlayerScore = in.readLine().toStdString();
-                    qDebug () << "PLAYER SCORE : " << QString::fromStdString(stringPlayerScore) << "\n";
 
                     std::stringstream ss(stringPlayerScore);
                     int intPlayerScore;
@@ -308,7 +291,6 @@
 
             }
         }
-        qDebug() << "EXIT deserializeGameResults()\n";
     }
 
 

@@ -92,12 +92,10 @@
     void Tournament::serializeTournament(){
         QString path = QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation);
         path = path + "/JBT Saved Tournaments/";
-        //qDebug() << path << "CREATED\n";
         //Create a folder to store all tournaments saved by the program if one is not created already.
 
         if(QDir(path).exists() == false){
             QDir().mkdir(path);
-            qDebug() << path << "CREATED\n";
             //If the folder at the path does not exist yet, create 1.
         }
         //Realistically, this step should be done in the "Start Tournament" button of the main window, but I'll fix that later.
@@ -117,8 +115,6 @@
 
         if(QDir(path).exists() == false){
             QDir().mkdir(path);
-            qDebug() << "TOURNAMENT FOLDER\n";
-            qDebug() << path << "CREATED\n";
             //Create a folder for the newly created tournament.
         }
         return path;
@@ -152,12 +148,8 @@
 
         if(QDir(roundFolderPath).exists() == false){
             QDir().mkdir(roundFolderPath);
-            qDebug() << roundFolderPath << "CREATED";
         }
-        else{
-            //does nothing for now.
-        }
-        qDebug() << path << "CREATED\n";
+
         return roundFolderPath;
     }//end createRoundFolder()
 
@@ -172,14 +164,12 @@
         QDir rootdir(path);
         QDirIterator it(rootdir);
 
-        //qDebug() << "CURRENT NAME" << QString::fromStdString(this->tournamentName);
 
         while (it.hasNext()) {
             QFileInfo file = it.next();
 
             if(file.fileName() == "TournamentName.txt"){
 
-                //qDebug() << "found tournament name file\n";
 
                 QFile tournamentNameFile(file.absoluteFilePath());
                 tournamentNameFile.open(QIODevice::ReadOnly);
@@ -188,17 +178,12 @@
 
                 QString readline = in.readLine();
 
-                //qDebug() << "READLINE : " << readline;
                 this->tournamentName = readline.toStdString();
 
                 tournamentNameFile.remove();
             }
-            else{
-                //qDebug() << "wrong file\n";
-            }
 
         }//end while
-        //qDebug() << "NEW NAME: " << QString::fromStdString(this->tournamentName) << "\n";
     }
 
     void Tournament::deserializeTournamentPlayers(QString path){
@@ -219,10 +204,8 @@
 
                 while(!in.atEnd()){
                      std::string playerName = in.readLine().toStdString();
-                     //qDebug () << QString::fromStdString(playerName) << "\n";
 
                      std::string stringPlayerScore = in.readLine().toStdString();
-                     //qDebug () << QString::fromStdString(stringPlayerScore) << "\n";
 
 
                      std::stringstream ss(stringPlayerScore);
@@ -250,17 +233,9 @@
         QDirIterator it(roundsFolder);
         //Iterate through QDir.
 
-        if(roundsFolder.exists()){
-            //qDebug() << roundsFolder << "exists. \n";
-        }
-        else{
-            //qDebug() << "Where tf the folder\n";
-        }
-
         while (it.hasNext()) {//While rounds folder has rounds in it.
             QFileInfo INFILE = it.next();
             QString path = INFILE.absoluteFilePath();
-            //qDebug() << "SEARCHING IN : " << path << "\n";
 
             std::shared_ptr<Round> newRound = std::make_shared<Round>();
             newRound->deserializeRoundName(path);

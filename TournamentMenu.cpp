@@ -171,7 +171,6 @@ void TournamentMenu::on_continueButton_clicked()
             ATRD.exec();
         }
 
-        qDebug() << "Selected Round: " << selectedRound << "\n";
         RoundMenu *RM = new RoundMenu(this->passedTournament->getRound(selectedRound), this->passedTournament, this->ptrToMainWindow);
         this->ptrToMainWindow->setCentralWidget(RM);
     }

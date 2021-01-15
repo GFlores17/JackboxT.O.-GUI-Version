@@ -32,7 +32,6 @@ MatchMenu::MatchMenu(std::shared_ptr<Match> m, QWidget *parent) :
                             "selection-background-color: blue;");
 
 
-    qDebug() << "SIZE : " << this->match->getListOfGames().size();
 
     //ui->tableWidget->insertRow(ui->tableWidget->rowCount());
     //QTableWidgetItem *newItem = new QTableWidgetItem("TEST");
@@ -140,24 +139,17 @@ void MatchMenu::on_finishGameButton_clicked()
     QListWidgetItem *item = ui->listWidget->currentItem();
     int x = ui->listWidget->row(item);
 
-    qDebug() << "GAME : " << x;
     std::shared_ptr<Game> g2 = this->match->getListOfGames().at(x);
-    qDebug() << "GAME NAME : " << QString::fromStdString(g2->getName());
 
-    qDebug() << "# of Players : " << g2->getPlayers().size();
 
     if(g2->getMap().empty() == 0){
-        qDebug() << "MAP EMPTY : " << g2->getMap().empty() << "\n";
         g2->clearResultsMap();
-        qDebug() << "MAP EMPTY : " << g2->getMap().empty() << "\n";
-        qDebug() << "GAME RESULTS CLEARED\n";
 
         printPlayersAndScores();
         _sleep(300);
     }
     else{
         g2->clearResultsMap();
-        qDebug() << "Game not finished.";
     }
 
     for(int i = 0; i < g2->getPlayers().size(); i++){
@@ -173,7 +165,6 @@ void MatchMenu::on_finishGameButton_clicked()
             int gameScore = EGR.playerScore();
             g2->insertResult(std::pair<std::string, int>(g2->getPlayers().at(i)->getName(), gameScore));
             g2->getPlayers().at(i)->addToScore(gameScore);
-            qDebug() << "SCORE ADDED\n" << "\n";
             //this->game->addPlayerToGame(p);
 
 
@@ -218,7 +209,6 @@ void MatchMenu::on_listWidget_itemClicked(QListWidgetItem *item)
     ui->gameResultsLabel->setText("Game Results");
 
     for(int i = 0; i < this->match->getListOfGames().at(x)->getPlayers().size(); i++){
-        qDebug() << this->match->getListOfGames().at(x)->getPlayers().at(i)->getQName() << "\n";
     }
     //checking if players are successfully added during deserialization
 
@@ -248,22 +238,16 @@ void MatchMenu::printMatchStandings(){
 
     if(match->getListOfGames().empty() == 0 && match->getListOfGames().at(0)->getMap().empty() == 0){
 
-        qDebug() << "ENTERED IF";
         ui->tableWidget->setRowCount(0);
 
-        qDebug() << match->getMatchListOfPlayers().size() << " Players\n";
         for(int i = 0; i < match->getMatchListOfPlayers().size(); i++){
             std::string searchString = this->match->getMatchListOfPlayers().at(i)->getName();
-            qDebug() << "TOTALING : " << this->match->getMatchListOfPlayers().at(i)->getQName() << "\n";
             int TotalMatchScore = 0;
 
                 for(int j = 0; j < match->getListOfGames().size(); j++){
-                    qDebug () << match->getListOfGames().size() << "Games\n";
-                    qDebug () << match->getListOfGames().at(j)->isFinished() << "\n";
                     if(match->getListOfGames().at(j)->isFinished()){
                         std::shared_ptr<Game> gameToPrint = match->getListOfGames().at(j);
                         TotalMatchScore = TotalMatchScore + gameToPrint->getMap().at(searchString);
-                        qDebug() << "Game : " << j+1 << "\n";
                     }
                 }
 
@@ -274,13 +258,9 @@ void MatchMenu::printMatchStandings(){
 
                 ui->tableWidget->setItem(ui->tableWidget->rowCount()-1, NAME, newName);
                 ui->tableWidget->setItem(ui->tableWidget->rowCount()-1, SCORE, newScore);
-                qDebug() << "ITEM " << i << " ADDED\n";
          }
     }
 
-    else{
-        qDebug() << "No Games finished\n";
-    }
 }
 
 void MatchMenu::on_exitButton_clicked()

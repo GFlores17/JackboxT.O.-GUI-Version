@@ -77,11 +77,9 @@ void Match::deleteAllPlayers(){
     */
 
     while(playersInMatch.empty() != true){
-        qDebug() << " NOT EMPTY, DELETING\n";
         playersInMatch.erase(playersInMatch.begin());
     }
 
-    qDebug() << "DONE\n";
 
 
 }
@@ -239,7 +237,6 @@ QString Match::createMatchFolder(QString path){
 
     if(QDir(matchPath).exists() == false){
         QDir().mkdir(matchPath);
-        qDebug() << matchPath << "CREATED\n";
     }
 
     return matchPath;
@@ -277,7 +274,6 @@ QString Match::createGamesFolder(QString path){
     //Append to the path to create a new directory.
     //Ex "C:/Tournament1" + "/" + "Round1"
 
-    qDebug() << gamesFolderPath << "\n";
 
     if(QDir(gamesFolderPath).exists() == false){
         QDir().mkdir(gamesFolderPath);
@@ -295,12 +291,9 @@ void Match::deserializeMatchName(QString path){
     //QString path = QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation);
 
     //path = path + "/JBT Saved Tournaments/Testes";
-   // qDebug () << "ENTERED deserializedMatchName() method\n";
-   // qDebug() << "PASSED PATH:" << path;
     QDir rootdir(path);
     QDirIterator it(rootdir);
 
-    //qDebug() << "CURRENT NAME" << QString::fromStdString(this->tournamentName);
 
 
     while (it.hasNext()) {
@@ -320,10 +313,7 @@ void Match::deserializeMatchName(QString path){
 
             break;
         }
-        else{
-            //qDebug() << "wrong file\n";
-        }
-        //qDebug() << "NEW ROUND NAME : " << QString::fromStdString(this->roundName) << "\n";
+
     }
 }
 
@@ -331,21 +321,16 @@ void Match::deserializeMatchPlayers(QString path, std::vector<std::shared_ptr<Pl
     //QString path = QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation);
 
     //path = path + "/JBT Saved Tournaments/Testes";
-  //  qDebug () << "ENTERED deserializeMatchPlayers() method\n";
-   // qDebug() << "PASSED PATH:" << path;
     QDir rootdir(path);
     QDirIterator it(rootdir);
 
-    //qDebug() << "CURRENT NAME" << QString::fromStdString(this->tournamentName);
 
 
     while (it.hasNext()) {
         QFileInfo file = it.next();
-        //qDebug () << file.fileName() << "\n";
 
         if(file.fileName() == "MatchPlayers.txt"){
 
-           // qDebug() << "found round name file\n";
             QFile matchPlayersFile(file.absoluteFilePath());
             matchPlayersFile.open(QIODevice::ReadOnly);
             QTextStream in(&matchPlayersFile);
@@ -353,10 +338,8 @@ void Match::deserializeMatchPlayers(QString path, std::vector<std::shared_ptr<Pl
             while(!in.atEnd()){
 
                 std::string playerName = in.readLine().toStdString();
-              //  qDebug () << QString::fromStdString(playerName) << "\n";
 
                 std::string stringPlayerScore = in.readLine().toStdString();
-               // qDebug () << QString::fromStdString(stringPlayerScore) << "\n";
 
 
                 std::stringstream ss(stringPlayerScore);
@@ -374,9 +357,7 @@ void Match::deserializeMatchPlayers(QString path, std::vector<std::shared_ptr<Pl
 
             matchPlayersFile.remove();
         }
-        else{
-            //qDebug() << "wrong file\n";
-        }
+
     }
 }
 
@@ -392,7 +373,6 @@ void Match::deserializeAllGames(QString path){
     while (it.hasNext()) {//While rounds folder has rounds in it.
         QFileInfo INFILE = it.next();
         QString path = INFILE.absoluteFilePath();
-        qDebug() << "SEARCHING IN : " << path << "\n";
 
         std::shared_ptr<Game> newGame = std::make_shared<Game>();
         newGame->deserializeGameName(path);

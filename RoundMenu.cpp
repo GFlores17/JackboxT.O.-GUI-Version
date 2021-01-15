@@ -129,12 +129,8 @@ void RoundMenu::on_selectMatchButton_clicked()
 
 void RoundMenu::on_exitButton_clicked()
 {
-    //this->round->serializePlayersInRound();
-
-    qDebug() << "BEFORE TM CREATE\n";
     TournamentMenu *TM = new TournamentMenu(this->hostTournament, this->pointerToMainWindow);
 
-    qDebug() << "AFTER TM CREATE\n";
     this->pointerToMainWindow->setCentralWidget(TM);
 }
 
@@ -185,22 +181,16 @@ void RoundMenu::printMatchStandings(){
 
     if(match->getListOfGames().empty() == 0 && match->getListOfGames().at(0)->getMap().empty() == 0){
 
-        qDebug() << "ENTERED IF";
         ui->tableWidget->setRowCount(0);
 
-        qDebug() << match->getMatchListOfPlayers().size() << " Players\n";
         for(int i = 0; i < match->getMatchListOfPlayers().size(); i++){
             std::string searchString = match->getMatchListOfPlayers().at(i)->getName();
-            qDebug() << "TOTALING : " << match->getMatchListOfPlayers().at(i)->getQName() << "\n";
             int TotalMatchScore = 0;
 
                 for(int j = 0; j < match->getListOfGames().size(); j++){
-                    qDebug () << match->getListOfGames().size() << "Games\n";
-                    qDebug () << match->getListOfGames().at(j)->isFinished() << "\n";
                     if(match->getListOfGames().at(j)->isFinished()){
                         std::shared_ptr<Game> gameToPrint = match->getListOfGames().at(j);
                         TotalMatchScore = TotalMatchScore + gameToPrint->getMap().at(searchString);
-                        qDebug() << "Game : " << j+1 << "\n";
                     }
                 }
 
@@ -211,12 +201,6 @@ void RoundMenu::printMatchStandings(){
 
                 ui->tableWidget->setItem(ui->tableWidget->rowCount()-1, NAME, newName);
                 ui->tableWidget->setItem(ui->tableWidget->rowCount()-1, SCORE, newScore);
-                qDebug() << "ITEM " << i << " ADDED\n";
          }
     }
-
-    else{
-        qDebug() << "No Games finished\n";
-    }
-
 }

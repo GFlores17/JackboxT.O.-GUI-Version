@@ -40,7 +40,6 @@ void EnterGameResults::enterScores(){
 
         p->setScore(gameScore);
         //this->game->addPlayerToGame(p);
-        qDebug()<< gameScore;
     }
 }
 

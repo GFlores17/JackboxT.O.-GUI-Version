@@ -141,8 +141,6 @@ void AddPlayerToMatchDialog::on_removeFromMatchButton_clicked()
     match->deletePlayer(x);
 
     ui->matchRosterListWidget->clear();
-    qDebug() << "CLEARED\n";
-
 
     //Print players in match.
     printMatchPlayers();

@@ -75,7 +75,6 @@ void AddToRoundDialog::on_addToRoundButton_clicked()
     int x = ui->tournamentRosterListWidget->row(item);
 
 
-    qDebug() << "meme";
 
     //Duplicating shared ptr from Tournament List to put in Round List.
     std::shared_ptr<Player> p(passedTournament->getListOfPlayers().at(x));
@@ -89,7 +88,6 @@ void AddToRoundDialog::on_addToRoundButton_clicked()
     //Print players in Round.
     for(int i = 0; i < round->getRoundListOfPlayers().size(); i++){
         int j = i+1;
-        qDebug() << round->getRoundListOfPlayers().at(i)->getQName();
         QString output = QString::number(j) + ". " + round->getRoundListOfPlayers().at(i)->getQName();
         //output = output + "\n";
         ui->roundRosterListWidget->addItem(output);
@@ -104,7 +102,6 @@ void AddToRoundDialog::on_tournamentRosterListWidget_itemDoubleClicked(QListWidg
     int x = ui->tournamentRosterListWidget->row(item);
 
 
-    qDebug() << "meme";
 
     //Duplicating shared ptr from Tournament List to put in Round List.
     std::shared_ptr<Player> p(passedTournament->getListOfPlayers().at(x));
@@ -118,14 +115,12 @@ void AddToRoundDialog::on_tournamentRosterListWidget_itemDoubleClicked(QListWidg
     //Print players in Round.
     for(int i = 0; i < round->getRoundListOfPlayers().size(); i++){
         int j = i+1;
-        qDebug() << round->getRoundListOfPlayers().at(i)->getQName();
         QString output = QString::number(j) + ". " + round->getRoundListOfPlayers().at(i)->getQName();
         //output = output + "\n";
         ui->roundRosterListWidget->addItem(output);
     }
 
     //ui->roundRosterListWidget->clear();
-    //qDebug() <<
 }
 
 void AddToRoundDialog::on_tournamentRosterListWidget_itemClicked(QListWidgetItem *item)
@@ -147,22 +142,17 @@ void AddToRoundDialog::on_removeFromRoundButton_clicked()
     QListWidgetItem *item = ui->roundRosterListWidget->currentItem();
     int x = ui->roundRosterListWidget->row(item);
 
-    qDebug() << "INDEX DELETED : " << x;
 
-    qDebug() << this->round->getRoundListOfPlayers().size() << "\n";
     //round->getRoundListOfPlayers().at(x).reset();
     round->deletePlayer(x);
-    qDebug() << this->round->getRoundListOfPlayers().size() << "\n";
 
 
     ui->roundRosterListWidget->clear();
 
-    qDebug() << "ROUND LIST WIDGET CLEAR\n";
 
     //Print players in Round.
     for(int i = 0; i < round->getRoundListOfPlayers().size(); i++){
         int j = i+1;
-        //qDebug() << round->getRoundListOfPlayers().at(i)->getQName();
         QString output = QString::number(j) + ". " + round->getRoundListOfPlayers().at(i)->getQName();
         //output = output + "\n";
         ui->roundRosterListWidget->addItem(output);
@@ -177,22 +167,17 @@ void AddToRoundDialog::on_roundRosterListWidget_itemDoubleClicked(QListWidgetIte
     item = ui->roundRosterListWidget->currentItem();
     int x = ui->roundRosterListWidget->row(item);
 
-    qDebug() << "INDEX DELETED : " << x;
 
-    qDebug() << this->round->getRoundListOfPlayers().size() << "\n";
     //round->getRoundListOfPlayers().at(x).reset();
     round->deletePlayer(x);
-    qDebug() << this->round->getRoundListOfPlayers().size() << "\n";
 
 
     ui->roundRosterListWidget->clear();
 
-    qDebug() << "ROUND LIST WIDGET CLEAR\n";
 
     //Print players in Round.
     for(int i = 0; i < round->getRoundListOfPlayers().size(); i++){
         int j = i+1;
-        //qDebug() << round->getRoundListOfPlayers().at(i)->getQName();
         QString output = QString::number(j) + ". " + round->getRoundListOfPlayers().at(i)->getQName();
         //output = output + "\n";
         ui->roundRosterListWidget->addItem(output);
@@ -222,7 +207,6 @@ void AddToRoundDialog::printRoundPlayers(){
 
     for(int i = 0; i < round->getRoundListOfPlayers().size(); i++){
         int j = i+1;
-        //qDebug() << round->getRoundListOfPlayers().at(i)->getQName();
         QString output = QString::number(j) + ". " + round->getRoundListOfPlayers().at(i)->getQName();
         //output = output + "\n";
         ui->roundRosterListWidget->addItem(output);
