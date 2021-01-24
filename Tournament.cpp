@@ -129,7 +129,7 @@
             file.open(QIODevice::WriteOnly);
             QTextStream out(&file);
             out << QString::fromStdString(this->tournamentName);
-            file.remove();
+            //file.remove();
         }
     }//end serializeTournamentName
 
@@ -180,7 +180,7 @@
 
                 this->tournamentName = readline.toStdString();
 
-                tournamentNameFile.remove();
+                //tournamentNameFile.remove();
             }
 
         }//end while
@@ -217,7 +217,7 @@
                      registerPlayer(p);
                 }//While loop deserializes all player objects in the text file.
 
-                tournamentPlayersFile.remove();
+                //tournamentPlayersFile.remove();
 
             }//end if(TournamentPlayers is found)
         }//end while

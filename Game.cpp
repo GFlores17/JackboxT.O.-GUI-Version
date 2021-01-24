@@ -214,7 +214,7 @@
                 std::string newName = readline.toStdString();
                 this->setName(newName);
 
-                gameNameFile.remove();
+                //gameNameFile.remove();
                 break;
             }
         }
@@ -253,7 +253,7 @@
                     }//End for loop()
                 }//EOF reached.
 
-                gamePlayersFile.remove();
+                //gamePlayersFile.remove();
             }           
         }
     }
@@ -285,7 +285,7 @@
                     this->insertResult(std::pair<std::string, int>(playerName, intPlayerScore));
                 }
 
-                gameResultsFile.remove();
+                //gameResultsFile.remove();
                 //All results have been inserted, this causes already saved but unfinished games to be uneditable because their respective results map is already filled.
                 //Below, we check if everyone's points is zero, if it is, then reset the map.
 

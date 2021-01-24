@@ -31,7 +31,7 @@ RoundMenu::RoundMenu(std::shared_ptr<Round> R, QWidget *parent) :
                                       "QPushButton {background-color: #FFFFFF}");
 
     ui->selectMatchButton->setStyleSheet("QPushButton::hover{background-color : lightgreen;}"
-                                         "QPushButton {background-color: #FFFFFF}");
+                                         "QPushButton {background-color: grey}");
 
     ui->exitButton->setStyleSheet("QPushButton::hover{background-color : lightgreen;}"
                                   "QPushButton {background-color: #FFFFFF}");
@@ -67,7 +67,7 @@ RoundMenu::RoundMenu(std::shared_ptr<Round> R, std::shared_ptr<Tournament> T, QM
                                       "QPushButton {background-color: #FFFFFF}");
 
     ui->selectMatchButton->setStyleSheet("QPushButton::hover{background-color : lightgreen;}"
-                                         "QPushButton {background-color: #FFFFFF}");
+                                         "QPushButton {background-color: grey}");
 
     ui->exitButton->setStyleSheet("QPushButton::hover{background-color : lightgreen;}"
                                   "QPushButton {background-color: #FFFFFF}");
@@ -157,6 +157,9 @@ void RoundMenu::on_listWidget_itemClicked(QListWidgetItem *item)
 {
      ui->selectMatchButton->setEnabled(true);
      printMatchStandings();
+
+     ui->selectMatchButton->setStyleSheet("QPushButton::hover{background-color : lightgreen;}"
+                                   "QPushButton {background-color: #FFFFFF}");
 }
 
 void RoundMenu::on_listWidget_itemDoubleClicked(QListWidgetItem *item)

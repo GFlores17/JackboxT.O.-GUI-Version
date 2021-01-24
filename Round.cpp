@@ -209,7 +209,7 @@ void Round::deserializeRoundName(QString path){
 
             std::string newName = readline.toStdString();
             this->setName(newName);
-            roundNameFile.remove();
+            //roundNameFile.remove();
             break;
         }
 
@@ -255,7 +255,7 @@ void Round::deserializeRoundPlayers(QString path, std::vector<std::shared_ptr<Pl
                     }//Check for matching player pointer in tournament roster.
                 }//End for loop()
             }//EOF reached.
-            roundPlayersFile.remove();
+            //roundPlayersFile.remove();
         }
         else{
         }

@@ -32,10 +32,7 @@ MatchMenu::MatchMenu(std::shared_ptr<Match> m, QWidget *parent) :
                             "selection-background-color: blue;");
 
 
-
-    //ui->tableWidget->insertRow(ui->tableWidget->rowCount());
-    //QTableWidgetItem *newItem = new QTableWidgetItem("TEST");
-    //ui->tableWidget->setItem(ui->tableWidget->rowCount()-1, 0, newItem);
+    ui->deleteGameButton->setEnabled(false);
 
     ui->listWidget->setStyleSheet("QListWidget{background-color: #FFFFFF}");
     ui->listWidget->setStyleSheet("QListWidget{background-color: #FFFFFF}");
@@ -45,10 +42,10 @@ MatchMenu::MatchMenu(std::shared_ptr<Match> m, QWidget *parent) :
                                     "QPushButton{background-color: #FFFFFF;}");
 
     ui->deleteGameButton->setStyleSheet("QPushButton::hover{background-color : lightgreen;}"
-                                    "QPushButton{background-color: #FFFFFF;}");
+                                    "QPushButton{background-color: gray;}");
 
     ui->finishGameButton->setStyleSheet("QPushButton::hover{background-color : lightgreen;}"
-                                    "QPushButton{background-color: #FFFFFF;}");
+                                    "QPushButton{background-color: gray;}");
 
     ui->exitButton->setStyleSheet("QPushButton::hover{background-color : lightgreen;}"
                                     "QPushButton{background-color: #FFFFFF;}");
@@ -180,16 +177,23 @@ void MatchMenu::on_finishGameButton_clicked()
 
     ui->finishGameButton->setEnabled(false);
     ui->finishGameButton->setStyleSheet("QPushButton::hover{background-color : lightgreen;}"
-                                    "QPushButton{background-color: grey;}");
+                                    "QPushButton{background-color: gray;}");
     printPlayersAndScores();
 }
 void MatchMenu::on_listWidget_itemClicked(QListWidgetItem *item)
 {
 
 
+
     ui->finishGameButton->setStyleSheet("QPushButton::hover{background-color : lightgreen;}"
                                     "QPushButton{background-color: #FFFFFF;}");
+
+    ui->deleteGameButton->setStyleSheet("QPushButton::hover{background-color : lightgreen;}"
+                                    "QPushButton{background-color: #FFFFFF;}");
+
     ui->finishGameButton->setEnabled(true);
+
+    ui->deleteGameButton->setEnabled(true);
 
     printPlayersAndScores();
 
@@ -201,7 +205,7 @@ void MatchMenu::on_listWidget_itemClicked(QListWidgetItem *item)
     if(match->getListOfGames().at(x)->isFinished()){
         ui->finishGameButton->setEnabled(false);
         ui->finishGameButton->setStyleSheet("QPushButton::hover{background-color : lightgreen;}"
-                                        "QPushButton{background-color: grey;}");
+                                        "QPushButton{background-color: gray;}");
     }
     */
 
@@ -274,18 +278,30 @@ void MatchMenu::on_deleteGameButton_clicked()
     QListWidgetItem *item = ui->listWidget->currentItem();
     int x = ui->listWidget->row(item);
 
-    for(int i = 0; i < this->match->getGame(x)->getPlayers().size(); i++){
-        std::map<std::string, int>::iterator it;
-        for (it = this->match->getGame(x)->getMap().begin(); it != this->match->getGame(x)->getMap().end(); it++)
-        {
-            if(this->match->getMatchListOfPlayers().at(i)->getName() == it->first){
-                this->match->getMatchListOfPlayers().at(i)->addToScore(-it->second);
-                break;
+    if(this->match->getGame(x)->isFinished()==1){
+        for(int i = 0; i < this->match->getGame(x)->getPlayers().size(); i++){
+            std::map<std::string, int>::iterator it;
+            for (it = this->match->getGame(x)->getMap().begin(); it != this->match->getGame(x)->getMap().end(); it++)
+            {
+                if(this->match->getMatchListOfPlayers().at(i)->getName() == it->first){
+                    this->match->getMatchListOfPlayers().at(i)->addToScore(-it->second);
+                    break;
+                }
             }
-        }
-    }//end of updating players score
+        }//end of updating players score
+    }
 
     this->match->deleteGame(x);
     printGames();
     //printMatchStandings();
+
+    ui->deleteGameButton->setEnabled(false);
+
+    ui->deleteGameButton->setStyleSheet("QPushButton::hover{background-color : lightgreen;}"
+                                    "QPushButton{background-color: gray;}");
+
+    ui->finishGameButton->setEnabled(false);
+
+    ui->finishGameButton->setStyleSheet("QPushButton::hover{background-color : lightgreen;}"
+                                    "QPushButton{background-color: gray;}");
 }

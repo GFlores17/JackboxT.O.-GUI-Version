@@ -309,7 +309,7 @@ void Match::deserializeMatchName(QString path){
             std::string newName = readline.toStdString();
             this->setName(newName);
 
-            matchNameFile.remove();
+            //matchNameFile.remove();
 
             break;
         }
@@ -355,7 +355,7 @@ void Match::deserializeMatchPlayers(QString path, std::vector<std::shared_ptr<Pl
                 }//End for loop()
             }//EOF reached.
 
-            matchPlayersFile.remove();
+            //matchPlayersFile.remove();
         }
 
     }

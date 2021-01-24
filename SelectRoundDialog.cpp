@@ -31,6 +31,7 @@ SelectRoundDialog::SelectRoundDialog(std::shared_ptr<Tournament> T, QWidget *par
     ui->cancelButton->setStyleSheet("QPushButton::hover{background-color : lightgreen;}"
                                              "QPushButton {background-color: #FFFFFF}");
 
+
 }
 
 SelectRoundDialog::SelectRoundDialog(std::shared_ptr<Tournament> passedTournament, QMainWindow *pointerToMainWindow) :
